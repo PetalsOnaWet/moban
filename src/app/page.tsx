@@ -106,6 +106,21 @@ export default function Home() {
             </div>
           </section>
         )}
+
+        <FAQSection items={[
+          {
+            question: "这个模板为什么选择 Next.js 16？",
+            answer: "Next.js 16 带来了稳定的 Turbopack 和 React Compiler，结合 Cloudflare Pages 的全球分发能力，能为您的商业站点提供极致的响应性能。"
+          },
+          {
+            question: "如何修改网站的整体风格？",
+            answer: "只需在 src/config/site.ts 中修改 theme 字段，即可在 Linear, Stripe 等预设风格间一键切换。"
+          },
+          {
+            question: "是否支持多语言搜索引擎优化？",
+            answer: "是的，模板内置了符合 @[/SEO Expert] 规范的元数据管理和 JSON-LD 支持，确保在全球范围内具有极佳的 SEO 表现。"
+          }
+        ]} />
       </main>
 
       <footer style={{ padding: '4rem 0', borderTop: '1px solid var(--border-standard)', marginTop: '4rem', background: 'var(--bg-marketing)' }}>
