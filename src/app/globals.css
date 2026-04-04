@@ -1,0 +1,109 @@
+/* Global Design Tokens & Atomic CSS Base */
+:root {
+  /* Default Theme Variables (will be replaced by siteConfig theme) */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-marketing, #08090a);
+  color: var(--text-primary, #f7f8f8);
+  font-family: var(--font-family, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 510; /* Linear signature weight */
+  letter-spacing: -0.022em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Atomic Utility Classes (Vanilla CSS) */
+.util-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.util-flex {
+  display: flex;
+}
+
+.util-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.util-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.util-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-l);
+}
+
+.util-gradient-text {
+  background: linear-gradient(to right, var(--text-primary), var(--accent-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.util-btn-primary {
+  background: var(--brand-indigo);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-m);
+  font-size: 0.875rem;
+  font-weight: 510;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.util-btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.util-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-l);
+  padding: 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.util-card:hover {
+  border-color: var(--accent-violet);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
