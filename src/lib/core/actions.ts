@@ -66,6 +66,23 @@ export async function submitRating(pageId: string, rating: number) {
     revalidatePath("/");
     return { success: true };
   } catch (error) {
+    console.error("Submit rating error:", error);
     return { error: "评分失败" };
   }
+}
+
+/**
+ * 获取页面所有评论
+ */
+export async function getComments(pageId: string) {
+  const { env } = getCloudflareContext();
+  const db = env.DB as D1Database;
+
+  const { results } = await db.prepare(
+    "SELECT * FROM comments WHERE page_id = ? ORDER BY created_at DESC"
+  )
+  .bind(pageId)
+  .all();
+
+  return results as { id: number; page_id: string; user_name: string; content: string; created_at: string }[];
 }

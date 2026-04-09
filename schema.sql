@@ -30,6 +30,23 @@ CREATE TABLE IF NOT EXISTS ratings (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Games table
+CREATE TABLE IF NOT EXISTS games (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  thumbnail TEXT NOT NULL,
+  iframe_url TEXT NOT NULL,
+  category TEXT DEFAULT 'Action',
+  tags TEXT,
+  is_featured BOOLEAN DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_comments_page ON comments(page_id);
 CREATE INDEX IF NOT EXISTS idx_ratings_page ON ratings(page_id);
+CREATE INDEX IF NOT EXISTS idx_games_slug ON games(slug);
+CREATE INDEX IF NOT EXISTS idx_games_category ON games(category);
+CREATE INDEX IF NOT EXISTS idx_games_tags ON games(tags);

@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { siteConfig } from "@/config/site";
 
 interface SEOProps {

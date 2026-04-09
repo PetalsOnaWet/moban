@@ -1,66 +1,67 @@
 import { siteConfig } from "@/config/site";
-import { ArrowRight, Star, Zap, MessageSquare, Shield } from "lucide-react";
+import { Star, Gamepad2, Search, TrendingUp, MessageSquare } from "lucide-react";
+import { FAQSection } from "@/components/seo/FAQSection";
+import { getGames, syncGamesToDB } from "@/lib/core/games";
+import { GameGrid } from "@/components/games/GameGrid";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  // Sync games from JSON to D1 for demo/initial run
+  await syncGamesToDB();
+  
+  const games = await getGames(24);
+  const featuredGames = games.filter(g => g.is_featured);
   return (
-    <div className="animate-fade-in">
-      <nav className="util-glass" style={{ position: 'sticky', top: 0, zIndex: 100, padding: '1rem 0' }}>
-        <div className="util-container util-flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontWeight: 590, fontSize: '1.25rem', color: 'var(--text-primary)' }}>
-            {siteConfig.name}
-          </div>
-          <div className="util-flex" style={{ gap: '24px', fontSize: '14px', fontWeight: 510, color: 'var(--text-secondary)' }}>
-            <a href="#features">功能</a>
-            <a href="#wiki">百科</a>
-            <a href="#faq">常见问题</a>
-            <button className="util-btn-primary">开始构建</button>
-          </div>
-        </div>
-      </nav>
-
+    <div className="animate-fade-in" style={{ paddingTop: '2rem' }}>
       <main>
-        {/* Hero Section */}
-        <section style={{ paddingTop: '8rem', paddingBottom: '6rem', textAlign: 'center' }}>
+        {/* Hero Area - Game Discovery Style */}
+        <section style={{ padding: '4rem 0 2rem' }}>
           <div className="util-container">
-            <div className="util-glass" style={{ display: 'inline-flex', padding: '4px 12px', borderRadius: '99px', fontSize: '12px', marginBottom: '24px', color: 'var(--accent-violet)', border: '1px solid var(--accent-violet)' }}>
-              Next.js 16 + Cloudflare 最佳实践已开启
+            <div className="util-flex" style={{ justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px' }}>
+              <div>
+                <h1 className="util-gradient-text" style={{ fontSize: '3rem', lineHeight: 1.1, marginBottom: '12px' }}>
+                  Play the Best Unblocked Games
+                </h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem' }}>
+                  Free online games including {featuredGames.map(g => g.title).join(", ")} and more.
+                </p>
+              </div>
+              <div className="util-flex" style={{ gap: '12px' }}>
+                <div className="util-glass util-flex-center" style={{ padding: '10px 16px', borderRadius: 'var(--radius- pill)', gap: '8px' }}>
+                  <TrendingUp size={16} /> <span style={{ fontSize: '14px' }}>Trending Now</span>
+                </div>
+              </div>
             </div>
-            <h1 className="util-gradient-text" style={{ fontSize: '4.5rem', lineHeight: 1, marginBottom: '24px', maxWidth: '800px', margin: '0 auto 24px' }}>
-              构建您的下一个顶级商业网站
-            </h1>
-            <p style={{ fontSize: '1.125rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 48px', lineHeight: 1.6 }}>
-              基于 Linear 设计语言，深度优化 SEO，适配 Cloudflare D1。让您的灵感在 10 分钟内部署上线。
-            </p>
-            <div className="util-flex-center" style={{ gap: '16px' }}>
-              <button className="util-btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}>
-                立即使用 <ArrowRight size={18} style={{ marginLeft: '8px', verticalAlign: 'middle' }} />
-              </button>
-              <button className="util-glass" style={{ padding: '0.75rem 2rem', fontSize: '1rem', color: 'var(--text-primary)', border: '1px solid var(--border-standard)' }}>
-                查看文档
-              </button>
+
+            {/* Main Discovery Grid */}
+            <div style={{ marginBottom: '64px' }}>
+              <GameGrid games={games} />
+            </div>
+            
+            <div className="util-flex-center">
+               <button className="util-glass" style={{ padding: '0.75rem 3rem', color: 'var(--text-primary)', border: '1px solid var(--border-standard)' }}>
+                 Load More Games
+               </button>
             </div>
           </div>
         </section>
 
-        {/* Categories/Features Section */}
+        {/* Categories Section */}
         <section id="features" style={{ padding: '6rem 0', background: 'var(--bg-panel)' }}>
           <div className="util-container">
-            <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '48px' }}>为多种场景深度优化</h2>
-            <div className="util-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-              <div className="util-card">
-                <Zap size={32} color="var(--accent-violet)" style={{ marginBottom: '16px' }} />
-                <h3>极致性能</h3>
-                <p style={{ color: 'var(--text-tertiary)' }}>使用 Vanilla CSS 原子化开发，首屏加载比 Tailwind 更快，评分轻松 100 分。</p>
+            <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '48px' }}>Popular Categories</h2>
+            <div className="util-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+              <div className="util-card util-flex-center" style={{ flexDirection: 'column', gap: '12px', textAlign: 'center' }}>
+                <Gamepad2 size={32} color="var(--accent-violet)" />
+                <h3>Action Games</h3>
               </div>
-              <div className="util-card">
-                <Shield size={32} color="var(--accent-violet)" style={{ marginBottom: '16px' }} />
-                <h3>SEO 专家级优化</h3>
-                <p style={{ color: 'var(--text-tertiary)' }}>内置 JSON-LD 结构化数据，自动生成 Sitemap，对 Google 和 AI 搜索极其友好。</p>
+              <div className="util-card util-flex-center" style={{ flexDirection: 'column', gap: '12px', textAlign: 'center' }}>
+                <Star size={32} color="var(--accent-violet)" />
+                <h3>Featured</h3>
               </div>
-              <div className="util-card">
-                <Star size={32} color="var(--accent-violet)" style={{ marginBottom: '16px' }} />
-                <h3>SaaS Ready</h3>
-                <p style={{ color: 'var(--text-tertiary)' }}>一键开启 Auth 与支付模块，从工具站到商用 SaaS 仅需修改一行配置。</p>
+              <div className="util-card util-flex-center" style={{ flexDirection: 'column', gap: '12px', textAlign: 'center' }}>
+                <Search size={32} color="var(--accent-violet)" />
+                <h3>Latest</h3>
               </div>
             </div>
           </div>
@@ -89,7 +90,7 @@ export default function Home() {
                 <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '24px' }}>
                   <div style={{ background: 'var(--bg-panel)', padding: '12px', borderRadius: 'var(--radius-m)', marginBottom: '12px', border: '1px solid var(--border-subtle)' }}>
                      <p style={{ fontSize: '14px', marginBottom: '4px' }}>开发者 A:</p>
-                     <p style={{ color: 'var(--text-secondary)' }}>"这个模板的 Linear 风格太纯正了，部署到 Cloudflare 真的很顺滑！"</p>
+                     <p style={{ color: 'var(--text-secondary)' }}>&quot;这个模板的 Linear 风格太纯正了，部署到 Cloudflare 真的很顺滑！&quot;</p>
                   </div>
                   {/* Mock Input for Demo */}
                   <div className="util-flex" style={{ gap: '12px', marginTop: '24px' }}>
@@ -127,9 +128,9 @@ export default function Home() {
         <div className="util-container util-flex" style={{ justifyContent: 'space-between', color: 'var(--text-tertiary)', fontSize: '14px' }}>
           <div>© 2026 {siteConfig.name}. 使用 Cloudflare 驱动.</div>
           <div className="util-flex" style={{ gap: '24px' }}>
-            <a href={siteConfig.links.twitter}>Twitter</a>
-            <a href={siteConfig.links.github}>GitHub</a>
-            <a href="#">隐私政策</a>
+            <Link href={siteConfig.links.twitter}>Twitter</Link>
+            <Link href={siteConfig.links.github}>GitHub</Link>
+            <Link href="#">隐私政策</Link>
           </div>
         </div>
       </footer>

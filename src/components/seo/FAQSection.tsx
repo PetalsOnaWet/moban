@@ -1,4 +1,3 @@
-import { siteConfig } from "@/config/site";
 
 interface FAQItem {
   question: string;

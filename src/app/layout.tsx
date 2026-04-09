@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { getThemeVariables, ThemeName } from "@/config/theme-manager";
+import { Navbar } from "@/components/layout/Navbar";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -85,6 +86,7 @@ export default function RootLayout({
         )}
       </head>
       <body>
+        <Navbar />
         {children}
       </body>
     </html>

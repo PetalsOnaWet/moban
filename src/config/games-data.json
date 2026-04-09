@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "geometry-dash-lite",
+    "title": "Geometry Dash Lite",
+    "description": "A rhythm-based platformer where you jump and fly your way through danger!",
+    "thumbnail": "/games/geometry-dash-lite.webp",
+    "iframe_url": "https://geometrylitepc.io/",
+    "category": "Action",
+    "tags": "Rhythm, Platformer, Arcade",
+    "is_featured": true
+  },
+  {
+    "slug": "idols-of-ash",
+    "title": "Idols of Ash",
+    "description": "High-speed grappling horror game. Uncover the secrets of the First Kiln.",
+    "thumbnail": "/games/idols-of-ash.webp",
+    "iframe_url": "https://idolsofash.io/",
+    "category": "Horror",
+    "tags": "Horror, Grappling, Challenging",
+    "is_featured": true
+  }
+]
