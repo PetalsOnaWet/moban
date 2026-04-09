@@ -9,8 +9,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "moban_db",
-      "database_id": "placeholder-id"
+      "database_name": "moban-db",
+      "database_id": "2288701d-9378-403b-b9ae-1293066b603b"
     }
   ]
 }
