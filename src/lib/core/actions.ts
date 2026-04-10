@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
  * 评论提交 Server Action
  */
 export async function submitComment(formData: FormData) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const pageId = formData.get("pageId") as string;
@@ -37,7 +37,7 @@ export async function submitComment(formData: FormData) {
  * 获取页面评分统计
  */
 export async function getPageStats(pageId: string) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const result = await db.prepare(
@@ -53,7 +53,7 @@ export async function getPageStats(pageId: string) {
  * 提交评分
  */
 export async function submitRating(pageId: string, rating: number) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   try {
@@ -75,7 +75,7 @@ export async function submitRating(pageId: string, rating: number) {
  * 获取页面所有评论
  */
 export async function getComments(pageId: string) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(

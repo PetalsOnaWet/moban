@@ -18,7 +18,7 @@ export interface Game {
  * 获取所有游戏（按创建时间排序）
  */
 export async function getGames(limit: number = 20) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -34,7 +34,7 @@ export async function getGames(limit: number = 20) {
  * 根据 Slug 获取单个游戏
  */
 export async function getGameBySlug(slug: string) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const result = await db.prepare(
@@ -50,7 +50,7 @@ export async function getGameBySlug(slug: string) {
  * 获取推荐游戏（同分类或 Featured）
  */
 export async function getRelatedGames(currentSlug: string, category: string, limit: number = 6) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -66,7 +66,7 @@ export async function getRelatedGames(currentSlug: string, category: string, lim
  * 获取特定分类下的游戏
  */
 export async function getGamesByCategory(category: string, limit: number = 50) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -82,7 +82,7 @@ export async function getGamesByCategory(category: string, limit: number = 50) {
  * 获取带有特定标签的游戏
  */
 export async function getGamesByTag(tag: string, limit: number = 50) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -98,7 +98,7 @@ export async function getGamesByTag(tag: string, limit: number = 50) {
  * 同步 JSON 数据到 D1 (用于初始化或更新)
  */
 export async function syncGamesToDB() {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   for (const game of (gamesData as Game[])) {
@@ -124,7 +124,7 @@ export async function syncGamesToDB() {
  * 搜索游戏（按标题或描述模糊匹配）
  */
 export async function searchGames(query: string, limit: number = 50) {
-  const { env } = getCloudflareContext();
+  const { env } = await getCloudflareContext({ async: true });
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(

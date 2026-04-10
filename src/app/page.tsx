@@ -5,6 +5,9 @@ import { getGames, syncGamesToDB } from "@/lib/core/games";
 import { GameGrid } from "@/components/games/GameGrid";
 import Link from "next/link";
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   // Sync games from JSON to D1 for demo/initial run
   await syncGamesToDB();
