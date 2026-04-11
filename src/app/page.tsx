@@ -5,7 +5,6 @@ import { getGames } from "@/lib/core/games";
 import { GameGrid } from "@/components/games/GameGrid";
 import Link from "next/link";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {

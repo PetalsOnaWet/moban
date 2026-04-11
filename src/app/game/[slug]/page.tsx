@@ -12,7 +12,6 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 interface Props {
