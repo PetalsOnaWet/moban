@@ -1,8 +1,8 @@
 import type { OpenNextConfig } from "@opennextjs/cloudflare";
 
 /**
- * Simplified OpenNext configuration for Cloudflare Pages.
- * Disabling validation to allow a minimal config that boots reliably.
+ * Standard OpenNext configuration for Cloudflare Pages.
+ * Strictly follows the schema required by the adapter's ensureCloudflareConfig validation.
  */
 const config: OpenNextConfig = {
   default: {
@@ -15,8 +15,17 @@ const config: OpenNextConfig = {
       queue: "dummy",
     },
   },
-  // Removing middleware block for maximum stability in Next.js 15
-  dangerousDisableConfigValidation: true,
+  middleware: {
+    external: true,
+    override: {
+      wrapper: "cloudflare-edge",
+      converter: "edge",
+      proxyExternalRequest: "fetch",
+      incrementalCache: "dummy",
+      tagCache: "dummy",
+      queue: "dummy",
+    },
+  },
   edgeExternals: ["node:crypto"],
 };
 
