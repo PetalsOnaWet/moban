@@ -1,15 +1,10 @@
 {
   "name": "moban",
-  "main": ".open-next/worker.js",
   "compatibility_date": "2024-11-18",
   "compatibility_flags": [
     "nodejs_compat_v2"
   ],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "NEXT_ASSETS"
-  },
-  "pages_build_output_dir": ".open-next",
+  "pages_build_output_dir": ".open-next/assets",
   "observability": {
     "enabled": true
   },
