@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/site";
 
-export const runtime = "edge";
 
 /**
  * 动态 Sitemap 生成器 (Next.js 16 App Router)

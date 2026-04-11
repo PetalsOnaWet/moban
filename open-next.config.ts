@@ -1,8 +1,8 @@
 import type { OpenNextConfig } from "@opennextjs/cloudflare";
 
 /**
- * Note: The adapter has a strict validation schema in ensure-cf-config.js
- * that requires specific fields and values even if not strictly used.
+ * Standard OpenNext configuration for Cloudflare Pages.
+ * Follows the mandatory schema required by the @opennextjs/cloudflare validator.
  */
 const config: OpenNextConfig = {
   default: {

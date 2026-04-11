@@ -3,8 +3,6 @@ import { GameGrid } from "@/components/games/GameGrid";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Metadata } from "next";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;

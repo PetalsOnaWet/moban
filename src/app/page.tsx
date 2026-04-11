@@ -5,28 +5,8 @@ import { getGames, syncGamesToDB } from "@/lib/core/games";
 import { GameGrid } from "@/components/games/GameGrid";
 import Link from "next/link";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
-  let games: Awaited<ReturnType<typeof getGames>> = [];
-  let syncError: string | null = null;
-
-  try {
-    // Sync games from JSON to D1 for demo/initial run
-    await syncGamesToDB();
-    games = await getGames(24);
-  } catch (e: unknown) {
-    syncError = e instanceof Error ? e.message + "\n" + e.stack : String(e);
-  }
-
-  if (syncError) {
-    return <div style={{ padding: "2rem", color: "red", whiteSpace: "pre-wrap" }}>
-      <h1>Debug Error</h1>
-      <p>{syncError}</p>
-    </div>;
-  }
-
+  const games = await getGames(24);
   const featuredGames = games.filter(g => g.is_featured);
   return (
     <div className="animate-fade-in" style={{ paddingTop: '2rem' }}>
