@@ -4,6 +4,9 @@ import { SearchBox } from "@/components/games/SearchBox";
 import { Metadata } from "next";
 
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q?: string }> }): Promise<Metadata> {
   const { q } = await searchParams;
   return {

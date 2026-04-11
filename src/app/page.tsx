@@ -1,9 +1,12 @@
 import { siteConfig } from "@/config/site";
 import { Star, Gamepad2, Search, TrendingUp, MessageSquare } from "lucide-react";
 import { FAQSection } from "@/components/seo/FAQSection";
-import { getGames, syncGamesToDB } from "@/lib/core/games";
+import { getGames } from "@/lib/core/games";
 import { GameGrid } from "@/components/games/GameGrid";
 import Link from "next/link";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const games = await getGames(24);
@@ -24,7 +27,7 @@ export default async function Home() {
                 </p>
               </div>
               <div className="util-flex" style={{ gap: '12px' }}>
-                <div className="util-glass util-flex-center" style={{ padding: '10px 16px', borderRadius: 'var(--radius- pill)', gap: '8px' }}>
+                <div className="util-glass util-flex-center" style={{ padding: '10px 16px', borderRadius: 'var(--radius-pill)', gap: '8px' }}>
                   <TrendingUp size={16} /> <span style={{ fontSize: '14px' }}>Trending Now</span>
                 </div>
               </div>
