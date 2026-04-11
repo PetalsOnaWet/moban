@@ -2,7 +2,7 @@
   "name": "moban",
   "compatibility_date": "2024-04-03",
   "compatibility_flags": ["nodejs_compat"],
-  "pages_build_output_dir": ".open-next/assets",
+  "pages_build_output_dir": ".open-next",
   "observability": {
     "enabled": true
   },
