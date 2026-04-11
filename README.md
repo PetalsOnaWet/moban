@@ -29,8 +29,28 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Cloudflare Pages Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is optimized for **Cloudflare Pages** using `@opennextjs/cloudflare`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Deployment Settings
+
+Ensure the following settings are configured in your Cloudflare Pages project:
+
+- **Framework preset**: `None`
+- **Build command**: `npm run build:cf`
+- **Build output directory**: `.open-next/assets`
+- **Compatibility flags**: `nodejs_compat_v2` (or `nodejs_compat`)
+- **Compatibility date**: `2024-11-18` (or later)
+
+### Database Initialization
+
+To initialize your D1 database (`moban-db`), run the following command in your terminal:
+
+```bash
+npx wrangler d1 execute moban-db --remote --file=./schema.sql
+```
+
+### Static Asset Routing
+
+The build script automatically generates a `_routes.json` file in the output directory to ensure static assets (`/_next/*`) bypass the worker for optimal performance and to avoid 404 errors.
