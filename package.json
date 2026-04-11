@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx @opennextjs/cloudflare build && mv .open-next/worker.js .open-next/_worker.js",
+    "build": "next build",
+    "build:cf": "npx @opennextjs/cloudflare build && mv .open-next/worker.js .open-next/_worker.js",
     "start": "next start",
     "lint": "eslint"
   },
