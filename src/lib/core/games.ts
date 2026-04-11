@@ -19,6 +19,9 @@ export interface Game {
  */
 export async function getGames(limit: number = 20) {
   const { env } = await getCloudflareContext({ async: true });
+  if (!env.DB) {
+    throw new Error("D1 Binding 'DB' is missing in the Cloudflare environment. Please check your Pages console bindings.");
+  }
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -35,6 +38,9 @@ export async function getGames(limit: number = 20) {
  */
 export async function getGameBySlug(slug: string) {
   const { env } = await getCloudflareContext({ async: true });
+  if (!env.DB) {
+    throw new Error("D1 Binding 'DB' is missing in the Cloudflare environment.");
+  }
   const db = env.DB as D1Database;
 
   const result = await db.prepare(
@@ -51,6 +57,9 @@ export async function getGameBySlug(slug: string) {
  */
 export async function getRelatedGames(currentSlug: string, category: string, limit: number = 6) {
   const { env } = await getCloudflareContext({ async: true });
+  if (!env.DB) {
+    throw new Error("D1 Binding 'DB' is missing in the Cloudflare environment.");
+  }
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
@@ -99,6 +108,9 @@ export async function getGamesByTag(tag: string, limit: number = 50) {
  */
 export async function syncGamesToDB() {
   const { env } = await getCloudflareContext({ async: true });
+  if (!env.DB) {
+    throw new Error("D1 Binding 'DB' is missing in the Cloudflare environment. Page requires D1 connection.");
+  }
   const db = env.DB as D1Database;
 
   for (const game of (gamesData as Game[])) {
@@ -125,6 +137,9 @@ export async function syncGamesToDB() {
  */
 export async function searchGames(query: string, limit: number = 50) {
   const { env } = await getCloudflareContext({ async: true });
+  if (!env.DB) {
+    throw new Error("D1 Binding 'DB' is missing in the Cloudflare environment.");
+  }
   const db = env.DB as D1Database;
 
   const { results } = await db.prepare(
