@@ -17,14 +17,16 @@ export interface Game {
 /**
  * 获取所有游戏（按创建时间排序）
  */
-export async function getGames(limit: number = 20) {
+export async function getGames(limit: number = 24) {
+  console.log("[PROBE_DB] Fetching games...");
   try {
     const { env } = await getCloudflareContext({ async: true });
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return [];
+    const db = env?.DB as D1Database | undefined;
+
+    if (!db) {
+      console.warn("[PROBE_DB] D1 Binding missing, falling back to static data.");
+      return (gamesData as unknown as Game[]).slice(0, limit);
     }
-    const db = env.DB as D1Database;
 
     const { results } = await db.prepare(
       "SELECT * FROM games ORDER BY created_at DESC LIMIT ?"
@@ -32,10 +34,15 @@ export async function getGames(limit: number = 20) {
     .bind(limit)
     .all();
 
+    if (!results || results.length === 0) {
+      console.log("[PROBE_DB] D1 returned empty, falling back to static data.");
+      return (gamesData as unknown as Game[]).slice(0, limit);
+    }
+
     return results as unknown as Game[];
   } catch (error) {
-    console.error("Failed to fetch games from D1:", error);
-    return [];
+    console.error("[PROBE_DB] D1 fetch failed, falling back to static data. Error:", error);
+    return (gamesData as unknown as Game[]).slice(0, limit);
   }
 }
 
@@ -45,11 +52,11 @@ export async function getGames(limit: number = 20) {
 export async function getGameBySlug(slug: string) {
   try {
     const { env } = await getCloudflareContext({ async: true });
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return null;
+    const db = env?.DB as D1Database | undefined;
+
+    if (!db) {
+      return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
     }
-    const db = env.DB as D1Database;
 
     const result = await db.prepare(
       "SELECT * FROM games WHERE slug = ?"
@@ -57,10 +64,14 @@ export async function getGameBySlug(slug: string) {
     .bind(slug)
     .first();
 
+    if (!result) {
+      return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
+    }
+
     return result as unknown as Game | null;
   } catch (error) {
-    console.error("Failed to fetch game from D1:", error);
-    return null;
+    console.error("[PROBE_DB] getGameBySlug failed:", error);
+    return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
   }
 }
 

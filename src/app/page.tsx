@@ -8,8 +8,10 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const games = await getGames(24);
+  const gamesList = await getGames(24) || [];
+  const games = Array.isArray(gamesList) ? gamesList : [];
   const featuredGames = games.filter(g => g.is_featured);
+  
   return (
     <div className="animate-fade-in" style={{ paddingTop: '2rem' }}>
       <main>
