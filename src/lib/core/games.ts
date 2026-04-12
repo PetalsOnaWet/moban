@@ -15,33 +15,52 @@ export interface Game {
 }
 
 /**
+ * 安全获取 Cloudflare 上下文
+ */
+async function getSafeContext(): Promise<any> {
+  try {
+    const context = await getCloudflareContext({ async: true });
+    if (context && context.env) return context.env;
+  } catch (e) {
+    console.error("[PROBE_DB] async getCloudflareContext failed:", e);
+  }
+
+  try {
+    const context = getCloudflareContext();
+    if (context && context.env) return context.env;
+  } catch (e) {
+    console.error("[PROBE_DB] sync getCloudflareContext failed:", e);
+  }
+
+  return null;
+}
+
+/**
  * 获取所有游戏（按创建时间排序）
  */
 export async function getGames(limit: number = 24) {
   console.log("[PROBE_DB] Fetching games...");
   
-  // Fallback function for consistent data structure
   const getStaticFallback = () => {
-    return (gamesData as any[]).slice(0, limit).map((game, index) => ({
-      ...game,
-      id: game.id || (index + 1), // Provide synthetic ID if missing
-      created_at: game.created_at || new Date().toISOString()
-    })) as Game[];
+    try {
+      if (!Array.isArray(gamesData)) return [];
+      return (gamesData as any[]).slice(0, limit).map((game, index) => ({
+        ...game,
+        id: game.id || (index + 1),
+        created_at: game.created_at || new Date().toISOString()
+      })) as Game[];
+    } catch (e) {
+      console.error("[PROBE_DB] Static fallback failed:", e);
+      return [];
+    }
   };
 
   try {
-    const { env } = await getCloudflareContext({ async: true });
-    
-    // Check if env is actually available (Edge vs Node runtime difference)
-    if (!env || typeof env !== 'object') {
-      console.warn("[PROBE_DB] Cloudflare env not found, using static fallback.");
-      return getStaticFallback();
-    }
-
-    const db = env.DB as D1Database | undefined;
+    const env = await getSafeContext();
+    const db = env?.DB as D1Database | undefined;
 
     if (!db) {
-      console.warn("[PROBE_DB] D1 Binding 'DB' missing, using static fallback.");
+      console.warn("[PROBE_DB] D1 Binding 'DB' missing in current env.");
       return getStaticFallback();
     }
 
@@ -78,7 +97,7 @@ export async function getGameBySlug(slug: string) {
   };
 
   try {
-    const { env } = await getCloudflareContext({ async: true });
+    const env = await getSafeContext();
     const db = env?.DB as D1Database | undefined;
 
     if (!db) {
@@ -107,7 +126,7 @@ export async function getGameBySlug(slug: string) {
  */
 export async function getRelatedGames(currentSlug: string, category: string, limit: number = 6) {
   try {
-    const { env } = await getCloudflareContext({ async: true });
+    const env = await getSafeContext();
     if (!env?.DB) {
       console.error("D1 Binding 'DB' is missing in the current environment.");
       return [];
@@ -132,7 +151,7 @@ export async function getRelatedGames(currentSlug: string, category: string, lim
  */
 export async function getGamesByCategory(category: string, limit: number = 50) {
   try {
-    const { env } = await getCloudflareContext({ async: true });
+    const env = await getSafeContext();
     if (!env?.DB) {
       console.error("D1 Binding 'DB' is missing in the current environment.");
       return [];
@@ -157,7 +176,7 @@ export async function getGamesByCategory(category: string, limit: number = 50) {
  */
 export async function getGamesByTag(tag: string, limit: number = 50) {
   try {
-    const { env } = await getCloudflareContext({ async: true });
+    const env = await getSafeContext();
     if (!env?.DB) {
       console.error("D1 Binding 'DB' is missing in the current environment.");
       return [];
@@ -182,7 +201,7 @@ export async function getGamesByTag(tag: string, limit: number = 50) {
  */
 export async function syncGamesToDB() {
   try {
-    const { env } = await getCloudflareContext({ async: true });
+    const env = await getSafeContext();
     if (!env?.DB) {
       console.error("D1 Binding 'DB' is missing. Skipping sync.");
       return;

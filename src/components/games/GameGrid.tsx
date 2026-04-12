@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Game } from "@/lib/core/games";
 import { Play } from "lucide-react";
