@@ -42,7 +42,7 @@ export function GameGrid({ games }: { games: Game[] }) {
       gap: '24px' 
     }}>
       {games.map((game) => (
-        <GameCard key={game.id} game={game} />
+        <GameCard key={game.slug || game.id} game={game} />
       ))}
     </div>
   );

@@ -19,13 +19,30 @@ export interface Game {
  */
 export async function getGames(limit: number = 24) {
   console.log("[PROBE_DB] Fetching games...");
+  
+  // Fallback function for consistent data structure
+  const getStaticFallback = () => {
+    return (gamesData as any[]).slice(0, limit).map((game, index) => ({
+      ...game,
+      id: game.id || (index + 1), // Provide synthetic ID if missing
+      created_at: game.created_at || new Date().toISOString()
+    })) as Game[];
+  };
+
   try {
     const { env } = await getCloudflareContext({ async: true });
-    const db = env?.DB as D1Database | undefined;
+    
+    // Check if env is actually available (Edge vs Node runtime difference)
+    if (!env || typeof env !== 'object') {
+      console.warn("[PROBE_DB] Cloudflare env not found, using static fallback.");
+      return getStaticFallback();
+    }
+
+    const db = env.DB as D1Database | undefined;
 
     if (!db) {
-      console.warn("[PROBE_DB] D1 Binding missing, falling back to static data.");
-      return (gamesData as unknown as Game[]).slice(0, limit);
+      console.warn("[PROBE_DB] D1 Binding 'DB' missing, using static fallback.");
+      return getStaticFallback();
     }
 
     const { results } = await db.prepare(
@@ -35,14 +52,14 @@ export async function getGames(limit: number = 24) {
     .all();
 
     if (!results || results.length === 0) {
-      console.log("[PROBE_DB] D1 returned empty, falling back to static data.");
-      return (gamesData as unknown as Game[]).slice(0, limit);
+      console.log("[PROBE_DB] D1 returned empty, using static fallback.");
+      return getStaticFallback();
     }
 
     return results as unknown as Game[];
   } catch (error) {
-    console.error("[PROBE_DB] D1 fetch failed, falling back to static data. Error:", error);
-    return (gamesData as unknown as Game[]).slice(0, limit);
+    console.error("[PROBE_DB] Critical error during D1 fetch:", error);
+    return getStaticFallback();
   }
 }
 
@@ -50,12 +67,22 @@ export async function getGames(limit: number = 24) {
  * 根据 Slug 获取单个游戏
  */
 export async function getGameBySlug(slug: string) {
+  const getStaticFallback = () => {
+    const game = (gamesData as any[]).find(g => g.slug === slug);
+    if (!game) return null;
+    return {
+      ...game,
+      id: game.id || 999,
+      created_at: game.created_at || new Date().toISOString()
+    } as Game;
+  };
+
   try {
     const { env } = await getCloudflareContext({ async: true });
     const db = env?.DB as D1Database | undefined;
 
     if (!db) {
-      return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
+      return getStaticFallback();
     }
 
     const result = await db.prepare(
@@ -65,13 +92,13 @@ export async function getGameBySlug(slug: string) {
     .first();
 
     if (!result) {
-      return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
+      return getStaticFallback();
     }
 
     return result as unknown as Game | null;
   } catch (error) {
     console.error("[PROBE_DB] getGameBySlug failed:", error);
-    return (gamesData as unknown as Game[]).find(g => g.slug === slug) || null;
+    return getStaticFallback();
   }
 }
 
