@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+// Required for Next.js 15 + Cloudflare local development
+initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'standalone', // Standard for Cloudflare/Container deployments
+  output: 'standalone', 
 };
 
 export default nextConfig;

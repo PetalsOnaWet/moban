@@ -3,20 +3,200 @@
     "slug": "geometry-dash-lite",
     "title": "Geometry Dash Lite",
     "description": "A rhythm-based platformer where you jump and fly your way through danger!",
-    "thumbnail": "/games/geometry-dash-lite.webp",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/f44b2075f92c4cd7f51944ec02ae3156.png",
     "iframe_url": "https://geometrylitepc.io/",
     "category": "Action",
     "tags": "Rhythm, Platformer, Arcade",
     "is_featured": true
   },
   {
-    "slug": "idols-of-ash",
-    "title": "Idols of Ash",
-    "description": "High-speed grappling horror game. Uncover the secrets of the First Kiln.",
-    "thumbnail": "/games/idols-of-ash.webp",
-    "iframe_url": "https://idolsofash.io/",
-    "category": "Horror",
-    "tags": "Horror, Grappling, Challenging",
+    "slug": "geometry-dash-subzero",
+    "title": "Geometry Dash Subzero",
+    "description": "Navigate your way through icy levels in this subzero rhythm expansion.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/be64450371900f07f975498ee3133642.png",
+    "iframe_url": "https://geometrydashsubzero.io/",
+    "category": "Action",
+    "tags": "Rhythm, Hard, Arcade",
+    "is_featured": true
+  },
+  {
+    "slug": "geometry-dash-meltdown",
+    "title": "Geometry Dash Meltdown",
+    "description": "Flex your clicky finger as you jump, fly and flip your way through dark caverns.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/516a50682df5e09f58ea9c81144a2c58.png",
+    "iframe_url": "https://geometrydashmeltdown.io/",
+    "category": "Action",
+    "tags": "Rhythm, Arcade",
+    "is_featured": true
+  },
+  {
+    "slug": "geometry-dash-world",
+    "title": "Geometry Dash World",
+    "description": "New levels, new music, new monsters, new everything!",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/46cf59573887c2fb82103767cb27a149.png",
+    "iframe_url": "https://geometrydashworld.io/",
+    "category": "Action",
+    "tags": "Rhythm, Platformer",
+    "is_featured": true
+  },
+  {
+    "slug": "slope-game",
+    "title": "Slope",
+    "description": "An endless 3D racing game where you roll a ball down a treacherous slope.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/b899732f9ee8ff9e471908d132cb0718.png",
+    "iframe_url": "https://slope-game.io/",
+    "category": "Action",
+    "tags": "3D, Racing, Arcade",
+    "is_featured": true
+  },
+  {
+    "slug": "subway-surfers",
+    "title": "Subway Surfers",
+    "description": "Run as far as you can through the subway system!",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/df167b019b844ca7b794101e19d9b6a7.png",
+    "iframe_url": "https://subwaysurfers.com/",
+    "category": "Arcade",
+    "tags": "Running, Action",
+    "is_featured": true
+  },
+  {
+    "slug": "minecraft-classic",
+    "title": "Minecraft Classic",
+    "description": "Build, explore and survive in the classic version of the world-famous sandbox game.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/77a33a8863f685c22501a4e1069698c9.png",
+    "iframe_url": "https://classic.minecraft.net/",
+    "category": "Sandbox",
+    "tags": "3D, Creative",
+    "is_featured": true
+  },
+  {
+    "slug": "temple-run-2",
+    "title": "Temple Run 2",
+    "description": "Escape from the temple again with more obstacles and challenges.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/cd76ddc6674a62dbf521c7d242416801.png",
+    "iframe_url": "https://templerun.io/",
+    "category": "Arcade",
+    "tags": "Running, Action",
+    "is_featured": true
+  },
+  {
+    "slug": "bitlife",
+    "title": "BitLife",
+    "description": "How will you live your BitLife? Make the right choices!",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/4f8ea5475176c9689531853d92de4c0b.png",
+    "iframe_url": "https://bitlife.io/",
+    "category": "Simulation",
+    "tags": "Life, Simulation",
+    "is_featured": true
+  },
+  {
+    "slug": "moto-x3m",
+    "title": "Moto X3M",
+    "description": "The ultimate motorcycle racing game with challenging levels.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/2320b923985b98160868f005c2d1b71d.png",
+    "iframe_url": "https://motox3m.io/",
+    "category": "Racing",
+    "tags": "Bike, Racing",
+    "is_featured": true
+  },
+  {
+    "slug": "vex-7",
+    "title": "Vex 7",
+    "description": "The latest edition of the popular platformer series.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/668224b7-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://vex7.io/",
+    "category": "Action",
+    "tags": "Platformer, Challenging",
+    "is_featured": true
+  },
+  {
+    "slug": "bloodbath",
+    "title": "Bloodbath",
+    "description": "Test your limits in this extreme Geometry Dash level.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/87541243-7654-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://geometrylitepc.io/game/bloodbath",
+    "category": "Rhythm",
+    "tags": "Hard, Rhythm",
+    "is_featured": true
+  },
+  {
+    "slug": "geometry-dash-wave",
+    "title": "Geometry Dash Wave",
+    "description": "Master the wave mechanic in this focused expansion.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/98765432-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://geometrylitepc.io/game/wave",
+    "category": "Rhythm",
+    "tags": "Rhythm, Platformer",
+    "is_featured": true
+  },
+  {
+    "slug": "geometry-dash-subzero-v2",
+    "title": "GD Subzero 2",
+    "description": "More subzero challenges await.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/12345678-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://geometrylitepc.io/game/subzero",
+    "category": "Action",
+    "tags": "Rhythm",
+    "is_featured": true
+  },
+  {
+    "slug": "escape-road",
+    "title": "Escape Road",
+    "description": "Escape the city in this high-speed car chase.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/54321098-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://escaperoad.io/",
+    "category": "Racing",
+    "tags": "Car, Action",
+    "is_featured": true
+  },
+  {
+    "slug": "wacky-steps",
+    "title": "Wacky Steps",
+    "description": "Can you handle the wacky steps?",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/99887766-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://wackysteps.io/",
+    "category": "Action",
+    "tags": "Arcade",
+    "is_featured": true
+  },
+  {
+    "slug": "rocket-goal",
+    "title": "Rocket Goal",
+    "description": "Soccer but with rocket cars!",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/11223344-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://rocketgoal.io/",
+    "category": "Sports",
+    "tags": "Racing, Sports",
+    "is_featured": true
+  },
+  {
+    "slug": "wave-rider",
+    "title": "Wave Rider",
+    "description": "Ride the rhythm wave to the end.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/22334455-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://waverider.io/",
+    "category": "Action",
+    "tags": "Rhythm",
+    "is_featured": true
+  },
+  {
+    "slug": "six-clicker",
+    "title": "67 Clicker",
+    "description": "The ultimate clicking challenge.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/33445566-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://67clicker.io/",
+    "category": "Arcade",
+    "tags": "Clicker",
+    "is_featured": true
+  },
+  {
+    "slug": "toca-world",
+    "title": "Toca World",
+    "description": "Create your own stories in Toca World.",
+    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/44556677-d1a1-438d-807d-531e289bf44a.png",
+    "iframe_url": "https://tocaworld.io/",
+    "category": "Educational",
+    "tags": "Simulation",
     "is_featured": true
   }
 ]

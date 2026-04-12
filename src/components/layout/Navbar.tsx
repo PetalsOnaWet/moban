@@ -1,25 +1,130 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
-import { SearchBox } from "@/components/games/SearchBox";
+import { Search, Sun, Moon } from "lucide-react";
 
 export function Navbar() {
-  return (
-    <nav className="util-glass" style={{ position: 'sticky', top: 0, zIndex: 100, padding: '0.75rem 0' }}>
-      <div className="util-container util-flex" style={{ justifyContent: 'space-between', alignItems: 'center', gap: '20px' }}>
-        <Link href="/" style={{ fontWeight: 590, fontSize: '1.25rem', color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
-          {siteConfig.name}
-        </Link>
-        
-        <div className="util-flex" style={{ flex: 1, justifyContent: 'center', maxWidth: '400px' }}>
-          <SearchBox />
-        </div>
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
 
-        <div className="util-flex" style={{ gap: '24px', fontSize: '14px', fontWeight: 510, color: 'var(--text-secondary)', alignItems: 'center' }}>
-          <Link href="/#features" className="util-hide-mobile">Categories</Link>
-          <Link href="/#faq" className="util-hide-mobile">FAQ</Link>
-          <button className="util-btn-primary" style={{ padding: '6px 16px' }}>Play Now</button>
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  if (!mounted) return (
+     <header style={{ height: '70px', background: 'var(--bg-panel)', borderBottom: '1px solid var(--border-standard)' }} />
+  );
+
+  return (
+    <header style={{ 
+      height: '70px', 
+      background: 'var(--bg-panel)', 
+      borderBottom: '1px solid var(--border-standard)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      padding: '0 24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      transition: 'all 0.3s ease'
+    }}>
+      {/* Left: Multicolored Logo */}
+      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+        <div style={{ 
+          background: '#FFB400', 
+          color: '#000', 
+          width: '32px', 
+          height: '32px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          borderRadius: '6px',
+          fontWeight: 900,
+          fontSize: '18px'
+        }}>G</div>
+        <div style={{ display: 'flex', fontSize: '20px', fontWeight: 900, letterSpacing: '-0.02em' }}>
+          <span style={{ color: '#FFB400' }}>GEOMETRY</span>
+          <span style={{ color: 'var(--text-primary)', marginLeft: '4px' }}>DASH</span>
+          <span style={{ color: '#00E5FF', marginLeft: '4px' }}>LITE</span>
+        </div>
+      </Link>
+
+      {/* Center: Rounded Search Bar */}
+      <div style={{ flex: 1, maxWidth: '600px', margin: '0 48px', position: 'relative' }}>
+        <div style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }}>
+          <Search size={18} />
+        </div>
+        <input 
+          type="text" 
+          placeholder="Search for games..." 
+          style={{ 
+            width: '100%', 
+            height: '42px', 
+            background: 'var(--bg-input)', 
+            border: 'none', 
+            borderRadius: '99px', 
+            padding: '0 16px 0 48px',
+            fontSize: '14px',
+            outline: 'none',
+            color: 'var(--text-primary)',
+            transition: 'background 0.3s ease'
+          }}
+        />
+      </div>
+
+      {/* Right: Actions */}
+      <div className="util-flex" style={{ gap: '20px', alignItems: 'center' }}>
+        {/* Fancy Theme Switcher */}
+        <div 
+          onClick={toggleTheme}
+          style={{ 
+            width: '68px', 
+            height: '34px', 
+            background: 'rgba(0,0,0,0.05)', 
+            borderRadius: '99px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            padding: '0 4px', 
+            cursor: 'pointer',
+            position: 'relative',
+            border: '1px solid var(--border-subtle)'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 6px', color: '#94A3B8' }}>
+            <Moon size={14} fill={theme === 'dark' ? 'currentColor' : 'none'} />
+            <Sun size={14} fill={theme === 'light' ? 'currentColor' : 'none'} />
+          </div>
+          <div style={{ 
+            position: 'absolute',
+            width: '26px',
+            height: '26px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #6366F1, #D946EF)',
+            left: theme === 'light' ? 'calc(100% - 30px)' : '4px',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.4)'
+          }}>
+            {theme === 'light' ? <Sun size={14} color="#FFF" fill="currentColor" /> : <Moon size={14} color="#FFF" fill="currentColor" />}
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

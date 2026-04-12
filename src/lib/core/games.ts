@@ -11,58 +11,83 @@ export interface Game {
   category: string;
   tags: string | null;
   is_featured: boolean;
+  rating?: number;
+  votes?: number;
   created_at: string;
 }
 
 /**
- * 安全获取 Cloudflare 上下文
+ * Helper to aggregate ratings for games
  */
+async function attachRatings(db: D1Database, games: any[]) {
+  if (!games.length) return [];
+  
+  const placeholders = games.map(() => '?').join(',');
+  const slugs = games.map(g => g.slug);
+
+  const { results: stats } = await db.prepare(`
+    SELECT 
+      page_id as slug, 
+      AVG(rating) as avg_rating, 
+      COUNT(*) as vote_count 
+    FROM ratings 
+    WHERE page_id IN (${placeholders})
+    GROUP BY page_id
+  `)
+  .bind(...slugs)
+  .all();
+
+  const statsMap = new Map(stats.map((s: any) => [s.slug, s]));
+
+  return games.map(g => {
+    const s = statsMap.get(g.slug) as any;
+    return {
+      ...g,
+      rating: s ? Math.round(s.avg_rating * 10) / 10 : 0,
+      votes: s ? s.vote_count : 0
+    };
+  });
+}
+
+/**
+ * Safe context getter
+ */
+let isCloudflareUnavailable = false;
+
 async function getSafeContext(): Promise<any> {
+  if (isCloudflareUnavailable) return null;
   try {
     const context = await getCloudflareContext({ async: true });
     if (context && context.env) return context.env;
   } catch (e) {
-    console.error("[PROBE_DB] async getCloudflareContext failed:", e);
+    if (String(e).includes("workerd") || String(e).includes("platform")) {
+      isCloudflareUnavailable = true;
+    }
   }
-
   try {
     const context = getCloudflareContext();
     if (context && context.env) return context.env;
-  } catch (e) {
-    console.error("[PROBE_DB] sync getCloudflareContext failed:", e);
-  }
-
+  } catch (e) {}
   return null;
 }
 
 /**
- * 获取所有游戏（按创建时间排序）
+ * Get all games
  */
 export async function getGames(limit: number = 24) {
-  console.log("[PROBE_DB] Fetching games...");
-  
   const getStaticFallback = () => {
-    try {
-      if (!Array.isArray(gamesData)) return [];
-      return (gamesData as any[]).slice(0, limit).map((game, index) => ({
-        ...game,
-        id: game.id || (index + 1),
-        created_at: game.created_at || new Date().toISOString()
-      })) as Game[];
-    } catch (e) {
-      console.error("[PROBE_DB] Static fallback failed:", e);
-      return [];
-    }
+    return (gamesData as any[]).slice(0, limit).map(g => ({
+      ...g,
+      rating: 0,
+      votes: 0,
+    })) as Game[];
   };
 
   try {
     const env = await getSafeContext();
     const db = env?.DB as D1Database | undefined;
 
-    if (!db) {
-      console.warn("[PROBE_DB] D1 Binding 'DB' missing in current env.");
-      return getStaticFallback();
-    }
+    if (!db) return getStaticFallback();
 
     const { results } = await db.prepare(
       "SELECT * FROM games ORDER BY created_at DESC LIMIT ?"
@@ -70,39 +95,29 @@ export async function getGames(limit: number = 24) {
     .bind(limit)
     .all();
 
-    if (!results || results.length === 0) {
-      console.log("[PROBE_DB] D1 returned empty, using static fallback.");
-      return getStaticFallback();
-    }
+    if (!results || results.length === 0) return getStaticFallback();
 
-    return results as unknown as Game[];
+    return await attachRatings(db, results) as Game[];
   } catch (error) {
-    console.error("[PROBE_DB] Critical error during D1 fetch:", error);
     return getStaticFallback();
   }
 }
 
 /**
- * 根据 Slug 获取单个游戏
+ * Get single game by slug
  */
 export async function getGameBySlug(slug: string) {
   const getStaticFallback = () => {
     const game = (gamesData as any[]).find(g => g.slug === slug);
     if (!game) return null;
-    return {
-      ...game,
-      id: game.id || 999,
-      created_at: game.created_at || new Date().toISOString()
-    } as Game;
+    return { ...game, rating: 0, votes: 0 } as Game;
   };
 
   try {
     const env = await getSafeContext();
     const db = env?.DB as D1Database | undefined;
 
-    if (!db) {
-      return getStaticFallback();
-    }
+    if (!db) return getStaticFallback();
 
     const result = await db.prepare(
       "SELECT * FROM games WHERE slug = ?"
@@ -110,28 +125,23 @@ export async function getGameBySlug(slug: string) {
     .bind(slug)
     .first();
 
-    if (!result) {
-      return getStaticFallback();
-    }
+    if (!result) return getStaticFallback();
 
-    return result as unknown as Game | null;
+    const ratedGames = await attachRatings(db, [result]);
+    return ratedGames[0] as Game;
   } catch (error) {
-    console.error("[PROBE_DB] getGameBySlug failed:", error);
     return getStaticFallback();
   }
 }
 
 /**
- * 获取推荐游戏（同分类或 Featured）
+ * Get related games (Synchronized with surround layout needs)
  */
-export async function getRelatedGames(currentSlug: string, category: string, limit: number = 6) {
+export async function getRelatedGames(currentSlug: string, category: string, limit: number = 60) {
   try {
     const env = await getSafeContext();
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return [];
-    }
-    const db = env.DB as D1Database;
+    const db = env?.DB as D1Database | undefined;
+    if (!db) return [];
 
     const { results } = await db.prepare(
       "SELECT * FROM games WHERE slug != ? AND (category = ? OR is_featured = 1) LIMIT ?"
@@ -139,108 +149,20 @@ export async function getRelatedGames(currentSlug: string, category: string, lim
     .bind(currentSlug, category, limit)
     .all();
 
-    return results as unknown as Game[];
+    return await attachRatings(db, results) as Game[];
   } catch (error) {
-    console.error("Failed to fetch related games from D1:", error);
     return [];
   }
 }
 
 /**
- * 获取特定分类下的游戏
- */
-export async function getGamesByCategory(category: string, limit: number = 50) {
-  try {
-    const env = await getSafeContext();
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return [];
-    }
-    const db = env.DB as D1Database;
-
-    const { results } = await db.prepare(
-      "SELECT * FROM games WHERE category = ? ORDER BY created_at DESC LIMIT ?"
-    )
-    .bind(category, limit)
-    .all();
-
-    return results as unknown as Game[];
-  } catch (error) {
-    console.error("Failed to fetch games by category from D1:", error);
-    return [];
-  }
-}
-
-/**
- * 获取带有特定标签的游戏
- */
-export async function getGamesByTag(tag: string, limit: number = 50) {
-  try {
-    const env = await getSafeContext();
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return [];
-    }
-    const db = env.DB as D1Database;
-
-    const { results } = await db.prepare(
-      "SELECT * FROM games WHERE tags LIKE ? ORDER BY created_at DESC LIMIT ?"
-    )
-    .bind(`%${tag}%`, limit)
-    .all();
-
-    return results as unknown as Game[];
-  } catch (error) {
-    console.error("Failed to fetch games by tag from D1:", error);
-    return [];
-  }
-}
-
-/**
- * 同步 JSON 数据到 D1 (用于初始化或更新)
- */
-export async function syncGamesToDB() {
-  try {
-    const env = await getSafeContext();
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing. Skipping sync.");
-      return;
-    }
-    const db = env.DB as D1Database;
-
-    for (const game of (gamesData as Game[])) {
-      await db.prepare(
-        `INSERT OR REPLACE INTO games (slug, title, description, thumbnail, iframe_url, category, tags, is_featured) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-      )
-      .bind(
-        game.slug, 
-        game.title, 
-        game.description, 
-        game.thumbnail, 
-        game.iframe_url, 
-        game.category, 
-        game.tags || null,
-        game.is_featured ? 1 : 0
-      )
-      .run();
-    }
-  } catch (error) {
-    console.error("Sync to D1 failed:", error);
-  }
-}
-
-/**
- * 搜索游戏（按标题或描述模糊匹配）
+ * Search games
  */
 export async function searchGames(query: string, limit: number = 50) {
   try {
-    const { env } = await getCloudflareContext({ async: true });
-    if (!env?.DB) {
-      console.error("D1 Binding 'DB' is missing in the current environment.");
-      return [];
-    }
-    const db = env.DB as D1Database;
+    const env = await getSafeContext();
+    const db = env?.DB as D1Database | undefined;
+    if (!db) return [];
 
     const { results } = await db.prepare(
       `SELECT * FROM games 
@@ -251,9 +173,29 @@ export async function searchGames(query: string, limit: number = 50) {
     .bind(`%${query}%`, `%${query}%`, limit)
     .all();
 
-    return results as unknown as Game[];
+    return await attachRatings(db, results) as Game[];
   } catch (error) {
-    console.error("Search games in D1 failed:", error);
+    return [];
+  }
+}
+
+/**
+ * Get comments for a page
+ */
+export async function getComments(slug: string) {
+  try {
+    const env = await getSafeContext();
+    const db = env?.DB as D1Database | undefined;
+    if (!db) return [];
+
+    const { results } = await db.prepare(
+      "SELECT * FROM comments WHERE page_id = ? ORDER BY created_at DESC"
+    )
+    .bind(slug)
+    .all();
+
+    return results;
+  } catch (error) {
     return [];
   }
 }

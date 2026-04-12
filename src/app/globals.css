@@ -1,6 +1,48 @@
-/* Global Design Tokens & Atomic CSS Base */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+
 :root {
-  /* Default Theme Variables (will be replaced by siteConfig theme) */
+  /* Colors - 1:1 Replica from geometrylitepc.io */
+  --bg-site: #F5F7F8;
+  --bg-panel: #FFFFFF;
+  --bg-input: #F3F4F6;
+  
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-tertiary: #9CA3AF;
+  
+  --accent-cyan: #00E5FF;
+  --accent-cyan-dark: #00B8CC;
+  --accent-purple: #8B5CF6;
+  --accent-orange: #F59E0B;
+  --accent-green: #10B981;
+  
+  --border-subtle: #F3F4F6;
+  --border-standard: #E5E7EB;
+  
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 18px;
+  --radius-pill: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] {
+  --bg-site: #0F172A; /* Deep Obsidian */
+  --bg-panel: #1E293B; /* Midnight Gray */
+  --bg-input: #111827;
+  
+  --text-primary: #F8FAFC; /* Ghost White */
+  --text-secondary: #CBD5E1;
+  --text-tertiary: #94A3B8;
+  
+  --border-subtle: #334155;
+  --border-standard: #475569;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -10,92 +52,93 @@
 }
 
 body {
-  background: var(--bg-marketing, #08090a);
-  color: var(--text-primary, #f7f8f8);
-  font-family: var(--font-family, sans-serif);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-}
-
-h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lexend', sans-serif;
+  background-color: var(--bg-site);
   color: var(--text-primary);
-  font-weight: 510; /* Linear signature weight */
-  letter-spacing: -0.022em;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: var(--accent-hover);
-}
-
-/* Atomic Utility Classes (Vanilla CSS) */
+/* Base Components */
 .util-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
-.util-flex {
-  display: flex;
-}
-
-.util-flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.util-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.util-glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-l);
-}
-
-.util-gradient-text {
-  background: linear-gradient(to right, var(--text-primary), var(--accent-violet));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.util-btn-primary {
-  background: var(--brand-indigo);
-  color: #fff;
-  padding: 0.5rem 1.25rem;
-  border-radius: var(--radius-m);
-  font-size: 0.875rem;
-  font-weight: 510;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.util-btn-primary:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-}
+.util-flex { display: flex; }
+.util-flex-center { display: flex; align-items: center; justify-content: center; }
 
 .util-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-standard);
-  border-radius: var(--radius-l);
-  padding: 1.5rem;
-  transition: border-color 0.2s ease;
+  background: var(--bg-panel);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.util-card:hover {
-  border-color: var(--accent-violet);
+/* Navigation - Sidebar spacing */
+.game-card-replica:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar-nav {
+  position: sticky;
+  top: 70px; /* Below Navbar */
+  height: calc(100vh - 70px);
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-standard);
+  padding: 24px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+/* Badge Styles */
+.badge-hot {
+  background: #FFF7ED;
+  color: #EA580C;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.badge-new {
+  background: #F5F3FF;
+  color: #7C3AED;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* Typography Helpers */
+h1, h2, h3 { font-weight: 800; color: var(--text-primary); }
+
+a { text-decoration: none; color: inherit; }
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-site);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-standard);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }
 
 /* Animations */
@@ -105,5 +148,5 @@ a:hover {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }

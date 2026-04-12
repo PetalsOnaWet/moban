@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Maximize, RotateCcw, Loader2 } from "lucide-react";
+import { Maximize, Loader2, Share2, Monitor } from "lucide-react";
+import { ShareModal } from "./ShareModal";
 
 export function GameIframe({ title, url }: { title: string; url: string }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   const toggleFullScreen = () => {
     const iframe = document.getElementById("game-iframe");
@@ -13,38 +15,25 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
     }
   };
 
-  const reloadGame = () => {
-    setIsLoading(true);
-    const iframe = document.getElementById("game-iframe") as HTMLIFrameElement;
-    if (iframe) iframe.src = url;
-  };
-
   return (
-    <div style={{ position: 'relative', width: '100%', borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: '#000', border: '1px solid var(--border-standard)' }}>
-      {/* Toolbar */}
-      <div className="util-flex" style={{ 
-        padding: '8px 16px', 
-        background: 'var(--bg-panel)', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        borderBottom: '1px solid var(--border-standard)'
-      }}>
-        <div style={{ fontSize: '14px', fontWeight: 510, color: 'var(--text-secondary)' }}>{title}</div>
-        <div className="util-flex" style={{ gap: '12px' }}>
-          <button onClick={reloadGame} className="util-flex-center" style={{ background: 'none', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer' }} title="Reload">
-            <RotateCcw size={18} />
-          </button>
-          <button onClick={toggleFullScreen} className="util-flex-center" style={{ background: 'none', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer' }} title="Fullscreen">
-            <Maximize size={18} />
-          </button>
-        </div>
-      </div>
-
+    <div style={{ 
+      position: 'relative', 
+      width: '100%', 
+      background: 'var(--bg-panel)', 
+      borderRadius: '2px', // Sharper edges matching screenshot
+      overflow: 'hidden',
+      border: '1px solid var(--border-subtle)'
+    }}>
       {/* Game Area */}
-      <div style={{ position: 'relative', aspectRatio: '16/9', background: '#000' }}>
+      <div style={{ 
+        position: 'relative', 
+        width: '100%',
+        height: '600px', // Custom height matching screenshot
+        background: '#000' 
+      }}>
         {isLoading && (
           <div className="util-flex-center" style={{ position: 'absolute', inset: 0, zIndex: 10, background: '#000' }}>
-            <Loader2 className="animate-spin" size={32} color="var(--accent-violet)" />
+            <Loader2 className="animate-spin" size={32} color="var(--accent-cyan)" />
           </div>
         )}
         <iframe
@@ -56,6 +45,46 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           onLoad={() => setIsLoading(false)}
         />
       </div>
+
+      {/* Control Bar - Grey background matching screenshot */}
+      <div style={{ 
+        padding: '12px 24px', 
+        background: '#F1F5F9', // Solid light grey
+        display: 'flex',
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        borderTop: '1px solid #E2E8F0'
+      }}>
+        <div style={{ fontSize: '15px', fontWeight: 700, color: '#1E293B' }}>{title}</div>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+          <button 
+            onClick={() => setIsShareOpen(true)}
+            style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', display: 'flex' }} 
+            title="Share"
+          >
+            <Share2 size={20} />
+          </button>
+          <button 
+            style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', display: 'flex' }} 
+            title="Theater Mode"
+          >
+            <Monitor size={20} />
+          </button>
+          <button 
+            onClick={toggleFullScreen} 
+            style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', display: 'flex' }} 
+            title="Fullscreen"
+          >
+            <Maximize size={20} />
+          </button>
+        </div>
+      </div>
+
+      <ShareModal 
+        isOpen={isShareOpen} 
+        onClose={() => setIsShareOpen(false)} 
+        title={title} 
+      />
     </div>
   );
 }
