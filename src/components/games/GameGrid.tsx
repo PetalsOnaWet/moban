@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { Star, Flame, Zap, Sparkles } from "lucide-react";
 
 interface Game {
   id: string;
@@ -151,27 +151,39 @@ export function GameCard({ game }: { game: Game }) {
         </div>
 
         {/* Badges */}
-        <div style={{ opacity: 1 }}>
+        <div style={{ pointerEvents: 'none' }}>
           {isNew && (
             <div style={{ 
               position: 'absolute', top: '10px', left: '10px', 
               background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
-              color: 'white', fontSize: '10px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              color: 'white', fontSize: '10px', fontWeight: 900, 
+              padding: '4px 10px', borderRadius: '6px',
               zIndex: 15,
-              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+              display: 'flex', alignItems: 'center', gap: '4px',
+              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
             }}>
-              NEW ✨
+              <Sparkles size={11} strokeWidth={3} />
+              NEW
             </div>
           )}
           {isHot && !isNew && (
             <div style={{ 
               position: 'absolute', top: '10px', left: '10px', 
               background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
-              color: 'white', fontSize: '10px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              color: 'white', fontSize: '10px', fontWeight: 900, 
+              padding: '4px 10px', borderRadius: '6px',
               zIndex: 15,
-              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+              display: 'flex', alignItems: 'center', gap: '4px',
+              boxShadow: '0 4px 12px rgba(245, 158, 11, 0.4)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
             }}>
-              HOT 🔥
+              <Flame size={11} strokeWidth={3} />
+              HOT
             </div>
           )}
         </div>
@@ -308,25 +320,37 @@ export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBe
         </div>
         
         {/* Badges */}
-        <div style={{ opacity: 1 }}>
+        <div style={{ pointerEvents: 'none' }}>
           {isNew && (
             <div style={{ 
-              position: 'absolute', top: '10px', left: '10px', 
+              position: 'absolute', top: isBentoBig ? '12px' : '8px', left: isBentoBig ? '12px' : '8px', 
               background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
-              color: 'white', fontSize: isBentoBig ? '12px' : '9px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
-              zIndex: 15
+              color: 'white', fontSize: isBentoBig ? '11px' : '8.5px', fontWeight: 900, 
+              padding: isBentoBig ? '4px 10px' : '2px 8px', borderRadius: '4px',
+              zIndex: 15,
+              display: 'flex', alignItems: 'center', gap: isBentoBig ? '4px' : '3px',
+              boxShadow: '0 4px 10px rgba(99, 102, 241, 0.3)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              textTransform: 'uppercase'
             }}>
-              NEW ✨
+              <Sparkles size={isBentoBig ? 12 : 9} strokeWidth={3} />
+              {isBentoBig ? 'NEW RELEASE' : 'NEW'}
             </div>
           )}
           {isHot && !isNew && (
             <div style={{ 
-              position: 'absolute', top: '10px', left: '10px', 
-              background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
-              color: 'white', fontSize: isBentoBig ? '12px' : '9px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
-              zIndex: 15
+              position: 'absolute', top: isBentoBig ? '12px' : '8px', left: isBentoBig ? '12px' : '8px', 
+              background: 'linear-gradient(135deg, #EE4444, #F59E0B)', 
+              color: 'white', fontSize: isBentoBig ? '11px' : '8.5px', fontWeight: 900, 
+              padding: isBentoBig ? '4px 10px' : '2px 8px', borderRadius: '4px',
+              zIndex: 15,
+              display: 'flex', alignItems: 'center', gap: isBentoBig ? '4px' : '3px',
+              boxShadow: '0 4px 10px rgba(238, 68, 68, 0.3)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              textTransform: 'uppercase'
             }}>
-              HOT 🔥
+              <Flame size={isBentoBig ? 12 : 9} strokeWidth={3} />
+              {isBentoBig ? 'TRENDING HOT' : 'HOT'}
             </div>
           )}
         </div>
