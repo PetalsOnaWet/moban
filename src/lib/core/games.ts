@@ -180,6 +180,36 @@ export async function searchGames(query: string, limit: number = 50) {
 }
 
 /**
+ * Get games by category
+ */
+export async function getGamesByCategory(category: string, limit: number = 60) {
+  const getStaticFallback = () => {
+    return (gamesData as any[])
+      .filter(g => g.category?.toLowerCase() === category.toLowerCase())
+      .slice(0, limit)
+      .map(g => ({ ...g, rating: 0, votes: 0 })) as Game[];
+  };
+
+  try {
+    const env = await getSafeContext();
+    const db = env?.DB as D1Database | undefined;
+    if (!db) return getStaticFallback();
+
+    const { results } = await db.prepare(
+      "SELECT * FROM games WHERE LOWER(category) = LOWER(?) ORDER BY created_at DESC LIMIT ?"
+    )
+    .bind(category, limit)
+    .all();
+
+    if (!results || results.length === 0) return getStaticFallback();
+
+    return await attachRatings(db, results) as Game[];
+  } catch (error) {
+    return getStaticFallback();
+  }
+}
+
+/**
  * Get comments for a page
  */
 export async function getComments(slug: string) {

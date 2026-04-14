@@ -1,51 +1,40 @@
 "use client";
 
-import { PlusCircle } from "lucide-react";
-
-const ads = [
-  "Video Games", "Games", "Game", "Computer & Video Games",
-  "Casual Games", "Browser Games", "Action & Platform Games"
-];
-
+/**
+ * Text Ads Placeholder Area
+ * Reserved for dynamic text link advertisements.
+ * Takes up 2/3 of the row as requested.
+ */
 export function DiscoveryAds() {
   return (
-    <div style={{ margin: '32px 0 24px' }}>
-      <div style={{ 
-        fontSize: '11px', 
-        fontWeight: 700, 
-        color: 'var(--text-tertiary)', 
-        marginLeft: '140px', // Align with the start of the pills
-        marginBottom: '6px'
-      }}>
-        Advertisement
-      </div>
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-        <span style={{ fontSize: '15px', color: '#6B7280', fontWeight: 500, paddingTop: '8px' }}>Discover more</span>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', flex: 1 }}>
-          {ads.map((ad, i) => (
-            <button 
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: '#FFF',
-                border: '1px solid #E5E7EB',
-                borderRadius: '99px',
-                padding: '8px 16px',
-                color: '#2563EB', // Blue link color
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-              }}
-            >
-              <PlusCircle size={14} color="#3B82F6" />
-              {ad}
-            </button>
-          ))}
+    <div style={{ flex: '2', minWidth: 0 }}>
+      <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+        <div style={{ 
+            display: 'inline-block',
+            background: '#4AB7D8', 
+            padding: '2px 12px', 
+            color: '#000', 
+            fontWeight: 600, 
+            fontSize: '10px',
+            borderRadius: '4px',
+        }}>
+          Advertisement
         </div>
+      </div>
+      <div style={{ 
+        minHeight: '124px', // Increased slightly to match icon row height better
+        background: 'transparent', 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: '10px', 
+        alignItems: 'center',
+        border: '1px dashed var(--border-standard)', 
+        borderRadius: '8px',
+        padding: '12px',
+        color: 'var(--text-tertiary)',
+        fontSize: '13px'
+      }}>
+        Reserved for Text Ads
       </div>
     </div>
   );

@@ -21,13 +21,13 @@ const sidebarLinks = [
   { name: "Home", href: "/", icon: Home, color: "var(--text-secondary)" },
   { name: "History", href: "/history", icon: History, color: "var(--text-secondary)" },
   { type: "separator" },
-  { name: "Hot Games", href: "/category/hot", icon: Flame, color: "#EF4444", badge: "HOT" },
-  { name: "New Games", href: "/category/new", icon: Star, color: "#F59E0B", badge: "NEW" },
-  { name: "Flying Games", href: "/category/flying", icon: Plane, color: "#94A3B8" },
-  { name: "Jumping Games", href: "/category/jumping", icon: ArrowUpCircle, color: "var(--text-primary)" },
-  { name: "Music Games", href: "/category/music", icon: Music, color: "var(--text-primary)" },
-  { name: "Platform Game", href: "/category/platformer", icon: Layout, color: "#A855F7" },
-  { name: "Rhythm Games", href: "/category/rhythm", icon: Activity, color: "#6366F1" },
+  { name: "Hot Games", href: "/hot", icon: Flame, color: "#EF4444", badge: "HOT" },
+  { name: "New Games", href: "/new", icon: Star, color: "#F59E0B", badge: "NEW" },
+  { name: "Flying Games", href: "/flying", icon: Plane, color: "#94A3B8" },
+  { name: "Jumping Games", href: "/jumping", icon: ArrowUpCircle, color: "var(--text-primary)" },
+  { name: "Music Games", href: "/music", icon: Music, color: "var(--text-primary)" },
+  { name: "Platform Game", href: "/platformer", icon: Layout, color: "#A855F7" },
+  { name: "Rhythm Games", href: "/rhythm", icon: Activity, color: "#6366F1" },
 ];
 
 export function Sidebar() {
@@ -35,12 +35,17 @@ export function Sidebar() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <aside 
-      className="sidebar-nav"
-      style={{ width: isHovered ? '260px' : '80px' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <>
+      <aside 
+        className={`sidebar-nav ${isHovered ? 'is-expanded' : ''}`}
+        style={{ 
+          width: isHovered ? '260px' : '80px',
+          boxShadow: isHovered ? '10px 0 30px rgba(0,0,0,0.08)' : 'none'
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '0 12px' }}>
         {sidebarLinks.map((item, idx) => {
           if (item.type === "separator") {
@@ -109,5 +114,7 @@ export function Sidebar() {
       </div>
 
     </aside>
+    </>
   );
 }
+

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Star } from "lucide-react";
 
@@ -13,114 +14,322 @@ interface Game {
   votes?: number;
 }
 
+const DEFAULT_ICON = "/images/default-game.png?v=1";
+
 export function GameCard({ game }: { game: Game }) {
+  // Use DEFAULT_ICON as initial state to prevent any broken image showing during load/hydration
+  const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  useEffect(() => {
+    // Only attempt to load the real thumbnail on the client after mount
+    if (game.thumbnail) {
+      const img = new Image();
+      img.src = game.thumbnail;
+      img.onload = () => setImgSrc(game.thumbnail);
+      img.onerror = () => setImgSrc(DEFAULT_ICON);
+    }
+  }, [game.thumbnail]);
+
   const isNew = game.id.length % 7 === 0;
   const isHot = game.id.length % 3 === 0;
 
   return (
     <Link 
       href={`/game/${game.slug}`}
+      title=""
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{ 
-        display: 'flex', 
-        flexDirection: 'column',
+        display: 'block',
         textDecoration: 'none',
         color: 'inherit',
         background: 'var(--bg-panel)',
-        borderRadius: '8px', // Slightly sharper corners
+        borderRadius: '12px',
         overflow: 'hidden',
-        border: '1px solid var(--border-standard)',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease'
+        border: '1px solid var(--border-subtle)',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative',
+        width: '160px',
+        height: '100px',
+        boxShadow: isHovered ? '0 12px 24px -5px rgba(0,0,0,0.3)' : '0 4px 6px -1px rgba(0,0,0,0.1)',
+        transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+        zIndex: isHovered ? 50 : 1
       }}
-      className="game-card-hover"
     >
       <div style={{ position: 'relative', aspectRatio: '16/10', overflow: 'hidden' }}>
         <img 
-          src={game.thumbnail} 
+          key={imgSrc}
+          src={imgSrc} 
           alt={game.title} 
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          title=""
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+          }}
         />
         
-        {/* Badges - Matching Screenshot style */}
-        {isNew && (
-          <div style={{ 
-            position: 'absolute', top: '8px', left: '8px', 
-            background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
-            color: 'white', fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px',
-            display: 'flex', alignItems: 'center', gap: '4px'
-          }}>
-            NEW ✨
-          </div>
-        )}
-        {isHot && !isNew && (
-          <div style={{ 
-            position: 'absolute', top: '8px', left: '8px', 
-            background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
-            color: 'white', fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px',
-            display: 'flex', alignItems: 'center', gap: '4px'
-          }}>
-            HOT 🔥
-          </div>
-        )}
-      </div>
-      <div style={{ padding: '12px' }}>
-        <div style={{ fontSize: '14px', fontWeight: 700, marginBottom: '6px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {/* Center Hover Label (Grey Box) */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'rgba(215, 215, 195, 0.95)',
+          color: '#333',
+          padding: '4px 12px',
+          borderRadius: '2px',
+          fontSize: '13px',
+          fontWeight: 600,
+          opacity: isHovered ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+          zIndex: 20,
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none'
+        }}>
           {game.title}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: 'var(--text-tertiary)' }}>
-          <Star size={12} fill="#FFB400" color="#FFB400" />
-          <span>{game.rating?.toFixed(1) || '4.5'}</span>
+
+        {/* Bottom Info Overlay (Matching Screenshot) - Now Hover Only */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
+          padding: '12px',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 10,
+          opacity: isHovered ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: 'none'
+        }}>
+          {/* Row 1: Title */}
+          <div style={{ 
+              color: 'white', 
+              fontSize: '18px', 
+              fontWeight: 900, 
+              marginBottom: '2px',
+              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+          }}>
+            {game.title}
+          </div>
+          
+          {/* Row 2: Categories & Rating */}
+          <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              gap: '8px'
+          }}>
+            <div style={{ 
+                color: 'rgba(255,255,255,0.85)', 
+                fontSize: '11px', 
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                flex: 1
+            }}>
+              {game.category || 'General'} Games / Unblocked Games
+            </div>
+            <div style={{ 
+                color: 'white', 
+                fontSize: '12px', 
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+            }}>
+              <span style={{ color: 'white' }}>★</span> {game.rating?.toFixed(1) || '4.5'}
+            </div>
+          </div>
+        </div>
+
+        {/* Badges */}
+        <div style={{ opacity: 1 }}>
+          {isNew && (
+            <div style={{ 
+              position: 'absolute', top: '10px', left: '10px', 
+              background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
+              color: 'white', fontSize: '10px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              zIndex: 15,
+              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              NEW ✨
+            </div>
+          )}
+          {isHot && !isNew && (
+            <div style={{ 
+              position: 'absolute', top: '10px', left: '10px', 
+              background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
+              color: 'white', fontSize: '10px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              zIndex: 15,
+              boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              HOT 🔥
+            </div>
+          )}
         </div>
       </div>
     </Link>
   );
 }
 
-export function CompactGameCard({ game }: { game: Game }) {
+export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBentoBig?: boolean }) {
+    const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
+    const [isHovered, setIsHovered] = useState(false);
+    
+    useEffect(() => {
+      if (game.thumbnail) {
+        const img = new Image();
+        img.src = game.thumbnail;
+        img.onload = () => setImgSrc(game.thumbnail);
+        img.onerror = () => setImgSrc(DEFAULT_ICON);
+      }
+    }, [game.thumbnail]);
+
     const isNew = game.id.length % 7 === 0;
     const isHot = game.id.length % 3 === 0;
   
     return (
       <Link 
         href={`/game/${game.slug}`}
+        title=""
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{ 
           display: 'block',
           textDecoration: 'none',
           color: 'inherit',
           background: 'var(--bg-panel)',
-          borderRadius: '6px',
+          borderRadius: '8px',
           overflow: 'hidden',
           border: '1px solid var(--border-subtle)',
           width: '100%',
-          aspectRatio: '16/10',
-          position: 'relative'
+          height: '100%',
+          position: 'relative',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: isHovered ? '0 12px 24px -5px rgba(0,0,0,0.3)' : 'none',
+          transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+          zIndex: isHovered ? 50 : 1
         }}
-        className="game-card-hover"
       >
         <img 
-          src={game.thumbnail} 
+          key={imgSrc}
+          src={imgSrc} 
           alt={game.title} 
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          title=""
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+          }}
         />
+
+        {/* Center Hover Label (Grey Box) */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'rgba(230, 230, 210, 0.95)',
+          color: '#333',
+          padding: '4px 10px',
+          borderRadius: '1px',
+          fontSize: isBentoBig ? '14px' : '11px',
+          fontWeight: 600,
+          opacity: isHovered ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+          zIndex: 20,
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none'
+        }}>
+          {game.title}
+        </div>
+
+        {/* Info Overlay (Matching Screenshot) - Now Hover Only */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 60%, transparent 100%)',
+          padding: isBentoBig ? '16px' : '8px',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 10,
+          opacity: isHovered ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: 'none'
+        }}>
+           <div style={{ 
+               color: 'white', 
+               fontSize: isBentoBig ? '24px' : '15px', 
+               fontWeight: 900, 
+               marginBottom: '1px',
+               textShadow: '0 1px 2px rgba(0,0,0,0.8)'
+           }}>
+             {game.title}
+           </div>
+           <div style={{ 
+               display: 'flex', 
+               justifyContent: 'space-between', 
+               alignItems: 'center',
+               gap: '6px'
+           }}>
+             <div style={{ 
+                 color: 'rgba(255,255,255,0.8)', 
+                 fontSize: isBentoBig ? '13px' : '10px', 
+                 whiteSpace: 'nowrap',
+                 overflow: 'hidden',
+                 textOverflow: 'ellipsis',
+                 flex: 1
+             }}>
+               {game.category || 'Game'} / Unblocked Games / More
+             </div>
+             <div style={{ 
+                 color: 'white', 
+                 fontSize: isBentoBig ? '14px' : '11px', 
+                 fontWeight: 800,
+                 display: 'flex',
+                 alignItems: 'center',
+                 gap: '3px'
+             }}>
+               <span>★</span> {game.rating?.toFixed(1) || '4.0'}
+             </div>
+           </div>
+        </div>
         
-        {/* Badges Scale down for compact */}
-        {isNew && (
-          <div style={{ 
-            position: 'absolute', top: '6px', left: '6px', 
-            background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
-            color: 'white', fontSize: '9px', fontWeight: 800, padding: '2px 5px', borderRadius: '3px'
-          }}>
-            NEW
-          </div>
-        )}
-        {isHot && !isNew && (
-          <div style={{ 
-            position: 'absolute', top: '6px', left: '6px', 
-            background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
-            color: 'white', fontSize: '9px', fontWeight: 800, padding: '2px 5px', borderRadius: '3px'
-          }}>
-            HOT
-          </div>
-        )}
+        {/* Badges */}
+        <div style={{ opacity: 1 }}>
+          {isNew && (
+            <div style={{ 
+              position: 'absolute', top: '10px', left: '10px', 
+              background: 'linear-gradient(135deg, #6366F1, #A855F7)', 
+              color: 'white', fontSize: isBentoBig ? '12px' : '9px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              zIndex: 15
+            }}>
+              NEW ✨
+            </div>
+          )}
+          {isHot && !isNew && (
+            <div style={{ 
+              position: 'absolute', top: '10px', left: '10px', 
+              background: 'linear-gradient(135deg, #F59E0B, #EF4444)', 
+              color: 'white', fontSize: isBentoBig ? '12px' : '9px', fontWeight: 900, padding: '3px 10px', borderRadius: '20px',
+              zIndex: 15
+            }}>
+              HOT 🔥
+            </div>
+          )}
+        </div>
       </Link>
     );
   }
@@ -129,8 +338,8 @@ export function GameGrid({ games }: { games: Game[] }) {
   return (
     <div style={{ 
       display: 'grid', 
-      gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))', 
-      gap: '20px' 
+      gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', 
+      gap: '12px' 
     }}>
       {games.map(game => (
         <GameCard key={game.id} game={game} />
