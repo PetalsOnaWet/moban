@@ -35,7 +35,7 @@ export function Navbar() {
       borderBottom: '1px solid var(--border-standard)',
       position: 'sticky',
       top: 0,
-      zIndex: 100,
+      zIndex: 1000,
       padding: '0 24px',
       display: 'flex',
       alignItems: 'center',
@@ -44,18 +44,17 @@ export function Navbar() {
     }}>
       {/* Left: Multicolored Logo */}
       <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-        <div style={{ 
-          background: '#FFB400', 
-          color: '#000', 
-          width: '32px', 
-          height: '32px', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          borderRadius: '6px',
-          fontWeight: 900,
-          fontSize: '18px'
-        }}>G</div>
+        <div style={{ position: 'relative', width: '38px', height: '38px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-standard)' }}>
+          <img 
+            src="/logo.webp" 
+            alt="Logo" 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover'
+            }} 
+          />
+        </div>
         <div style={{ display: 'flex', fontSize: '20px', fontWeight: 900, letterSpacing: '-0.02em' }}>
           <span style={{ color: '#FFB400' }}>GEOMETRY</span>
           <span style={{ color: 'var(--text-primary)', marginLeft: '4px' }}>DASH</span>

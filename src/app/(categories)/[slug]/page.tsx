@@ -4,6 +4,9 @@ import { CategoryClientArea } from "@/components/games/CategoryClientArea";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+import { Breadcrumbs } from "@/components/games/Breadcrumbs";
+import { BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
+
 export const dynamic = "force-dynamic";
 
 interface Props {
@@ -17,16 +20,25 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const decodedSlug = decodeURIComponent(slug);
   const pageNum = parseInt(page || '1', 10);
   
+  let cleanTitle = decodedSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  if (!cleanTitle.toLowerCase().endsWith(' games')) {
+    cleanTitle += ' Games';
+  } else {
+    cleanTitle = cleanTitle.substring(0, cleanTitle.length - 6) + ' Games';
+  }
+  
   const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : "";
   
   return {
-    title: `${decodedSlug} Games${pageSuffix} - Play Online for Free`,
-    description: `Browse our collection of ${decodedSlug} games. Play the best ${decodedSlug} games unblocked in your browser.`,
+    title: `${cleanTitle}${pageSuffix} - Play Free Online on Geometry Dash Lite`,
+    description: `Play the best online ${cleanTitle.toLowerCase()}${pageSuffix} for free. Discover a wide variety of ${cleanTitle.toLowerCase()} and enjoy the ultimate gaming experience.`,
     alternates: {
-      canonical: `/(categories)/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`
+      canonical: `/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`
     }
   };
 }
+
+import { redirect, RedirectType } from "next/navigation";
 
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { slug } = await params;
@@ -34,31 +46,41 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const decodedSlug = decodeURIComponent(slug);
   const currentPage = parseInt(page || '1', 10);
   
-  // 1. Sidebar Slug -> Database Category Mapping
-  const slugMapping: Record<string, string> = {
-    'hot': 'HOT', 
-    'new': 'NEW',
-    'flying': 'Action',
-    'jumping': 'Action',
-    'music': 'Rhythm',
-    'platformer': 'Action',
-    'rhythm': 'Rhythm'
-  };
+  // SEO REDIRECT: If old short URL is used, redirect to -games version
+  if (!decodedSlug.endsWith('-games')) {
+    const newPath = `/${decodedSlug}-games${currentPage > 1 ? `?page=${currentPage}` : ''}`;
+    redirect(newPath, RedirectType.replace);
+  }
 
-  const targetCategory = slugMapping[decodedSlug.toLowerCase()] || decodedSlug;
+  // Strip '-games' for internal data lookup
+  const lookupSlug = decodedSlug.replace(/-games$/, '');
+  
+  // 1. Data Fetching from JSON
+  const { games, totalCount } = await getGamesByCategory(lookupSlug, currentPage, 20);
 
-  // 2. Data Fetching with pagination
-  const { games, totalCount } = await getGamesByCategory(targetCategory, currentPage, 20);
-
-  const displayTitle = (targetCategory === 'HOT' || targetCategory === 'NEW')
-    ? (targetCategory === 'NEW' ? 'New Games' : 'Hot Games')
-    : `${targetCategory.charAt(0).toUpperCase() + targetCategory.slice(1)} Games`;
+  let cleanTitle = decodedSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  if (cleanTitle.toLowerCase().endsWith(' games')) {
+    cleanTitle = cleanTitle.substring(0, cleanTitle.length - 6) + ' Games';
+  } else {
+    cleanTitle += ' Games';
+  }
+  
+  const displayTitle = cleanTitle;
 
   return (
     <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
+      {/* SEO Structured Data */}
+      <BreadcrumbSchema items={[
+        { name: "Home", item: "/" },
+        { name: displayTitle, item: `/${slug}` }
+      ]} />
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '32px 48px' }}>
         
         <main style={{ minWidth: 0 }}>
+           <div style={{ marginBottom: '24px' }}>
+              <Breadcrumbs categoryName={displayTitle} categorySlug={slug} />
+           </div>
+
            <CategoryClientArea 
               initialGames={games} 
               title={displayTitle} 
@@ -78,32 +100,31 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                             marginBottom: '24px',
                             letterSpacing: '-0.02em'
                         }}>
-                            The Ultimate Guide to Best {decodedSlug} Games
+                            The Ultimate Guide to Best {displayTitle} Games
                         </h1>
                         <div style={{ width: '60px', height: '4px', background: 'var(--accent-cyan)', margin: '0 auto' }} />
                     </header>
 
                     <section style={{ marginBottom: '48px' }}>
                         <p style={{ fontSize: '18px', marginBottom: '24px' }}>
-                            Welcome to our dedicated collection of <strong style={{color: 'var(--text-primary)'}}>{decodedSlug} games</strong>. In the rapidly evolving landscape of browser-based gaming, these titles stand out as the pinnacle of entertainment, offering a perfect blend of accessibility, challenge, and pure unadulterated fun. Whether you are a seasoned gamer looking for the next big challenge or a casual player seeking a quick escape during your break, our curated selection of {decodedSlug} games is designed to cater to every skill level and preference.
+                            Welcome to our dedicated collection of <strong style={{color: 'var(--text-primary)'}}>{displayTitle} games</strong>. In the rapidly evolving landscape of browser-based gaming, these titles stand out as the pinnacle of entertainment, offering a perfect blend of accessibility, challenge, and pure unadulterated fun. Whether you are a seasoned gamer looking for the next big challenge or a casual player seeking a quick escape during your break, our curated selection of {displayTitle} games is designed to cater to every skill level and preference.
                         </p>
                         <p style={{ fontSize: '18px', marginBottom: '24px' }}>
-                            These games represent the best of what the web platform has to offer today. With advanced technologies like WebGL and optimized JavaScript engines, you no longer need high-end hardware to enjoy stunning graphics and fluid gameplay. Our platform ensures that every title in the {decodedSlug} category runs smoothly directly in your browser, requiring no downloads, no installations, and absolutely no costs. It is unblocked gaming at its finest, accessible from any device at any time.
+                            These games represent the best of what the web platform has to offer today. Our platform ensures that every title in the {displayTitle} category runs smoothly directly in your browser, requiring no downloads, no installations, and absolutely no costs. It is unblocked gaming at its finest, accessible from any device at any time.
                         </p>
                     </section>
                     
-                    {/* ... Rest of the large article ... */}
-                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>The Evolution of {decodedSlug} Gaming Genre</h2>
+                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>The Evolution of {displayTitle} Gaming</h2>
                     <section style={{ marginBottom: '48px' }}>
                         <p style={{ marginBottom: '24px' }}>
-                            The history of the {decodedSlug} genre is as fascinating as the games themselves. Originally starting as simple hobbyist projects, these games have evolved into complex experiences with millions of devoted fans worldwide. The genre's growth has been fueled by a passionate community of creators and players who constantly push the boundaries of what is possible within a web browser. From the iconic rhythm-based platforming of titles like Geometry Dash to the innovative mechanics of modern hybrid genres, {decodedSlug} games have continuously reinvented themselves to stay relevant and engaging.
+                            The {displayTitle} genre has evolved significantly over the years. From simple arcade mechanics to complex 3D experiences, these games have pushed the boundaries of browser technology. Players worldwide enjoy {displayTitle} games for their unique challenges and innovative gameplay.
                         </p>
                     </section>
 
                     <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>Frequently Asked Questions (FAQ)</h2>
                     <section style={{ background: 'var(--bg-input)', padding: '32px', borderRadius: '12px', border: '1px solid var(--border-standard)' }}>
                         <div style={{ marginBottom: '24px' }}>
-                            <h3 style={{ fontWeight: 700, marginBottom: '8px' }}>Are these {decodedSlug} games truly free?</h3>
+                            <h3 style={{ fontWeight: 700, marginBottom: '8px' }}>Are these {displayTitle} games truly free?</h3>
                             <p>Yes, every game in our collection is 100% free to play. We use an ad-supported model to ensure you never have to pay to enjoy premium gaming content.</p>
                         </div>
                     </section>
@@ -112,5 +133,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
            )}
         </main>
       </div>
+    </div>
   );
 }

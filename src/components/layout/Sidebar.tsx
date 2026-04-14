@@ -21,13 +21,13 @@ const sidebarLinks = [
   { name: "Home", href: "/", icon: Home, color: "var(--text-secondary)" },
   { name: "History", href: "/history", icon: History, color: "var(--text-secondary)" },
   { type: "separator" },
-  { name: "Hot Games", href: "/hot", icon: Flame, color: "#EF4444", badge: "HOT" },
-  { name: "New Games", href: "/new", icon: Star, color: "#F59E0B", badge: "NEW" },
-  { name: "Flying Games", href: "/flying", icon: Plane, color: "#94A3B8" },
-  { name: "Jumping Games", href: "/jumping", icon: ArrowUpCircle, color: "var(--text-primary)" },
-  { name: "Music Games", href: "/music", icon: Music, color: "var(--text-primary)" },
-  { name: "Platform Game", href: "/platformer", icon: Layout, color: "#A855F7" },
-  { name: "Rhythm Games", href: "/rhythm", icon: Activity, color: "#6366F1" },
+  { name: "Hot Games", href: "/hot-games", icon: Flame, color: "#EF4444", badge: "HOT" },
+  { name: "New Games", href: "/new-games", icon: Star, color: "#F59E0B", badge: "NEW" },
+  { name: "Flying Games", href: "/flying-games", icon: Plane, color: "#94A3B8" },
+  { name: "Jumping Games", href: "/jumping-games", icon: ArrowUpCircle, color: "var(--text-primary)" },
+  { name: "Music Games", href: "/music-games", icon: Music, color: "var(--text-primary)" },
+  { name: "Platform Game", href: "/platformer-games", icon: Layout, color: "#A855F7" },
+  { name: "Rhythm Games", href: "/rhythm-games", icon: Activity, color: "#6366F1" },
 ];
 
 export function Sidebar() {

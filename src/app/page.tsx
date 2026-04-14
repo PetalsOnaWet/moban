@@ -7,6 +7,7 @@ import { GamePlayerArea } from "@/components/games/GamePlayerArea";
 import { Breadcrumbs } from "@/components/games/Breadcrumbs";
 import { GameRating } from "@/components/games/GameRating";
 import Link from "next/link";
+import { GameSchema } from "@/components/seo/SchemaMarkup";
 
 export const dynamic = "force-dynamic";
 
@@ -56,7 +57,7 @@ export default async function Home() {
         {/* ROW 4: THE SURROUND BOX (SECOND SCREEN ONWARDS) */}
         <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: '160px 1fr 160px', 
+            gridTemplateColumns: '160px 1fr 340px', 
             gap: '24px', 
             alignItems: 'start' 
         }}>
@@ -107,9 +108,9 @@ export default async function Home() {
                     <Breadcrumbs 
                       gameTitle={featuredGame.title} 
                       categoryName={featuredGame.category || "Online Games"} 
-                      categorySlug={(featuredGame.category || "all").toLowerCase()} 
+                      categorySlug={`${(featuredGame.category || "all").toLowerCase().replace(/\s+/g, '-')}-games`} 
                     />
-                    <GameRating votes={15280} rating={4.8} />
+                    <GameRating slug={featuredGame.slug} votes={featuredGame.votes || 0} rating={featuredGame.rating || 0} />
                 </div>
 
                 <article style={{ color: '#374151', lineHeight: '1.7' }}>
@@ -120,17 +121,17 @@ export default async function Home() {
                         marginBottom: '32px',
                         letterSpacing: '-0.02em'
                     }}>
-                        Geometry Dash Lite - The Ultimate Rhythm Platformer Portal
+                        {featuredGame.title} - The Ultimate Rhythm Platformer Portal
                     </h1>
                     
                     <section style={{ marginBottom: '40px' }}>
                         <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '16px', color: '#111827' }}>
-                            Welcome to the World of Geometry Dash
+                            Welcome to the World of {featuredGame.title}
                         </h2>
                         <p style={{ fontSize: '16px', color: '#4B5563', marginBottom: '20px' }}>
                             Jump and fly your way through danger in this rhythm-based action platformer! 
-                            Our portal provides the smoothest Geometry Dash Lite experience online. 
-                            Prepare for a near impossible challenge in the world of Geometry Dash. 
+                            Our portal provides the smoothest {featuredGame.title} experience online. 
+                            Prepare for a near impossible challenge in the world of {featuredGame.title}. 
                             Push your skills to the limit as you jump, fly and flip your way through dangerous passages and spiky obstacles.
                         </p>
                     </section>
@@ -141,22 +142,22 @@ export default async function Home() {
                         </h2>
                         <p style={{ fontSize: '16px', color: '#4B5563', marginBottom: '20px' }}>
                             Simple one touch game play with lots of levels that will keep you entertained for hours! 
-                            Explore various game modes including Classic, Rhythm, and the community-created Geometry Dash Subzero, Meltdown, and World editions.
+                            Explore various game modes including Classic, Rhythm, and the community-created {featuredGame.title} Subzero, Meltdown, and World editions.
                         </p>
                     </section>
                 </article>
 
-                <GameTags />
-                <DiscussionBox slug="home" title="the Portal" />
+                <GameTags game={featuredGame} />
+                <DiscussionBox slug={featuredGame.slug} title={featuredGame.title} />
              </div>
           </main>
 
-          {/* RIGHT STICKY SIDEBAR */}
+          {/* RIGHT STICKY SIDEBAR (TWO COLUMNS) */}
           <aside style={{ 
               position: 'sticky', 
               top: '90px', 
-              display: 'flex', 
-              flexDirection: 'column', 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(2, 1fr)', 
               gap: '6px' 
           }}>
              {rightSidebarGames.map(g => (
@@ -164,6 +165,7 @@ export default async function Home() {
              ))}
           </aside>
         </div>
+        <GameSchema game={featuredGame} />
       </div>
     </div>
   );

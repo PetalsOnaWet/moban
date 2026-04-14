@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/games/Breadcrumbs";
 import { GameRating } from "@/components/games/GameRating";
 import { HistoryTracker } from "@/components/games/HistoryTracker";
+import { GameSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +78,7 @@ export default async function GamePage({ params }: Props) {
         {/* ROW 4: THE SURROUND BOX (SECOND SCREEN ONWARDS) */}
         <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: '160px 1fr 160px', 
+            gridTemplateColumns: '160px 1fr 340px', 
             gap: '24px', 
             alignItems: 'start' 
         }}>
@@ -127,10 +128,10 @@ export default async function GamePage({ params }: Props) {
                 }}>
                     <Breadcrumbs 
                       gameTitle={game.title} 
-                      categoryName="Rhythm Games" 
-                      categorySlug="rhythm" 
+                      categoryName={game.category} 
+                      categorySlug={`${game.category.toLowerCase().replace(/\s+/g, '-')}-games`} 
                     />
-                    <GameRating votes={4784} rating={3.9} />
+                    <GameRating slug={game.slug} votes={game.votes || 0} rating={game.rating || 0} />
                 </div>
 
                 {/* SEO Structured Content */}
@@ -159,7 +160,7 @@ export default async function GamePage({ params }: Props) {
                             What's {game.title}?
                         </h2>
                         <p style={{ fontSize: '17px', color: '#4B5563', marginBottom: '20px' }}>
-                            <span style={{ fontWeight: 700, color: '#4AB7D8' }}>{game.title}</span> is a free-to-play rhythm platformer version of the popular Geometry Dash game series. 
+                            <span style={{ fontWeight: 700, color: '#4AB7D8' }}>{game.title}</span> is a free-to-play {game.category.toLowerCase()} version of the popular Geometry Dash game series. 
                             It offers players a taste of the challenging gameplay, iconic music tracks, and rhythmic platforming 
                             that made the original game a global sensation.
                         </p>
@@ -181,7 +182,7 @@ export default async function GamePage({ params }: Props) {
                             gap: '12px',
                             listStyleType: 'disc'
                         }}>
-                            <li>13 official levels</li>
+                            <li>Official {game.category} levels</li>
                             <li>Simplified character customization</li>
                             <li>Ad-supported but free to play</li>
                             <li>Ideal for new players to experience the game</li>
@@ -189,17 +190,17 @@ export default async function GamePage({ params }: Props) {
                     </section>
                 </article>
 
-                <GameTags />
+                <GameTags game={game} />
                 <DiscussionBox slug={game.slug} title={game.title} />
              </div>
           </main>
 
-          {/* RIGHT STICKY SIDEBAR (Recommendation Surround) */}
+          {/* RIGHT STICKY SIDEBAR (TWO COLUMNS) */}
           <aside style={{ 
               position: 'sticky', 
               top: '90px', 
-              display: 'flex', 
-              flexDirection: 'column', 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(2, 1fr)', 
               gap: '6px' 
           }}>
              {rightSidebarGames.map(g => (
@@ -207,6 +208,14 @@ export default async function GamePage({ params }: Props) {
              ))}
           </aside>
         </div>
+        {/* SEO Structured Data */}
+        <GameSchema game={game} />
+        <BreadcrumbSchema items={[
+          { name: "Home", item: "/" },
+          { name: game.category, item: `/${game.category.toLowerCase().replace(/\s+/g, '-')}-games` },
+          { name: game.title, item: `/game/${game.slug}` }
+        ]} />
+
         <HistoryTracker game={{ id: game.id, title: game.title, slug: game.slug, thumbnail: game.thumbnail }} />
       </div>
     </div>

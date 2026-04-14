@@ -1,94 +1,295 @@
 "use client";
 
-import { MessageSquare } from "lucide-react";
-import { useEffect, useState } from "react";
-import { getComments } from "@/lib/core/games";
+import { MessageSquare, Reply, ThumbsUp, ThumbsDown, ChevronDown, Loader2 } from "lucide-react";
+import { useEffect, useState, useTransition, useMemo } from "react";
+import { getComments, voteComment, submitComment } from "@/lib/core/actions";
+import Script from "next/script";
+
+// Random color generator for avatars
+const COLORS = [
+  '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1', 
+  '#EC4899', '#8B5CF6', '#14B8A6', '#F97316'
+];
+
+function getAvatarColor(name: string) {
+  const charCode = name.charCodeAt(0) || 0;
+  return COLORS[charCode % COLORS.length];
+}
+
+function timeAgo(dateParam: string) {
+  const date = new Date(dateParam);
+  const now = new Date();
+  const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
+  
+  if (seconds < 60) return 'Just now';
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `${minutes} minutes ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours} hours ago`;
+  const days = Math.round(hours / 24);
+  if (days < 7) return `${days} days ago`;
+  return date.toLocaleDateString();
+}
 
 export function DiscussionBox({ slug, title }: { slug: string, title: string }) {
   const [comments, setComments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [replyTo, setReplyTo] = useState<number | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [sortBy, setSortBy] = useState('newest');
+
+  const loadComments = async (isNew = false, currentSort = sortBy) => {
+    try {
+      if (isNew) setLoading(true);
+      else setLoadingMore(true);
+      
+      const newOffset = isNew ? 0 : offset;
+      const data = await getComments(slug, 10, newOffset, currentSort);
+      
+      if (data.length < 10) setHasMore(false);
+      else setHasMore(true);
+      
+      if (isNew) {
+        setComments(data);
+        setOffset(10);
+      } else {
+        setComments(prev => [...prev, ...data]);
+        setOffset(prev => prev + 10);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchComments() {
-      try {
-        const data = await getComments(slug);
-        setComments(data || []);
-      } catch (e) {
-        console.error("Failed to fetch comments", e);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchComments();
+    loadComments(true);
   }, [slug]);
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSort = e.target.value.toLowerCase();
+    setSortBy(newSort);
+    loadComments(true, newSort);
+  };
+
+  const handleVote = async (id: number, type: 'like' | 'dislike') => {
+    setComments(prev => prev.map(c => {
+      if (c.id === id) {
+        return { ...c, [type + 's']: (c[type + 's'] || 0) + 1 };
+      }
+      return c;
+    }));
+    await voteComment(id, type);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    formData.append("slug", slug);
+    if (replyTo) formData.append("parentId", replyTo.toString());
+
+    startTransition(async () => {
+      const res = await submitComment(formData);
+      if (res.success) {
+        (e.target as HTMLFormElement).reset();
+        setReplyTo(null);
+        loadComments(true); // Reload to show new comment
+      } else {
+        alert(res.error);
+      }
+    });
+  };
+
+  if (loading) return <div style={{ textAlign: 'center', padding: '40px' }}><Loader2 className="animate-spin" /></div>;
 
   return (
     <div style={{ 
       marginTop: '64px', 
       padding: '40px', 
       background: 'var(--bg-panel)', 
-      borderRadius: '16px', 
+      borderRadius: '24px', 
       border: '1px solid var(--border-standard)',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
+      maxWidth: '800px',
+      margin: '64px auto'
     }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '24px', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '28px', fontWeight: 900, marginBottom: '24px', color: '#111827', letterSpacing: '-0.02em' }}>
         Discuss: {title}
       </h2>
       
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', fontWeight: 700, color: 'var(--text-secondary)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', borderBottom: '1px solid #F3F4F6', paddingBottom: '16px' }}>
+        <div style={{ fontSize: '18px', fontWeight: 700, color: '#111827' }}>
           Comments ({comments.length})
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '14px', color: 'var(--text-tertiary)', fontWeight: 600 }}>Sort by</span>
-          <select style={{ 
-            padding: '8px 16px', 
-            borderRadius: '8px', 
-            border: '1px solid var(--border-standard)', 
-            background: 'var(--bg-site)',
-            color: 'var(--text-primary)',
-            fontSize: '14px',
-            outline: 'none',
-            cursor: 'pointer'
-          }}>
-            <option>Newest</option>
-            <option>Popular</option>
-            <option>Oldest</option>
-          </select>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600 }}>Sort by</span>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <select 
+              onChange={handleSortChange}
+              value={sortBy === 'newest' ? 'Newest' : sortBy === 'popular' ? 'Popular' : 'Oldest'}
+              style={{ 
+                appearance: 'none',
+                padding: '6px 32px 6px 16px', 
+                borderRadius: '8px', 
+                border: '1px solid #E5E7EB', 
+                background: '#fff',
+                color: '#374151',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+            >
+              <option>Newest</option>
+              <option>Popular</option>
+              <option>Oldest</option>
+            </select>
+            <ChevronDown size={14} style={{ position: 'absolute', right: '12px', pointerEvents: 'none', color: '#6B7280' }} />
+          </div>
         </div>
       </div>
 
-      {comments.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-tertiary)' }}>
-           <MessageSquare size={48} style={{ margin: '0 auto 16px', opacity: 0.2 }} />
-           <p style={{ fontSize: '16px' }}>No comments yet. Be the first to start the discussion!</p>
-        </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {/* Real comments would be mapped here */}
-          {comments.map((comment, i) => (
-             <div key={i} style={{ padding: '16px', borderBottom: '1px solid var(--border-subtle)' }}>
-                {comment.content}
-             </div>
-          ))}
-        </div>
-      )}
-
-      {/* Input Placeholder */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '16px', 
-        marginTop: '40px',
-        padding: '24px',
-        background: 'var(--bg-site)',
-        borderRadius: '12px',
-        border: '1px dashed var(--border-standard)'
-      }}>
-        <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)' }} />
-        <div style={{ flex: 1, paddingTop: '10px', color: 'var(--text-tertiary)', fontSize: '15px' }}>
-          Write a comment...
-        </div>
+      {/* COMMENTS LIST */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        {comments.map((comment) => (
+          <div key={comment.id} style={{ display: 'flex', gap: '16px' }}>
+            {/* Avatar */}
+            <div style={{ 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '50%', 
+              background: getAvatarColor(comment.user_name),
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              fontSize: '18px',
+              fontWeight: 700,
+              flexShrink: 0
+            }}>
+              {comment.user_name.charAt(0).toUpperCase()}
+            </div>
+            
+            {/* Content Area */}
+            <div style={{ flex: 1 }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer' }}>{comment.user_name}</span>
+                  <span style={{ color: '#9CA3AF', fontSize: '14px' }}>{timeAgo(comment.created_at)}</span>
+               </div>
+               
+               <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.6', marginBottom: '12px' }}>
+                  {comment.content}
+               </p>
+               
+               {/* Actions */}
+               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <button 
+                    onClick={() => setReplyTo(comment.id)}
+                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
+                  >
+                    <Reply size={14} /> Reply
+                  </button>
+                  <button 
+                    onClick={() => handleVote(comment.id, 'like')}
+                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+                  >
+                    <ThumbsUp size={14} fill="var(--accent-cyan)" stroke="none" /> {comment.likes || 0}
+                  </button>
+                  <button 
+                    onClick={() => handleVote(comment.id, 'dislike')}
+                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+                  >
+                    <ThumbsDown size={14} fill="#EF4444" stroke="none" /> {comment.dislikes || 0}
+                  </button>
+               </div>
+            </div>
+          </div>
+        ))}
+        
+        {hasMore && (
+          <button 
+            onClick={() => loadComments()}
+            disabled={loadingMore}
+            style={{ 
+              width: '100%', 
+              padding: '12px', 
+              background: '#2563EB', 
+              color: '#fff', 
+              border: 'none', 
+              borderRadius: '8px', 
+              fontWeight: 700, 
+              cursor: 'pointer',
+              marginTop: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}
+          >
+            {loadingMore ? <Loader2 size={18} className="animate-spin" /> : `Load more ${comments.length > 5 ? '5' : ''} comments`}
+          </button>
+        )}
       </div>
+
+      {/* POST COMMENT FORM */}
+      <form onSubmit={handleFormSubmit} style={{ marginTop: '48px', padding: '32px', background: '#F9FAFB', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
+        {replyTo && (
+          <div style={{ marginBottom: '16px', fontSize: '14px', color: '#6B7280', display: 'flex', justifyContent: 'space-between' }}>
+            Replying to comment #{replyTo}
+            <button type="button" onClick={() => setReplyTo(null)} style={{ background: 'none', border: 'none', color: '#EF4444', fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
+          </div>
+        )}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          <input 
+            name="userName"
+            placeholder="Name" 
+            required
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }} 
+          />
+          <input 
+            name="email"
+            type="email"
+            placeholder="Email" 
+            required
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }} 
+          />
+        </div>
+        <textarea 
+          name="content"
+          placeholder="Content" 
+          required
+          rows={4}
+          style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px', marginBottom: '16px', resize: 'vertical' }} 
+        />
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
+          <input type="checkbox" id="terms" required />
+          <label htmlFor="terms" style={{ fontSize: '14px', color: '#4B5563' }}>I'd read and agree to the terms and conditions.</label>
+        </div>
+
+        <button 
+          type="submit" 
+          disabled={isPending}
+          style={{ 
+            background: '#2563EB', 
+            color: '#fff', 
+            padding: '10px 24px', 
+            borderRadius: '6px', 
+            border: 'none', 
+            fontWeight: 700, 
+            cursor: 'pointer',
+            fontSize: '15px',
+            opacity: isPending ? 0.7 : 1
+          }}
+        >
+          {isPending ? 'Posting...' : 'Comment'}
+        </button>
+      </form>
     </div>
   );
 }

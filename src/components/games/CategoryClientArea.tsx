@@ -36,14 +36,33 @@ export function CategoryClientArea({ initialGames, title, currentPage, totalGame
         </h2>
       </div>
 
-      {/* BENTO GRID */}
-      <BentoGrid games={initialGames} />
-
-      {/* PAGINATION */}
-      <Pagination 
-        currentPage={currentPage} 
-        totalPages={totalPages} 
-      />
+      {/* BENTO GRID OR EMPTY STATE */}
+      {initialGames.length > 0 ? (
+        <>
+          <BentoGrid games={initialGames} />
+          {/* PAGINATION */}
+          <Pagination 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+          />
+        </>
+      ) : (
+        <div style={{ 
+            padding: '80px 0', 
+            textAlign: 'center', 
+            background: 'var(--bg-input)', 
+            borderRadius: '12px',
+            border: '2px dashed var(--border-standard)',
+            margin: '40px 0'
+        }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                No games found
+            </h3>
+            <p style={{ color: 'var(--text-muted)' }}>
+                We couldn't find any games matching this category yet.
+            </p>
+        </div>
+      )}
     </>
   );
 }

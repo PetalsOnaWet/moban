@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   description: "Play Geometry Dash Lite online for free. Experience the ultimate rhythm-based platformer with intense levels and addictive gameplay.",
   keywords: ["Geometry Dash Lite", "Geometry Dash", "Rhythm Games", "Play Online", "Free Games"],
   metadataBase: new URL(siteConfig.url),
+  icons: {
+    icon: "/favicon.webp",
+    apple: "/favicon.webp",
+  },
 };
 
 export default function RootLayout({

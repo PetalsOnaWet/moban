@@ -4,8 +4,6 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 interface BreadcrumbsProps {
-  gameTitle: string;
-  categoryName: string;
   gameTitle?: string;
   categoryName?: string;
   categorySlug?: string;
@@ -19,7 +17,7 @@ export function Breadcrumbs({ gameTitle, categoryName, categorySlug }: Breadcrum
       {categoryName && (
         <>
           <ChevronRight size={14} />
-          <Link href={`/category/${categorySlug}`} style={{ color: '#6366F1', textDecoration: 'none', fontWeight: 500 }}>
+          <Link href={`/${categorySlug || categoryName.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#6366F1', textDecoration: 'none', fontWeight: 500 }}>
             {categoryName}
           </Link>
         </>
