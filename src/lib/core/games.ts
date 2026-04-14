@@ -182,12 +182,13 @@ export async function searchGames(query: string, limit: number = 50) {
 /**
  * Get games by category
  */
-export async function getGamesByCategory(category: string, limit: number = 60) {
-  const getStaticFallback = () => {
-    return (gamesData as any[])
-      .filter(g => g.category?.toLowerCase() === category.toLowerCase())
-      .slice(0, limit)
+export async function getGamesByCategory(category: string, page: number = 1, limit: number = 20) {
+  const getStaticFallback = (total = 0) => {
+    const filtered = (gamesData as any[])
+      .filter(g => g.category?.toLowerCase() === category.toLowerCase());
+    const sliced = filtered.slice((page - 1) * limit, page * limit)
       .map(g => ({ ...g, rating: 0, votes: 0 })) as Game[];
+    return { games: sliced, totalCount: total || filtered.length };
   };
 
   try {
@@ -195,15 +196,28 @@ export async function getGamesByCategory(category: string, limit: number = 60) {
     const db = env?.DB as D1Database | undefined;
     if (!db) return getStaticFallback();
 
-    const { results } = await db.prepare(
-      "SELECT * FROM games WHERE LOWER(category) = LOWER(?) ORDER BY created_at DESC LIMIT ?"
+    const offset = (page - 1) * limit;
+
+    // 1. Get total count
+    const countResult = await db.prepare(
+      "SELECT COUNT(*) as count FROM games WHERE LOWER(category) = LOWER(?)"
     )
-    .bind(category, limit)
+    .bind(category)
+    .first();
+    
+    const totalCount = (countResult?.count as number) || 0;
+
+    // 2. Get paginated results
+    const { results } = await db.prepare(
+      "SELECT * FROM games WHERE LOWER(category) = LOWER(?) ORDER BY created_at DESC LIMIT ? OFFSET ?"
+    )
+    .bind(category, limit, offset)
     .all();
 
-    if (!results || results.length === 0) return getStaticFallback();
+    if (!results || results.length === 0) return getStaticFallback(totalCount);
 
-    return await attachRatings(db, results) as Game[];
+    const games = await attachRatings(db, results) as Game[];
+    return { games, totalCount };
   } catch (error) {
     return getStaticFallback();
   }

@@ -15,18 +15,13 @@ interface Game {
 interface CategoryClientAreaProps {
   initialGames: Game[];
   title: string;
+  currentPage: number;
+  totalGames: number;
 }
 
-export function CategoryClientArea({ initialGames, title }: CategoryClientAreaProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const gamesPerPage = 20; // Example count per page
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // In a real implementation, you would fetch new data here
-    // or slice the initialGames if all data is passed.
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+export function CategoryClientArea({ initialGames, title, currentPage, totalGames }: CategoryClientAreaProps) {
+  const gamesPerPage = 20;
+  const totalPages = Math.ceil(totalGames / gamesPerPage);
 
   return (
     <>
@@ -47,8 +42,7 @@ export function CategoryClientArea({ initialGames, title }: CategoryClientAreaPr
       {/* PAGINATION */}
       <Pagination 
         currentPage={currentPage} 
-        totalPages={5} 
-        onPageChange={handlePageChange} 
+        totalPages={totalPages} 
       />
     </>
   );

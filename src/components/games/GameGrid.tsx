@@ -12,6 +12,8 @@ interface Game {
   category: string;
   rating?: number;
   votes?: number;
+  is_featured?: boolean;
+  created_at: string;
 }
 
 const DEFAULT_ICON = "/images/default-game.png?v=1";
@@ -31,8 +33,13 @@ export function GameCard({ game }: { game: Game }) {
     }
   }, [game.thumbnail]);
 
-  const isNew = game.id.length % 7 === 0;
-  const isHot = game.id.length % 3 === 0;
+  const ratingValue = game.rating || 0;
+  const isHot = ratingValue > 4.5;
+  
+  const createdDate = new Date(game.created_at).getTime();
+  const now = new Date().getTime();
+  const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+  const isNew = (now - createdDate) < thirtyDaysInMs;
 
   return (
     <Link 
@@ -205,8 +212,13 @@ export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBe
       }
     }, [game.thumbnail]);
 
-    const isNew = game.id.length % 7 === 0;
-    const isHot = game.id.length % 3 === 0;
+    const ratingValue = game.rating || 0;
+    const isHot = ratingValue > 4.5;
+    
+    const createdDate = new Date(game.created_at).getTime();
+    const now = new Date().getTime();
+    const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+    const isNew = (now - createdDate) < thirtyDaysInMs;
   
     return (
       <Link 
