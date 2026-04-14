@@ -2,7 +2,7 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import gamesData from "@/config/games-data.json";
 
 export interface Game {
-  id: number;
+  id: string;
   slug: string;
   title: string;
   description: string;

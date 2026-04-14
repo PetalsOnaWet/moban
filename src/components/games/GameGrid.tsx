@@ -3,19 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Star, Flame, Zap, Sparkles } from "lucide-react";
-
-interface Game {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  category: string;
-  tags?: string;
-  rating?: number;
-  votes?: number;
-  is_featured?: boolean;
-  created_at: string;
-}
+import { Game } from "@/lib/core/games";
 
 const DEFAULT_ICON = "/images/default-game.png?v=1";
 

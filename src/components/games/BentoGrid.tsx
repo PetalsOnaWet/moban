@@ -3,13 +3,7 @@
 import Link from "next/link";
 import { CompactGameCard } from "./GameGrid";
 
-interface Game {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  category: string;
-}
+import { Game } from "@/lib/core/games";
 
 export function BentoGrid({ games }: { games: Game[] }) {
   // We need to carefully map games to grid positions

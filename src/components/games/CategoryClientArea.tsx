@@ -4,13 +4,7 @@ import { useState } from "react";
 import { BentoGrid } from "./BentoGrid";
 import { Pagination } from "../layout/Pagination";
 
-interface Game {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  category: string;
-}
+import { Game } from "@/lib/core/games";
 
 interface CategoryClientAreaProps {
   initialGames: Game[];
