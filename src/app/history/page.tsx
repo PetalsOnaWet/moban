@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { Game } from "@/lib/core/games";
 import { getHistory, GameHistoryItem } from "@/lib/core/history";
 import { BentoGrid } from "@/components/games/BentoGrid";
 
@@ -9,7 +10,7 @@ export default function HistoryPage() {
   const [visibleItems, setVisibleItems] = useState<GameHistoryItem[]>([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
-  
+
   const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,9 +44,9 @@ export default function HistoryPage() {
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '32px 48px' }}>
         <main style={{ minWidth: 0 }}>
           <div style={{ marginBottom: '32px' }}>
-            <h1 style={{ 
-              fontSize: '32px', 
-              fontWeight: 900, 
+            <h1 style={{
+              fontSize: '32px',
+              fontWeight: 900,
               color: 'var(--text-primary)',
               marginBottom: '8px'
             }}>
@@ -58,15 +59,15 @@ export default function HistoryPage() {
 
           {visibleItems.length > 0 ? (
             <>
-              <BentoGrid games={visibleItems} />
+              <BentoGrid games={visibleItems as Game[]} />
               {/* Infinite Scroll Trigger */}
               <div ref={loaderRef} style={{ height: '40px', background: 'transparent' }} />
             </>
           ) : (
-            <div style={{ 
-              padding: '100px 0', 
-              textAlign: 'center', 
-              background: 'var(--bg-input)', 
+            <div style={{
+              padding: '100px 0',
+              textAlign: 'center',
+              background: 'var(--bg-input)',
               borderRadius: '12px',
               border: '2px dashed var(--border-standard)'
             }}>
