@@ -142,17 +142,33 @@ export async function getComments(slug: string, limit: number = 10, offset: numb
     if (sort === 'oldest') orderBy = 'created_at ASC';
     if (sort === 'popular') orderBy = 'likes DESC';
 
-    const { results } = await db.prepare(`
+    // 1. Fetch top-level comments (root threads)
+    const { results: roots } = await db.prepare(`
       SELECT id, slug, parent_id, user_name, content, likes, dislikes, created_at 
       FROM comments 
-      WHERE slug = ? 
+      WHERE slug = ? AND parent_id IS NULL
       ORDER BY ${orderBy} 
       LIMIT ? OFFSET ?
     `)
       .bind(slug, limit, offset)
       .all();
 
-    return results as any[];
+    if (!roots || roots.length === 0) return [];
+
+    // 2. Fetch all replies for these specific roots
+    const rootIds = roots.map(r => r.id);
+    const placeholders = rootIds.map(() => "?").join(",");
+    const { results: replies } = await db.prepare(`
+      SELECT id, slug, parent_id, user_name, content, likes, dislikes, created_at 
+      FROM comments 
+      WHERE parent_id IN (${placeholders})
+      ORDER BY created_at ASC
+    `)
+      .bind(...rootIds)
+      .all();
+
+    // 3. Return combined results (flat array, UI will group them)
+    return [...roots, ...replies];
   } catch (error) {
     console.error("D1 Error (getComments):", error);
     return [];
