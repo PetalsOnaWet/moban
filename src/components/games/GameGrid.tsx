@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Star, Flame, Zap, Sparkles } from "lucide-react";
 import { Game } from "@/lib/core/games";
 
-const DEFAULT_ICON = "/images/default-game.png?v=1";
+const DEFAULT_ICON = "/images/default-game.png";
 
 export function GameCard({ game }: { game: Game }) {
   const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);

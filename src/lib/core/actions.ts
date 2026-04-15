@@ -42,7 +42,8 @@ export async function submitComment(formData: FormData) {
     return { success: true };
   } catch (error) {
     console.error("D1 Error (submitComment):", error);
-    return { error: "评论提交失败" };
+    const msg = error instanceof Error ? error.message : String(error);
+    return { error: `评论提交失败: ${msg}` };
   }
 }
 
@@ -64,7 +65,8 @@ export async function voteComment(commentId: number, type: 'like' | 'dislike') {
     return { success: true };
   } catch (error) {
     console.error("D1 Error (voteComment):", error);
-    return { error: "投票失败" };
+    const msg = error instanceof Error ? error.message : String(error);
+    return { error: `投票失败: ${msg}` };
   }
 }
 
@@ -122,7 +124,8 @@ export async function submitRating(slug: string, rating: number) {
     return { success: true };
   } catch (error) {
     console.error("D1 Error (submitRating):", error);
-    return { error: "评分失败" };
+    const msg = error instanceof Error ? error.message : String(error);
+    return { error: `评分失败: ${msg}` };
   }
 }
 
