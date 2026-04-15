@@ -71,11 +71,15 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
     loadComments(true);
   }, [slug]);
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newSort = e.target.value.toLowerCase();
-    setSortBy(newSort);
-    loadComments(true, newSort);
-  };
+  const groupedComments = useMemo(() => {
+    const roots = comments.filter(c => !c.parent_id);
+    const replies = comments.filter(c => c.parent_id);
+    
+    return roots.map(root => ({
+      ...root,
+      replies: replies.filter(r => r.parent_id === root.id)
+    }));
+  }, [comments]);
 
   const handleVote = async (id: number, type: 'like' | 'dislike') => {
     setComments(prev => prev.map(c => {
@@ -104,6 +108,87 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       }
     });
   };
+
+  const CommentItem = ({ comment, isReply = false }: { comment: any, isReply?: boolean }) => (
+    <div style={{ 
+      display: 'flex', 
+      gap: '16px',
+      paddingLeft: isReply ? '56px' : '0',
+      position: 'relative'
+    }}>
+      {isReply && (
+        <div style={{
+          position: 'absolute',
+          left: '28px',
+          top: '-16px',
+          bottom: '20px',
+          width: '2px',
+          background: '#E5E7EB',
+          borderRadius: '1px'
+        }} />
+      )}
+      
+      {/* Avatar */}
+      <div style={{
+        width: isReply ? '32px' : '40px',
+        height: isReply ? '32px' : '40px',
+        borderRadius: '50%',
+        background: getAvatarColor(comment.user_name),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#fff',
+        fontSize: isReply ? '14px' : '18px',
+        fontWeight: 700,
+        flexShrink: 0,
+        zIndex: 1
+      }}>
+        {comment.user_name.charAt(0).toUpperCase()}
+      </div>
+
+      {/* Content Area */}
+      <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer', fontSize: isReply ? '14px' : '15px' }}>
+            {comment.user_name}
+          </span>
+          <span style={{ color: '#9CA3AF', fontSize: '13px' }}>{timeAgo(comment.created_at)}</span>
+        </div>
+
+        <p style={{ color: '#4B5563', fontSize: isReply ? '14px' : '15px', lineHeight: '1.6', marginBottom: '12px' }}>
+          {comment.content}
+        </p>
+
+        {/* Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {!isReply && (
+            <button
+              onClick={() => {
+                setReplyTo(comment.id);
+                // Scroll to form or focus
+                document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
+            >
+              <Reply size={14} /> Reply
+            </button>
+          )}
+          <button
+            onClick={() => handleVote(comment.id, 'like')}
+            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+          >
+            <ThumbsUp size={14} fill={comment.likes > 0 ? "var(--accent-cyan)" : "none"} stroke={comment.likes > 0 ? "none" : "currentColor"} /> {comment.likes || 0}
+          </button>
+          <button
+            onClick={() => handleVote(comment.id, 'dislike')}
+            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+          >
+            <ThumbsDown size={14} fill={comment.dislikes > 0 ? "#EF4444" : "none"} stroke={comment.dislikes > 0 ? "none" : "currentColor"} /> {comment.dislikes || 0}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   if (loading) return <div style={{ textAlign: 'center', padding: '40px' }}><Loader2 className="animate-spin" /></div>;
 
@@ -156,58 +241,18 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
 
       {/* COMMENTS LIST */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-        {comments.map((comment) => (
-          <div key={comment.id} style={{ display: 'flex', gap: '16px' }}>
-            {/* Avatar */}
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: getAvatarColor(comment.user_name),
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              fontSize: '18px',
-              fontWeight: 700,
-              flexShrink: 0
-            }}>
-              {comment.user_name.charAt(0).toUpperCase()}
-            </div>
-
-            {/* Content Area */}
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer' }}>{comment.user_name}</span>
-                <span style={{ color: '#9CA3AF', fontSize: '14px' }}>{timeAgo(comment.created_at)}</span>
+        {groupedComments.map((thread) => (
+          <div key={thread.id} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <CommentItem comment={thread} />
+            
+            {/* Thread Replies */}
+            {thread.replies && thread.replies.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {thread.replies.map((reply: any) => (
+                  <CommentItem key={reply.id} comment={reply} isReply />
+                ))}
               </div>
-
-              <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.6', marginBottom: '12px' }}>
-                {comment.content}
-              </p>
-
-              {/* Actions */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <button
-                  onClick={() => setReplyTo(comment.id)}
-                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
-                >
-                  <Reply size={14} /> Reply
-                </button>
-                <button
-                  onClick={() => handleVote(comment.id, 'like')}
-                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
-                >
-                  <ThumbsUp size={14} fill="var(--accent-cyan)" stroke="none" /> {comment.likes || 0}
-                </button>
-                <button
-                  onClick={() => handleVote(comment.id, 'dislike')}
-                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
-                >
-                  <ThumbsDown size={14} fill="#EF4444" stroke="none" /> {comment.dislikes || 0}
-                </button>
-              </div>
-            </div>
+            )}
           </div>
         ))}
 
