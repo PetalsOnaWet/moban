@@ -18,7 +18,9 @@ export function VoteSection({ pageId, initialStats }: VoteSectionProps) {
 
   useEffect(() => {
     if (!initialStats) {
-      getPageStats(pageId).then(setStats);
+      getPageStats(pageId).then(res => {
+        setStats({ avgRating: res.rating, total: res.votes });
+      });
     }
   }, [pageId, initialStats]);
 
@@ -31,7 +33,7 @@ export function VoteSection({ pageId, initialStats }: VoteSectionProps) {
       setUserRating(rating);
       // Refresh stats
       const newStats = await getPageStats(pageId);
-      setStats(newStats);
+      setStats({ avgRating: newStats.rating, total: newStats.votes });
     }
     setIsSubmitting(false);
   };

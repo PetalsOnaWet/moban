@@ -21,7 +21,7 @@ export interface Game {
  */
 async function attachRatings(games: any[]) {
   if (!games.length) return games;
-  
+
   const env = await getSafeContext();
   if (!env || !env.DB) {
     // Fallback to 0 ratings if DB is not available
@@ -38,8 +38,8 @@ async function attachRatings(games: any[]) {
       FROM game_stats 
       WHERE slug IN (${placeholders})
     `)
-    .bind(...slugs)
-    .all();
+      .bind(...slugs)
+      .all();
 
     const statsMap = new Map(stats.map((s: any) => [s.slug, s]));
 
@@ -77,7 +77,7 @@ export async function getSafeContext(): Promise<any> {
   try {
     const context = getCloudflareContext();
     if (context && context.env) return context.env;
-  } catch (e) {}
+  } catch (e) { }
   return null;
 }
 
@@ -116,7 +116,7 @@ export async function getRelatedGames(currentSlug: string, category: string, lim
       ...g,
       id: (g as any).id || g.slug,
     }));
-  
+
   return await attachRatings(related) as unknown as Game[];
 }
 
@@ -129,13 +129,13 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
   if (normalizedTax.endsWith('-games')) {
     normalizedTax = normalizedTax.replace(/-games$/, '');
   }
-  
+
   // Filter by category OR tag OR special slug OR smarter search fallback
   const filtered = gamesData.filter(g => {
     // 1. Special cases (Logical)
-    if (normalizedTax === 'hot') return (g.rating || 0) > 4.5;
+    if (normalizedTax === 'hot') return ((g as any).rating || 0) > 4.5;
     if (normalizedTax === 'new') {
-      const createdDate = new Date(g.created_at).getTime();
+      const createdDate = new Date((g as any).created_at).getTime();
       const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
       return (new Date().getTime() - createdDate) < thirtyDaysInMs;
     }
@@ -143,12 +143,12 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
     // 2. Direct matches (Category/Tags)
     const catMatch = g.category && g.category.toLowerCase().includes(normalizedTax);
     const tagMatch = g.tags && g.tags.toLowerCase().includes(normalizedTax);
-    
+
     // 3. Smart Fallback for sidebar items like "flying", "jumping", "rhythm"
     // We check if title or description contains the keyword
-    const searchMatch = g.title.toLowerCase().includes(normalizedTax) || 
-                       (g.description && g.description.toLowerCase().includes(normalizedTax));
-    
+    const searchMatch = g.title.toLowerCase().includes(normalizedTax) ||
+      (g.description && g.description.toLowerCase().includes(normalizedTax));
+
     return catMatch || tagMatch || searchMatch;
   });
 
@@ -167,14 +167,14 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
 // Keep search function
 export async function searchGames(query: string, limit: number = 50) {
   const normalizedQuery = query.toLowerCase();
-  const results = gamesData.filter(g => 
-    g.title.toLowerCase().includes(normalizedQuery) || 
+  const results = gamesData.filter(g =>
+    g.title.toLowerCase().includes(normalizedQuery) ||
     (g.description && g.description.toLowerCase().includes(normalizedQuery))
   ).slice(0, limit)
-  .map(g => ({
-    ...g,
-    id: (g as any).id || g.slug,
-  }));
+    .map(g => ({
+      ...g,
+      id: (g as any).id || g.slug,
+    }));
 
   return await attachRatings(results) as unknown as Game[];
 }

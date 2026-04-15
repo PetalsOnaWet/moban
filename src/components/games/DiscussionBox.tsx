@@ -7,7 +7,7 @@ import Script from "next/script";
 
 // Random color generator for avatars
 const COLORS = [
-  '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1', 
+  '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1',
   '#EC4899', '#8B5CF6', '#14B8A6', '#F97316'
 ];
 
@@ -20,7 +20,7 @@ function timeAgo(dateParam: string) {
   const date = new Date(dateParam);
   const now = new Date();
   const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
-  
+
   if (seconds < 60) return 'Just now';
   const minutes = Math.round(seconds / 60);
   if (minutes < 60) return `${minutes} minutes ago`;
@@ -45,13 +45,13 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
     try {
       if (isNew) setLoading(true);
       else setLoadingMore(true);
-      
+
       const newOffset = isNew ? 0 : offset;
       const data = await getComments(slug, 10, newOffset, currentSort);
-      
+
       if (data.length < 10) setHasMore(false);
       else setHasMore(true);
-      
+
       if (isNew) {
         setComments(data);
         setOffset(10);
@@ -108,11 +108,11 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
   if (loading) return <div style={{ textAlign: 'center', padding: '40px' }}><Loader2 className="animate-spin" /></div>;
 
   return (
-    <div style={{ 
-      marginTop: '64px', 
-      padding: '40px', 
-      background: 'var(--bg-panel)', 
-      borderRadius: '24px', 
+    <div style={{
+      marginTop: '64px',
+      padding: '40px',
+      background: 'var(--bg-panel)',
+      borderRadius: '24px',
       border: '1px solid var(--border-standard)',
       boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
       maxWidth: '800px',
@@ -121,7 +121,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       <h2 style={{ fontSize: '28px', fontWeight: 900, marginBottom: '24px', color: '#111827', letterSpacing: '-0.02em' }}>
         Discuss: {title}
       </h2>
-      
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', borderBottom: '1px solid #F3F4F6', paddingBottom: '16px' }}>
         <div style={{ fontSize: '18px', fontWeight: 700, color: '#111827' }}>
           Comments ({comments.length})
@@ -129,14 +129,14 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600 }}>Sort by</span>
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-            <select 
+            <select
               onChange={handleSortChange}
               value={sortBy === 'newest' ? 'Newest' : sortBy === 'popular' ? 'Popular' : 'Oldest'}
-              style={{ 
+              style={{
                 appearance: 'none',
-                padding: '6px 32px 6px 16px', 
-                borderRadius: '8px', 
-                border: '1px solid #E5E7EB', 
+                padding: '6px 32px 6px 16px',
+                borderRadius: '8px',
+                border: '1px solid #E5E7EB',
                 background: '#fff',
                 color: '#374151',
                 fontSize: '14px',
@@ -159,10 +159,10 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
         {comments.map((comment) => (
           <div key={comment.id} style={{ display: 'flex', gap: '16px' }}>
             {/* Avatar */}
-            <div style={{ 
-              width: '40px', 
-              height: '40px', 
-              borderRadius: '50%', 
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
               background: getAvatarColor(comment.user_name),
               display: 'flex',
               alignItems: 'center',
@@ -174,55 +174,55 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
             }}>
               {comment.user_name.charAt(0).toUpperCase()}
             </div>
-            
+
             {/* Content Area */}
             <div style={{ flex: 1 }}>
-               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer' }}>{comment.user_name}</span>
-                  <span style={{ color: '#9CA3AF', fontSize: '14px' }}>{timeAgo(comment.created_at)}</span>
-               </div>
-               
-               <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.6', marginBottom: '12px' }}>
-                  {comment.content}
-               </p>
-               
-               {/* Actions */}
-               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <button 
-                    onClick={() => setReplyTo(comment.id)}
-                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
-                  >
-                    <Reply size={14} /> Reply
-                  </button>
-                  <button 
-                    onClick={() => handleVote(comment.id, 'like')}
-                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
-                  >
-                    <ThumbsUp size={14} fill="var(--accent-cyan)" stroke="none" /> {comment.likes || 0}
-                  </button>
-                  <button 
-                    onClick={() => handleVote(comment.id, 'dislike')}
-                    style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
-                  >
-                    <ThumbsDown size={14} fill="#EF4444" stroke="none" /> {comment.dislikes || 0}
-                  </button>
-               </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer' }}>{comment.user_name}</span>
+                <span style={{ color: '#9CA3AF', fontSize: '14px' }}>{timeAgo(comment.created_at)}</span>
+              </div>
+
+              <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.6', marginBottom: '12px' }}>
+                {comment.content}
+              </p>
+
+              {/* Actions */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <button
+                  onClick={() => setReplyTo(comment.id)}
+                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
+                >
+                  <Reply size={14} /> Reply
+                </button>
+                <button
+                  onClick={() => handleVote(comment.id, 'like')}
+                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+                >
+                  <ThumbsUp size={14} fill="var(--accent-cyan)" stroke="none" /> {comment.likes || 0}
+                </button>
+                <button
+                  onClick={() => handleVote(comment.id, 'dislike')}
+                  style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+                >
+                  <ThumbsDown size={14} fill="#EF4444" stroke="none" /> {comment.dislikes || 0}
+                </button>
+              </div>
             </div>
           </div>
         ))}
-        
+
         {hasMore && (
-          <button 
+          <button
             onClick={() => loadComments()}
             disabled={loadingMore}
-            style={{ 
-              width: '100%', 
-              padding: '12px', 
-              background: '#2563EB', 
-              color: '#fff', 
-              border: 'none', 
-              borderRadius: '8px', 
-              fontWeight: 700, 
+            style={{
+              width: '100%',
+              padding: '12px',
+              background: '#2563EB',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: 700,
               cursor: 'pointer',
               marginTop: '16px',
               display: 'flex',
@@ -245,43 +245,43 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
           </div>
         )}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-          <input 
+          <input
             name="userName"
-            placeholder="Name" 
+            placeholder="Name"
             required
-            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }} 
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }}
           />
-          <input 
+          <input
             name="email"
             type="email"
-            placeholder="Email" 
+            placeholder="Email"
             required
-            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }} 
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }}
           />
         </div>
-        <textarea 
+        <textarea
           name="content"
-          placeholder="Content" 
+          placeholder="Content"
           required
           rows={4}
-          style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px', marginBottom: '16px', resize: 'vertical' }} 
+          style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px', marginBottom: '16px', resize: 'vertical' }}
         />
-        
+
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
           <input type="checkbox" id="terms" required />
           <label htmlFor="terms" style={{ fontSize: '14px', color: '#4B5563' }}>I'd read and agree to the terms and conditions.</label>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isPending}
-          style={{ 
-            background: '#2563EB', 
-            color: '#fff', 
-            padding: '10px 24px', 
-            borderRadius: '6px', 
-            border: 'none', 
-            fontWeight: 700, 
+          style={{
+            background: '#2563EB',
+            color: '#fff',
+            padding: '10px 24px',
+            borderRadius: '6px',
+            border: 'none',
+            fontWeight: 700,
             cursor: 'pointer',
             fontSize: '15px',
             opacity: isPending ? 0.7 : 1

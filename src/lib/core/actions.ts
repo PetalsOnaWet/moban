@@ -34,8 +34,8 @@ export async function submitComment(formData: FormData) {
     await db.prepare(
       "INSERT INTO comments (slug, parent_id, user_name, user_email, content) VALUES (?, ?, ?, ?, ?)"
     )
-    .bind(slug, parentId, userName, email, content)
-    .run();
+      .bind(slug, parentId, userName, email, content)
+      .run();
 
     revalidatePath(`/game/${slug}`);
     revalidatePath("/");
@@ -56,7 +56,7 @@ export async function voteComment(commentId: number, type: 'like' | 'dislike') {
     const db = env.DB as D1Database;
 
     const column = type === 'like' ? 'likes' : 'dislikes';
-    
+
     await db.prepare(`UPDATE comments SET ${column} = ${column} + 1 WHERE id = ?`)
       .bind(commentId)
       .run();
@@ -80,11 +80,11 @@ export async function getPageStats(slug: string) {
     const result = await db.prepare(
       "SELECT total_rating, vote_count FROM game_stats WHERE slug = ?"
     )
-    .bind(slug)
-    .first();
+      .bind(slug)
+      .first();
 
     if (!result) return { rating: 0, votes: 0 };
-    
+
     const votes = result.vote_count as number;
     const total = result.total_rating as number;
     return {
@@ -114,8 +114,8 @@ export async function submitRating(slug: string, rating: number) {
         vote_count = vote_count + 1,
         updated_at = CURRENT_TIMESTAMP
     `)
-    .bind(slug, rating)
-    .run();
+      .bind(slug, rating)
+      .run();
 
     revalidatePath("/");
     revalidatePath(`/game/${slug}`);
@@ -146,8 +146,8 @@ export async function getComments(slug: string, limit: number = 10, offset: numb
       ORDER BY ${orderBy} 
       LIMIT ? OFFSET ?
     `)
-    .bind(slug, limit, offset)
-    .all();
+      .bind(slug, limit, offset)
+      .all();
 
     return results as any[];
   } catch (error) {

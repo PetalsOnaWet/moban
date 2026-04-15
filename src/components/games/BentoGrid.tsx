@@ -9,12 +9,12 @@ export function BentoGrid({ games }: { games: Game[] }) {
   // We need to carefully map games to grid positions
   // Special positions for Big Cards: index 0 and index 3 (based on 1-based logic)
   // But in a flat list, we need to handle the flow
-  
+
   return (
-    <div style={{ 
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(auto-fill, 160px)', 
-      gridAutoRows: '100px', 
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, 160px)',
+      gridAutoRows: '100px',
       gap: '6px',
       marginBottom: '40px'
     }}>
@@ -25,16 +25,16 @@ export function BentoGrid({ games }: { games: Game[] }) {
         const isBig2 = index === 3;
 
         return (
-          <div 
-            key={game.id} 
-            style={{ 
+          <div
+            key={game.id}
+            style={{
               gridColumn: isBig1 || isBig2 ? 'span 2' : 'span 1',
               gridRow: isBig1 || isBig2 ? 'span 3' : 'span 1'
             }}
           >
-            <CompactGameCard 
-              game={game} 
-              isBentoBig={isBig1 || isBig2} 
+            <CompactGameCard
+              game={game}
+              isBentoBig={isBig1 || isBig2}
             />
           </div>
         );
