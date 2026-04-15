@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { Game } from "@/lib/core/games";
 import { addToHistory } from "@/lib/core/history";
 
 interface HistoryTrackerProps {
-  game: {
-    id: string;
-    title: string;
-    slug: string;
-    thumbnail: string;
-  };
+  game: Game;
 }
 
 export function HistoryTracker({ game }: HistoryTrackerProps) {
