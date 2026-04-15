@@ -1,16 +1,14 @@
 "use client";
 
+import { Game } from "./games";
+
 const HISTORY_KEY = "geometry_dash_history";
 
-export interface GameHistoryItem {
-  id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
+export interface GameHistoryItem extends Game {
   playedAt: number;
 }
 
-export function addToHistory(game: { id: string; title: string; slug: string; thumbnail: string }) {
+export function addToHistory(game: Game) {
   if (typeof window === "undefined") return;
 
   const rawHistory = localStorage.getItem(HISTORY_KEY);
