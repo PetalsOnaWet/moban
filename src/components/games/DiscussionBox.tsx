@@ -71,6 +71,12 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
     loadComments(true);
   }, [slug]);
 
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSort = e.target.value.toLowerCase();
+    setSortBy(newSort);
+    loadComments(true, newSort);
+  };
+
   const groupedComments = useMemo(() => {
     const roots = comments.filter(c => !c.parent_id);
     const replies = comments.filter(c => c.parent_id);
@@ -282,7 +288,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       </div>
 
       {/* POST COMMENT FORM */}
-      <form onSubmit={handleFormSubmit} style={{ marginTop: '48px', padding: '32px', background: '#F9FAFB', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
+      <form id="comment-form" onSubmit={handleFormSubmit} style={{ marginTop: '48px', padding: '32px', background: '#F9FAFB', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
         {replyTo && (
           <div style={{ marginBottom: '16px', fontSize: '14px', color: '#6B7280', display: 'flex', justifyContent: 'space-between' }}>
             Replying to comment #{replyTo}
