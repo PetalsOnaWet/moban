@@ -265,16 +265,19 @@ a { text-decoration: none; color: inherit; }
 .rotate-prompt {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  color: white;
-  z-index: 10000;
-  flex-direction: column;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FEE2E2; /* Light red/pinkish alert background */
+  color: #991B1B;
+  z-index: 1000;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 24px;
-  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-top: 1px solid #FECACA;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 @media screen and (max-width: 1024px) and (orientation: portrait) {
