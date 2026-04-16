@@ -148,13 +148,15 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
         padding: '24px'
       }}>
         <div 
+          onClick={(e) => e.stopPropagation()} /* Prevent click through to backdrop */
           id="game-popup-container"
           style={{
             width: '100%',
             maxWidth: '1200px',
-            height: '85vh',
+            height: isFullscreen ? '100vh' : '85vh',
+            aspectRatio: isFullscreen ? 'auto' : '16 / 9',
             background: '#000',
-            borderRadius: '12px',
+            borderRadius: isFullscreen ? '0' : '12px',
             overflow: 'hidden',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
             display: 'flex',
@@ -188,7 +190,7 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           <div style={{ flex: 1, position: 'relative', background: '#000' }}>
              <IframeContent id="game-iframe-popup" />
           </div>
-          <ControlBar inPopup={true} />
+          {!isFullscreen && <ControlBar inPopup={true} />}
         </div>
       </div>,
       document.body
@@ -214,7 +216,9 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
         <div style={{ 
           position: 'relative', 
           width: '100%',
-          height: isFullscreen ? '100vh' : '75vh', 
+          height: isFullscreen ? '100vh' : 'auto', 
+          aspectRatio: isFullscreen ? 'auto' : '16 / 9',
+          maxHeight: isFullscreen ? 'none' : '75vh',
           background: '#000' 
         }}>
           {isLoading && (
