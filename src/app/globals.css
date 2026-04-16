@@ -193,9 +193,36 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .row-discovery {
     flex-direction: row;
+  }
+}
+
+.grid-discovery-inner {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+@media (min-width: 1024px) {
+  .grid-discovery-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.layout-player-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 1024px) {
+  .layout-player-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    align-items: start;
   }
 }
 

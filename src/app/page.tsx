@@ -35,7 +35,7 @@ export default async function Home() {
         {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
         <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
             <DiscoveryAds />
-            <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
+            <div className="grid-discovery-inner">
                 {games.slice(1, 10).map(g => (
                     <CompactGameCard key={g.id} game={g} />
                 ))}

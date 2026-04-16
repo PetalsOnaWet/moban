@@ -9,7 +9,7 @@ interface GamePlayerAreaProps {
 
 export function GamePlayerArea({ title, url }: GamePlayerAreaProps) {
   return (
-    <div className="layout-surround" style={{ 
+    <div className="layout-player-grid" style={{ 
       marginTop: '0',
       marginBottom: '6px'
     }}>

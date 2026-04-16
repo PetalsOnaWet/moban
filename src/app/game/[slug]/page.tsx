@@ -56,7 +56,7 @@ export default async function GamePage({ params }: Props) {
                 {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
                 <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
                     <DiscoveryAds />
-                    <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
+                    <div className="grid-discovery-inner">
                         {topAdGames.map(g => (
                             <CompactGameCard key={g.id} game={g} />
                         ))}
