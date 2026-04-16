@@ -23,28 +23,7 @@ export default async function Home() {
   const mainGridGames = games.slice(0, 48);
 
   return (
-    <div className="animate-fade-in" style={{ padding: '0 0 64px', position: 'relative' }}>
-      <div style={{ 
-        position: 'absolute', 
-        top: '20px', 
-        left: '20px', 
-        zIndex: 50,
-        background: 'rgba(0,0,0,0.5)',
-        color: '#fff',
-        padding: '4px 12px',
-        borderRadius: '20px',
-        fontSize: '12px',
-        fontWeight: 500,
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px'
-      }}>
-        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', display: 'inline-block' }}></span>
-        游戏盒子形态1.0
-      </div>
+    <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
       <div style={{ margin: '0 auto' }}>
         
         {/* ROW 1: FIRST SCREEN (Hero & Ad) */}
