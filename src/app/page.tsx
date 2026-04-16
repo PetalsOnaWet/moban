@@ -41,7 +41,7 @@ export default async function Home() {
         {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
         <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
             <DiscoveryAds />
-            <div className="grid-discovery-inner">
+            <div className="grid-discovery-inner desktop-only">
                 {games.slice(1, 4).map(g => (
                     <CompactGameCard key={g.id} game={g} />
                 ))}
@@ -143,13 +143,13 @@ export default async function Home() {
                 <GameTags game={featuredGame} />
                 <DiscussionBox slug={featuredGame.slug} title={featuredGame.title} />
 
-                {/* Mobile Bottom Grid (Remaining 3 icons) */}
+                {/* Mobile Bottom Grid (Remaining games) */}
                 <div className="grid-mobile-2 mobile-only" style={{ marginTop: '32px' }}>
-                    {horizontalGridGames.slice(6, 9).map(g => (
+                    {remainingGames.map(g => (
                         <CompactGameCard key={g.id} game={g} />
                     ))}
-                    {/* PC sidebar games are also useful to show here for mobile */}
-                    {rightSidebarGames.slice(0, 3).map(g => (
+                    {/* If remaining is too small, fallback to some from sidebars */}
+                    {remainingGames.length < 4 && rightSidebarGames.map(g => (
                         <CompactGameCard key={g.id} game={g} />
                     ))}
                 </div>

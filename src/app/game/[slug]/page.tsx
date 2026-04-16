@@ -60,7 +60,7 @@ export default async function GamePage({ params }: Props) {
                 {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
                 <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
                     <DiscoveryAds />
-                    <div className="grid-discovery-inner">
+                    <div className="grid-discovery-inner desktop-only">
                         {topAdGames.map(g => (
                             <CompactGameCard key={g.id} game={g} />
                         ))}
@@ -171,12 +171,13 @@ export default async function GamePage({ params }: Props) {
                             <GameTags game={game} />
                             <DiscussionBox slug={game.slug} title={game.title} />
 
-                            {/* Mobile Bottom Grid (Remaining 3 icons) */}
+                            {/* Mobile Bottom Grid (Remaining games) */}
                             <div className="grid-mobile-2 mobile-only" style={{ marginTop: '32px' }}>
-                                {horizontalGridGames.slice(6, 9).map(g => (
+                                {remainingGames.map(g => (
                                     <CompactGameCard key={g.id} game={g} />
                                 ))}
-                                {rightSidebarGames.slice(0, 3).map(g => (
+                                {/* Fallback if remaining is too small */}
+                                {remainingGames.length < 4 && rightSidebarGames.map(g => (
                                     <CompactGameCard key={g.id} game={g} />
                                 ))}
                             </div>
