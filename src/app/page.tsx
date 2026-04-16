@@ -17,9 +17,9 @@ export default async function Home() {
   const featuredGame = games.find(g => g.is_featured) || games[0] || { title: "Geometry Dash Lite", slug: "geometry-dash-lite", thumbnail: "/og.png" };
   
   // Layout Slicing (Matching [slug]/page.tsx)
-  const horizontalGridGames = games.slice(4, 13);
-  const leftSidebarGames = games.slice(13, 19);
-  const rightSidebarGames = games.slice(19, 25);
+  const horizontalGridGames = games.slice(4, 14);
+  const leftSidebarGames = games.slice(14, 20);
+  const rightSidebarGames = games.slice(20, 26);
   const mainGridGames = games.slice(0, 48);
 
   return (

@@ -184,7 +184,7 @@ a { text-decoration: none; color: inherit; }
 
 @media (min-width: 769px) {
   .grid-mobile-2 {
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(10, 1fr);
   }
 }
 
@@ -209,8 +209,7 @@ a { text-decoration: none; color: inherit; }
 
 @media (min-width: 1024px) {
   .grid-discovery-inner {
-    grid-template-columns: 1fr;
-    max-width: 160px; /* Force small column as in 'half-column' style */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

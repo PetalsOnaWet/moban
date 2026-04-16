@@ -39,9 +39,9 @@ export default async function GamePage({ params }: Props) {
 
     // Layout Slicing
     const topAdGames = relatedGames.slice(0, 3);
-    const horizontalGridGames = relatedGames.slice(3, 12);
-    const leftSidebarGames = relatedGames.slice(12, 18);
-    const rightSidebarGames = relatedGames.slice(18, 24);
+    const horizontalGridGames = relatedGames.slice(3, 13);
+    const leftSidebarGames = relatedGames.slice(13, 19);
+    const rightSidebarGames = relatedGames.slice(19, 25);
 
     return (
         <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
