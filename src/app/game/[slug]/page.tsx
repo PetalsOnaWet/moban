@@ -63,9 +63,16 @@ export default async function GamePage({ params }: Props) {
                     </div>
                 </div>
 
-                {/* ROW 3: FULL HORIZONTAL GRID (9 Icons or grid-mobile-2) */}
-                <div className="grid-mobile-2" style={{ marginBottom: '32px' }}>
+                {/* ROW 3: FULL HORIZONTAL GRID (9 Icons for Desktop, 6 for Mobile) */}
+                <div className="grid-mobile-2 desktop-only" style={{ marginBottom: '32px' }}>
                     {horizontalGridGames.map(g => (
+                        <CompactGameCard key={g.id} game={g} />
+                    ))}
+                </div>
+
+                {/* Mobile Top Grid (2x3 = 6 icons) */}
+                <div className="grid-mobile-2 mobile-only" style={{ marginBottom: '32px' }}>
+                    {horizontalGridGames.slice(0, 6).map(g => (
                         <CompactGameCard key={g.id} game={g} />
                     ))}
                 </div>
@@ -159,6 +166,16 @@ export default async function GamePage({ params }: Props) {
 
                             <GameTags game={game} />
                             <DiscussionBox slug={game.slug} title={game.title} />
+
+                            {/* Mobile Bottom Grid (Remaining 3 icons) */}
+                            <div className="grid-mobile-2 mobile-only" style={{ marginTop: '32px' }}>
+                                {horizontalGridGames.slice(6, 9).map(g => (
+                                    <CompactGameCard key={g.id} game={g} />
+                                ))}
+                                {rightSidebarGames.slice(0, 3).map(g => (
+                                    <CompactGameCard key={g.id} game={g} />
+                                ))}
+                            </div>
                         </div>
                     </main>
 
