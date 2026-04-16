@@ -1,24 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Maximize, Loader2, Share2, X as CloseIcon } from "lucide-react";
+import { Maximize, Loader2, Share2, X as CloseIcon, Minimize } from "lucide-react";
 import { ShareModal } from "./ShareModal";
 
 export function GameIframe({ title, url }: { title: string; url: string }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+    
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
   const toggleFullScreen = () => {
-    const iframe = document.getElementById(isPopupOpen ? "game-iframe-popup" : "game-iframe");
-    if (iframe?.requestFullscreen) {
-      iframe.requestFullscreen();
+    const target = isPopupOpen ? document.getElementById("game-popup-container") : containerRef.current;
+    if (!document.fullscreenElement) {
+      if (target?.requestFullscreen) {
+        target.requestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
     }
   };
 
@@ -86,6 +101,37 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
     />
   );
 
+  const FullscreenCloseButton = () => (
+    isFullscreen && (
+      <button 
+        onClick={() => document.exitFullscreen()}
+        style={{
+          position: 'fixed',
+          top: '20px',
+          right: '24px',
+          zIndex: 9999,
+          background: 'rgba(0,0,0,0.6)',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50%',
+          width: '50px',
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          backdropFilter: 'blur(4px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+          transition: 'all 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.8)'}
+        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}
+      >
+        <CloseIcon size={28} />
+      </button>
+    )
+  );
+
   // Focus Overlay UI
   const renderPopup = () => {
     if (!isPopupOpen || !mounted) return null;
@@ -101,36 +147,43 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
         backdropFilter: 'blur(8px)',
         padding: '24px'
       }}>
-        <div style={{
-          width: '100%',
-          maxWidth: '1200px',
-          height: '85vh',
-          background: '#000',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative'
-        }}>
-          {/* Close Button Top Right */}
-          <button 
-            onClick={() => setIsPopupOpen(false)}
-            style={{
-              position: 'absolute',
-              top: '12px',
-              right: '12px',
-              zIndex: 100,
-              background: 'rgba(0,0,0,0.5)',
-              border: 'none',
-              borderRadius: '50%',
-              padding: '8px',
-              color: '#FFF',
-              cursor: 'pointer'
-            }}
-          >
-            <CloseIcon size={24} />
-          </button>
+        <div 
+          id="game-popup-container"
+          style={{
+            width: '100%',
+            maxWidth: '1200px',
+            height: '85vh',
+            background: '#000',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative'
+          }}
+        >
+          <FullscreenCloseButton />
+          
+          {/* Close Button Top Right (Window mode only) */}
+          {!isFullscreen && (
+            <button 
+              onClick={() => setIsPopupOpen(false)}
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                zIndex: 100,
+                background: 'rgba(0,0,0,0.5)',
+                border: 'none',
+                borderRadius: '50%',
+                padding: '8px',
+                color: '#FFF',
+                cursor: 'pointer'
+              }}
+            >
+              <CloseIcon size={24} />
+            </button>
+          )}
 
           <div style={{ flex: 1, position: 'relative', background: '#000' }}>
              <IframeContent id="game-iframe-popup" />
@@ -144,19 +197,24 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
 
   return (
     <>
-      <div style={{ 
-        position: 'relative', 
-        width: '100%', 
-        background: 'var(--bg-panel)', 
-        borderRadius: '2px',
-        overflow: 'hidden',
-        border: '1px solid var(--border-subtle)'
-      }}>
+      <div 
+        ref={containerRef}
+        style={{ 
+          position: 'relative', 
+          width: '100%', 
+          background: 'var(--bg-panel)', 
+          borderRadius: '2px',
+          overflow: 'hidden',
+          border: '1px solid var(--border-subtle)'
+        }}
+      >
+        <FullscreenCloseButton />
+        
         {/* Regular Game Area */}
         <div style={{ 
           position: 'relative', 
           width: '100%',
-          height: '75vh', 
+          height: isFullscreen ? '100vh' : '75vh', 
           background: '#000' 
         }}>
           {isLoading && (
@@ -167,7 +225,7 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           <IframeContent id="game-iframe" />
         </div>
 
-        <ControlBar />
+        {!isFullscreen && <ControlBar />}
 
         <ShareModal 
           isOpen={isShareOpen} 

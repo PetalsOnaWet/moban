@@ -260,3 +260,32 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
 }
+
+/* Rotate Prompt for Mobile Portrait */
+.rotate-prompt {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  color: white;
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .rotate-prompt {
+    display: flex;
+  }
+}
+
+.rotate-prompt-text {
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 250px;
+}
