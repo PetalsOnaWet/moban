@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Maximize, Loader2, Share2, X as CloseIcon, Minimize } from "lucide-react";
+import { Maximize, Loader2, Share2, X as CloseIcon } from "lucide-react";
 import { ShareModal } from "./ShareModal";
 
 export function GameIframe({ title, url }: { title: string; url: string }) {
@@ -17,23 +17,55 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
     setMounted(true);
     
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      // @ts-ignore - Handle multiple browser vendors
+      const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      setIsFullscreen(isFull);
     };
 
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    // Safety timeout: force hide loader after 5 seconds if onLoad doesn't fire
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'msfullscreenchange'];
+    events.forEach(event => document.addEventListener(event, handleFullscreenChange));
+    
+    return () => {
+      events.forEach(event => document.removeEventListener(event, handleFullscreenChange));
+      clearTimeout(timer);
+    };
   }, []);
+
+  const requestFullscreen = (element: HTMLElement) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if ((element as any).webkitRequestFullscreen) {
+      (element as any).webkitRequestFullscreen();
+    } else if ((element as any).mozRequestFullScreen) {
+      (element as any).mozRequestFullScreen();
+    } else if ((element as any).msRequestFullscreen) {
+      (element as any).msRequestFullscreen();
+    }
+  };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if ((document as any).webkitExitFullscreen) {
+      (document as any).webkitExitFullscreen();
+    } else if ((document as any).mozCancelFullScreen) {
+      (document as any).mozCancelFullScreen();
+    } else if ((document as any).msExitFullscreen) {
+      (document as any).msExitFullscreen();
+    }
+  };
 
   const toggleFullScreen = () => {
     const target = isPopupOpen ? document.getElementById("game-popup-container") : containerRef.current;
-    if (!document.fullscreenElement) {
-      if (target?.requestFullscreen) {
-        target.requestFullscreen();
-      }
+    if (!isFullscreen) {
+      if (target) requestFullscreen(target);
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+      exitFullscreen();
     }
   };
 
@@ -95,7 +127,15 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
       id={id}
       src={url}
       title={title}
-      style={{ width: '100%', height: '100%', border: 'none' }}
+      style={{ 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%', 
+        height: '100%', 
+        border: 'none',
+        zIndex: 1
+      }}
       allow="fullscreen; autoplay; encrypted-media"
       onLoad={() => setIsLoading(false)}
     />
@@ -104,30 +144,30 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
   const FullscreenCloseButton = () => (
     isFullscreen && (
       <button 
-        onClick={() => document.exitFullscreen()}
+        onClick={(e) => { e.preventDefault(); e.stopPropagation(); exitFullscreen(); }}
+        onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); exitFullscreen(); }}
         style={{
-          position: 'fixed',
+          position: 'absolute',
           top: '20px',
           right: '24px',
-          zIndex: 9999,
-          background: 'rgba(0,0,0,0.6)',
+          zIndex: 99999,
+          background: 'rgba(0,0,0,0.8)',
           color: 'white',
-          border: 'none',
+          border: '2px solid rgba(255,255,255,0.2)',
           borderRadius: '50%',
-          width: '50px',
-          height: '50px',
+          width: '56px',
+          height: '56px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          backdropFilter: 'blur(4px)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-          transition: 'all 0.2s'
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+          pointerEvents: 'auto',
+          touchAction: 'none'
         }}
-        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.8)'}
-        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}
       >
-        <CloseIcon size={28} />
+        <CloseIcon size={32} strokeWidth={2.5} />
       </button>
     )
   );
@@ -148,7 +188,7 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
         padding: '24px'
       }}>
         <div 
-          onClick={(e) => e.stopPropagation()} /* Prevent click through to backdrop */
+          onClick={(e) => e.stopPropagation()}
           id="game-popup-container"
           style={{
             width: '100%',
@@ -164,8 +204,6 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
             position: 'relative'
           }}
         >
-          <FullscreenCloseButton />
-          
           {/* Close Button Top Right (Window mode only) */}
           {!isFullscreen && (
             <button 
@@ -191,6 +229,9 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
              <IframeContent id="game-iframe-popup" />
           </div>
           {!isFullscreen && <ControlBar inPopup={true} />}
+          
+          {/* Exit Button Rendered Last for Native Depth */}
+          <FullscreenCloseButton />
         </div>
       </div>,
       document.body
@@ -206,12 +247,11 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           width: '100%', 
           background: 'var(--bg-panel)', 
           borderRadius: '2px',
-          overflow: 'hidden',
-          border: '1px solid var(--border-subtle)'
+          overflow: isFullscreen ? 'visible' : 'hidden',
+          border: isFullscreen ? 'none' : '1px solid var(--border-subtle)',
+          zIndex: isFullscreen ? 10000 : 'auto'
         }}
       >
-        <FullscreenCloseButton />
-        
         {/* Regular Game Area */}
         <div style={{ 
           position: 'relative', 
@@ -222,7 +262,13 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           background: '#000' 
         }}>
           {isLoading && (
-            <div className="util-flex-center" style={{ position: 'absolute', inset: 0, zIndex: 10, background: '#000' }}>
+            <div className="util-flex-center" style={{ 
+              position: 'absolute', 
+              inset: 0, 
+              zIndex: 10, 
+              background: '#000',
+              pointerEvents: 'none' 
+            }}>
               <Loader2 className="animate-spin" size={32} color="var(--accent-cyan)" />
             </div>
           )}
@@ -236,6 +282,9 @@ export function GameIframe({ title, url }: { title: string; url: string }) {
           onClose={() => setIsShareOpen(false)} 
           title={title} 
         />
+
+        {/* Exit Button Rendered Last for Native Depth */}
+        <FullscreenCloseButton />
       </div>
 
       {renderPopup()}
