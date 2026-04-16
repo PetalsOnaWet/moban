@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/layout/Navbar";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Footer } from "@/components/layout/Footer";
+import { UIProvider } from "@/context/UIContext";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -28,16 +30,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <div className="layout-wrapper">
-          {/* Left Sidebar */}
-          <Sidebar />
+        <UIProvider>
+          <Navbar />
+          <div className="layout-wrapper">
+            {/* Left Sidebar */}
+            <Sidebar />
 
-          {/* Right Main Area */}
-          <main style={{ flex: 1, minWidth: 0 }}>
-            {children}
-          </main>
-        </div>
+            {/* Right Main Area */}
+            <main style={{ flex: 1, minWidth: 0 }}>
+              {children}
+            </main>
+          </div>
+          <Footer />
+        </UIProvider>
       </body>
     </html>
   );

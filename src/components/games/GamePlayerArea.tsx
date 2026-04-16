@@ -9,13 +9,9 @@ interface GamePlayerAreaProps {
 
 export function GamePlayerArea({ title, url }: GamePlayerAreaProps) {
   return (
-    <div style={{ 
-      display: 'grid', 
-      gridTemplateColumns: '1fr 340px', 
-      gap: '12px', 
+    <div className="layout-surround" style={{ 
       marginTop: '0',
-      marginBottom: '6px',
-      alignItems: 'start'
+      marginBottom: '6px'
     }}>
       {/* LEFT: Game Player Area */}
       <section style={{ minWidth: 0 }}>
@@ -23,7 +19,7 @@ export function GamePlayerArea({ title, url }: GamePlayerAreaProps) {
       </section>
 
       {/* RIGHT: Top Ad Sidebar (Static) */}
-      <aside style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <aside className="desktop-only" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--border-subtle)', textAlign: 'center', padding: '10px 0' }}>
           <div style={{ 
               background: '#4AB7D8', 

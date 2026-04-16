@@ -33,11 +33,27 @@ const sidebarLinks = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
+  const { sidebarOpen, closeSidebar } = useUI();
 
   return (
     <>
+      {/* Mobile Backdrop */}
+      {sidebarOpen && (
+        <div 
+          onClick={closeSidebar}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.4)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 49
+          }}
+          className="mobile-only"
+        />
+      )}
+
       <aside 
-        className={`sidebar-nav ${isHovered ? 'is-expanded' : ''}`}
+        className={`sidebar-nav ${isHovered ? 'is-expanded' : ''} ${sidebarOpen ? 'is-open' : ''}`}
         style={{ 
           width: isHovered ? '260px' : '80px',
           boxShadow: isHovered ? '10px 0 30px rgba(0,0,0,0.08)' : 'none'
@@ -117,4 +133,3 @@ export function Sidebar() {
     </>
   );
 }
-

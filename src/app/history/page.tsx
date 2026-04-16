@@ -41,7 +41,7 @@ export default function HistoryPage() {
 
   return (
     <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '32px 48px' }}>
+      <div className="util-container" style={{ padding: '32px 16px' }}>
         <main style={{ minWidth: 0 }}>
           <div style={{ marginBottom: '32px' }}>
             <h1 style={{

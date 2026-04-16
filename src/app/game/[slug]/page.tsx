@@ -45,7 +45,7 @@ export default async function GamePage({ params }: Props) {
 
     return (
         <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
-            <div style={{ margin: '0 auto' }}>
+            <div className="util-container">
 
                 {/* ROW 1: FIRST SCREEN (Player & Ad) */}
                 <GamePlayerArea
@@ -54,34 +54,24 @@ export default async function GamePage({ params }: Props) {
                 />
 
                 {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
-                <div style={{ display: 'flex', gap: '6px', marginBottom: '32px', alignItems: 'flex-start' }}>
+                <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
                     <DiscoveryAds />
-                    <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+                    <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
                         {topAdGames.map(g => (
                             <CompactGameCard key={g.id} game={g} />
                         ))}
                     </div>
                 </div>
 
-                {/* ROW 3: FULL HORIZONTAL GRID (9 Icons) */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(9, 1fr)',
-                    gap: '6px',
-                    marginBottom: '32px'
-                }}>
+                {/* ROW 3: FULL HORIZONTAL GRID (9 Icons or grid-mobile-2) */}
+                <div className="grid-mobile-2" style={{ marginBottom: '32px' }}>
                     {horizontalGridGames.map(g => (
                         <CompactGameCard key={g.id} game={g} />
                     ))}
                 </div>
 
                 {/* ROW 4: THE SURROUND BOX (SECOND SCREEN ONWARDS) */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '160px 1fr 340px',
-                    gap: '24px',
-                    alignItems: 'start'
-                }}>
+                <div className="layout-surround">
                     {/* LEFT STICKY SIDEBAR (Recommendation Surround) */}
                     <aside style={{
                         position: 'sticky',
@@ -89,7 +79,7 @@ export default async function GamePage({ params }: Props) {
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '6px'
-                    }}>
+                    }} className="desktop-only">
                         {leftSidebarGames.map(g => (
                             <CompactGameCard key={g.id} game={g} />
                         ))}
@@ -116,7 +106,7 @@ export default async function GamePage({ params }: Props) {
                         </div>
 
                         {/* White Box Content Area */}
-                        <div style={{ background: '#FFF', borderRadius: '4px', padding: '32px', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                        <div style={{ background: '#FFF', borderRadius: '4px', padding: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                             {/* Content Header: Breadcrumbs & Rating */}
                             <div style={{
                                 display: 'flex',
@@ -137,20 +127,20 @@ export default async function GamePage({ params }: Props) {
                             {/* SEO Structured Content */}
                             <article style={{ color: '#374151', lineHeight: '1.7' }}>
                                 <h1 style={{
-                                    fontSize: '42px',
+                                    fontSize: '28px',
                                     fontWeight: 900,
                                     color: '#111827',
-                                    marginBottom: '40px',
+                                    marginBottom: '32px',
                                     letterSpacing: '-0.02em'
                                 }}>
                                     {game.title}
                                 </h1>
 
-                                <section style={{ marginBottom: '48px' }}>
-                                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>
+                                <section style={{ marginBottom: '32px' }}>
+                                    <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>
                                         About {game.title}
                                     </h2>
-                                    <p style={{ fontSize: '17px', color: '#4B5563', marginBottom: '24px' }}>
+                                    <p style={{ fontSize: '15px', color: '#4B5563', marginBottom: '24px' }}>
                                         {game.description}
                                     </p>
                                 </section>
@@ -164,29 +154,6 @@ export default async function GamePage({ params }: Props) {
                                         It offers players a taste of the challenging gameplay, iconic music tracks, and rhythmic platforming
                                         that made the original game a global sensation.
                                     </p>
-                                    <p style={{ fontSize: '17px', color: '#4B5563' }}>
-                                        The basic premise - <span style={{ fontWeight: 700 }}>{game.title}</span> is a game of <span style={{ fontStyle: 'italic', color: '#6366F1' }}>music</span>, <span style={{ fontStyle: 'italic', color: '#6366F1' }}>rhythm</span> and lightning-fast reflexes and maddeningly addictive difficulty.
-                                    </p>
-                                </section>
-
-                                <section style={{ marginBottom: '48px' }}>
-                                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>
-                                        Key Features:
-                                    </h2>
-                                    <ul style={{
-                                        fontSize: '17px',
-                                        color: '#4B5563',
-                                        paddingLeft: '20px',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '12px',
-                                        listStyleType: 'disc'
-                                    }}>
-                                        <li>Official {game.category} levels</li>
-                                        <li>Simplified character customization</li>
-                                        <li>Ad-supported but free to play</li>
-                                        <li>Ideal for new players to experience the game</li>
-                                    </ul>
                                 </section>
                             </article>
 

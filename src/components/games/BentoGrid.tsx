@@ -11,13 +11,14 @@ export function BentoGrid({ games }: { games: Game[] }) {
   // But in a flat list, we need to handle the flow
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, 160px)',
-      gridAutoRows: '100px',
-      gap: '6px',
-      marginBottom: '40px'
-    }}>
+    <div 
+      className="grid-mobile-2"
+      style={{
+        gridAutoRows: 'min(120px, 25vw)',
+        gap: '8px',
+        marginBottom: '40px'
+      }}
+    >
       {games.map((game, index) => {
         // First big card: Item 1 (Position 1-2, 1-3)
         const isBig1 = index === 0;

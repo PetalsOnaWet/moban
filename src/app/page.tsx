@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
     <div className="animate-fade-in" style={{ padding: '0 0 64px' }}>
-      <div style={{ margin: '0 auto' }}>
+      <div className="util-container">
         
         {/* ROW 1: FIRST SCREEN (Hero & Ad) */}
         <GamePlayerArea 
@@ -33,34 +33,24 @@ export default async function Home() {
         />
 
         {/* ROW 2: DISCOVERY ADS (2/3) + GAME ICONS (1/3) */}
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '32px', alignItems: 'flex-start' }}>
+        <div className="row-discovery" style={{ marginBottom: '32px', alignItems: 'flex-start' }}>
             <DiscoveryAds />
-            <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
-                {games.slice(1, 4).map(g => (
+            <div style={{ flex: '1', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
+                {games.slice(1, 10).map(g => (
                     <CompactGameCard key={g.id} game={g} />
                 ))}
             </div>
         </div>
 
-        {/* ROW 3: FULL HORIZONTAL GRID (9 Icons) */}
-        <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(9, 1fr)', 
-            gap: '6px', 
-            marginBottom: '32px' 
-        }}>
+        {/* ROW 3: FULL HORIZONTAL GRID (9 Icons or 2-column mobile) */}
+        <div className="grid-mobile-2" style={{ marginBottom: '32px' }}>
             {horizontalGridGames.map(g => (
                 <CompactGameCard key={g.id} game={g} />
             ))}
         </div>
 
         {/* ROW 4: THE SURROUND BOX (SECOND SCREEN ONWARDS) */}
-        <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '160px 1fr 340px', 
-            gap: '24px', 
-            alignItems: 'start' 
-        }}>
+        <div className="layout-surround">
           {/* LEFT STICKY SIDEBAR */}
           <aside style={{ 
               position: 'sticky', 
@@ -68,7 +58,7 @@ export default async function Home() {
               display: 'flex', 
               flexDirection: 'column', 
               gap: '6px' 
-          }}>
+          }} className="desktop-only">
              {leftSidebarGames.map(g => (
                  <CompactGameCard key={g.id} game={g} />
              ))}
@@ -95,7 +85,7 @@ export default async function Home() {
              </div>
 
              {/* White Box Content Area for Homepage SEO */}
-             <div style={{ background: '#FFF', borderRadius: '4px', padding: '32px', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+             <div style={{ background: '#FFF', borderRadius: '4px', padding: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                 {/* Content Header: Breadcrumbs & Rating */}
                 <div style={{ 
                     display: 'flex', 
@@ -115,34 +105,24 @@ export default async function Home() {
 
                 <article style={{ color: '#374151', lineHeight: '1.7' }}>
                     <h1 style={{ 
-                        fontSize: '36px', 
+                        fontSize: '28px', 
                         fontWeight: 900, 
                         color: '#111827', 
-                        marginBottom: '32px',
+                        marginBottom: '24px',
                         letterSpacing: '-0.02em'
                     }}>
                         {featuredGame.title} - The Ultimate Rhythm Platformer Portal
                     </h1>
                     
-                    <section style={{ marginBottom: '40px' }}>
-                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '16px', color: '#111827' }}>
+                    <section style={{ marginBottom: '32px' }}>
+                        <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '16px', color: '#111827' }}>
                             Welcome to the World of {featuredGame.title}
                         </h2>
-                        <p style={{ fontSize: '16px', color: '#4B5563', marginBottom: '20px' }}>
+                        <p style={{ fontSize: '15px', color: '#4B5563', marginBottom: '16px' }}>
                             Jump and fly your way through danger in this rhythm-based action platformer! 
                             Our portal provides the smoothest {featuredGame.title} experience online. 
                             Prepare for a near impossible challenge in the world of {featuredGame.title}. 
                             Push your skills to the limit as you jump, fly and flip your way through dangerous passages and spiky obstacles.
-                        </p>
-                    </section>
-
-                    <section style={{ marginBottom: '40px' }}>
-                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '16px', color: '#111827' }}>
-                            How to Play
-                        </h2>
-                        <p style={{ fontSize: '16px', color: '#4B5563', marginBottom: '20px' }}>
-                            Simple one touch game play with lots of levels that will keep you entertained for hours! 
-                            Explore various game modes including Classic, Rhythm, and the community-created {featuredGame.title} Subzero, Meltdown, and World editions.
                         </p>
                     </section>
                 </article>
@@ -152,7 +132,7 @@ export default async function Home() {
              </div>
           </main>
 
-          {/* RIGHT STICKY SIDEBAR (TWO COLUMNS) */}
+          {/* RIGHT STICKY SIDEBAR (TWO COLUMNS or 2x3 block) */}
           <aside style={{ 
               position: 'sticky', 
               top: '90px', 
