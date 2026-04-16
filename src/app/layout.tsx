@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Footer } from "@/components/layout/Footer";
 import { UIProvider } from "@/context/UIContext";
+import { RotatePrompt } from "@/components/layout/RotatePrompt";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -37,9 +38,7 @@ export default function RootLayout({
       <body>
         <UIProvider>
           {/* Rotation Prompt for Mobile */}
-          <div className="rotate-prompt">
-            Tips: Please rotate your device to landscape for a better gaming experience.
-          </div>
+          <RotatePrompt />
 
           <Navbar />
           <div className="layout-wrapper">
