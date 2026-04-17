@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/games/Breadcrumbs";
 import { GameRating } from "@/components/games/GameRating";
 import { HistoryTracker } from "@/components/games/HistoryTracker";
+import { siteConfig } from "@/config/site";
 import { GameSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
 
 export const dynamic = "force-dynamic";
@@ -21,9 +22,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const game = await getGameBySlug(slug);
     if (!game) return { title: "Game Not Found" };
+
+    const title = `${game.title} - Geometry Dash Lite`;
+    const description = game.description;
+    const url = `${siteConfig.url}/game/${game.slug}`;
+
     return {
-        title: `${game.title} - Geometry Dash Lite`,
-        description: game.description,
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            type: "website",
+            url,
+            title,
+            description,
+            images: [
+                {
+                    url: game.thumbnail,
+                    width: 800,
+                    height: 600,
+                    alt: game.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [game.thumbnail],
+        },
     };
 }
 

@@ -58,3 +58,49 @@ export function BreadcrumbSchema({ items }: { items: { name: string; item: strin
     />
   );
 }
+
+export function OrganizationSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteConfig.name,
+    "url": siteConfig.url,
+    "logo": `${siteConfig.url}/logo.webp`,
+    "sameAs": [
+      siteConfig.links.twitter,
+      siteConfig.links.github,
+      siteConfig.links.discord
+    ].filter(Boolean)
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function WebSiteSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": siteConfig.name,
+    "url": siteConfig.url,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteConfig.url}/search?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
