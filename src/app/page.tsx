@@ -138,6 +138,72 @@ export default async function Home() {
                             Push your skills to the limit as you jump, fly and flip your way through dangerous passages and spiky obstacles.
                         </p>
                     </section>
+
+                    <section style={{ marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>How to Play Geometry Dash Lite</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                            <div style={{ background: '#f9fafb', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+                                <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>1. Basic Controls</h3>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>Simply click or tap anywhere on the screen to make your character jump. Timing is everything!</p>
+                            </div>
+                            <div style={{ background: '#f9fafb', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+                                <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>2. Avoid Obstacles</h3>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>Dodge spikes, sawblades, and other dangerous traps. One wrong move and you'll have to restart the level.</p>
+                            </div>
+                            <div style={{ background: '#f9fafb', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+                                <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>3. Follow the Rhythm</h3>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>Each level features a unique soundtrack. Let the music guide your jumps and transitions.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style={{ marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>Key Features of Geometry Dash Online</h2>
+                        <ul style={{ paddingLeft: '20px', color: '#4b5563', fontSize: '15px', display: 'grid', gap: '12px' }}>
+                            <li><strong>Rhythm-based Action:</strong> Experience the perfect fusion of music and gameplay.</li>
+                            <li><strong>Dynamic Levels:</strong> From easy starters to near-impossible challenges for pro players.</li>
+                            <li><strong>Unique Icons:</strong> Unlock new colors and icons to customize your character as you progress.</li>
+                            <li><strong>Practice Mode:</strong> Sharpen your skills with checkpoints before attempting the full run.</li>
+                            <li><strong>No Download Required:</strong> Play directly in your browser on any device.</li>
+                        </ul>
+                    </section>
+
+                    <section style={{ marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>Game Modes and Difficulty</h2>
+                        <p style={{ fontSize: '15px', color: '#4B5563', marginBottom: '16px' }}>
+                            Geometry Dash Lite offers a variety of levels, each with its own difficulty rating. 
+                            Whether you are a beginner looking for "Easy" or "Normal" levels, or a veteran seeking "Insane" or "Demon" challenges, 
+                            our platform has something for everyone. The difficulty increases as you move through levels like Stereo Madness, 
+                            Back on Track, and Polargeist.
+                        </p>
+                    </section>
+
+                    <section style={{ marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>Expert Tips & Strategies</h2>
+                        <div style={{ color: '#4b5563', fontSize: '15px', lineHeight: '1.8' }}>
+                            <p style={{ marginBottom: '12px' }}><strong>1. Don't Give Up:</strong> Geometry Dash is famous for its difficulty. Expect to fail many times before succeeding.</p>
+                            <p style={{ marginBottom: '12px' }}><strong>2. Use Practice Mode:</strong> Use green gems to drop checkpoints. This allows you to learn the hardest parts of a level without restarting from the beginning.</p>
+                            <p style={{ marginBottom: '12px' }}><strong>3. Focus on the Audio:</strong> The obstacles often appear in sync with the beat. If you can master the rhythm, the jumping becomes much more intuitive.</p>
+                        </div>
+                    </section>
+
+                    <section style={{ marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: '#111827' }}>Frequently Asked Questions (FAQ)</h2>
+                        <div style={{ display: 'grid', gap: '24px' }}>
+                            <div>
+                                <h4 style={{ fontWeight: 700, color: '#111827', marginBottom: '8px' }}>Is Geometry Dash Lite free to play?</h4>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>Yes, the online version of Geometry Dash Lite provided here is completely free to play in your browser.</p>
+                            </div>
+                            <div>
+                                <h4 style={{ fontWeight: 700, color: '#111827', marginBottom: '8px' }}>Can I play on mobile devices?</h4>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>Absolutely! The game is optimized for both desktop and mobile browsers. Just make sure you have a stable internet connection.</p>
+                            </div>
+                            <div>
+                                <h4 style={{ fontWeight: 700, color: '#111827', marginBottom: '8px' }}>How many levels are available?</h4>
+                                <p style={{ fontSize: '14px', color: '#6b7280' }}>We offer all the classic levels from the Lite version, plus several community-favorite rhythm platformers.</p>
+                            </div>
+                        </div>
+                    </section>
                 </article>
 
                 <GameTags game={featuredGame} />

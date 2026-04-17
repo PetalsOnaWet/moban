@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const title = `${game.title} - Geometry Dash Lite`;
     const description = game.description;
-    const url = `${siteConfig.url}/game/${game.slug}`;
+    const url = `${siteConfig.url}/game/${game.slug}/`;
 
     return {
         title,

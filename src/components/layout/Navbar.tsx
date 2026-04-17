@@ -66,7 +66,7 @@ export function Navbar() {
           <div style={{ position: 'relative', width: '38px', height: '38px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-standard)' }} className="desktop-only">
             <img 
               src="/logo.webp" 
-              alt="Logo" 
+              alt="Geometry Dash Lite Logo" 
               style={{ 
                 width: '100%', 
                 height: '100%', 

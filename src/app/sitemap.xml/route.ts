@@ -1,16 +1,14 @@
 import { siteConfig } from "@/config/site";
+import gamesData from "@/config/games-data.json";
 
-
-/**
- * 动态 Sitemap 生成器 (Next.js 16 App Router)
- * -----------------------------------------
- * 此路由将生成符合 Google 规范的 sitemap.xml
- */
 export async function GET() {
   const staticPages = ["", "/features", "/wiki", "/faq"];
+  const dynamicPages = gamesData.map(game => `/game/${game.slug}`);
+  const allPages = [...staticPages, ...dynamicPages];
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${staticPages
+  ${allPages
     .map((page) => {
       const url = `${siteConfig.url}${page}${page.endsWith("/") ? "" : "/"}`;
       return `
