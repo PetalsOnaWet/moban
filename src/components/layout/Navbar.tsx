@@ -3,13 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Search, Sun, Moon, Menu, X } from "lucide-react";
 import { useUI } from "@/context/UIContext";
 
 export function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { toggleSidebar, sidebarOpen } = useUI();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -103,6 +106,13 @@ export function Navbar() {
         <input 
           type="text" 
           placeholder="Search for games..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && searchQuery.trim()) {
+              router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+            }
+          }}
           style={{ 
             width: '100%', 
             height: '42px', 
@@ -121,7 +131,11 @@ export function Navbar() {
 
       {/* Right: Actions */}
       <div className="util-flex" style={{ gap: '12px', alignItems: 'center' }}>
-        <button className="mobile-only" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', padding: '8px' }}>
+        <button 
+          className="mobile-only" 
+          style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', padding: '8px', cursor: 'pointer' }}
+          onClick={() => router.push('/search')}
+        >
             <Search size={22} />
         </button>
         
