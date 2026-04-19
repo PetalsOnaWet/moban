@@ -15,6 +15,10 @@ export interface Game {
   rating?: number;
   votes?: number;
   created_at: string;
+  screenshots?: string[];
+  screenshot_alts?: string[];
+  expert_tips?: string;
+  secrets?: string[];
 }
 
 /**

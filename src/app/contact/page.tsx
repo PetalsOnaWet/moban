@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { Mail, MessageCircle, Send, MapPin, Clock } from 'lucide-react';
+"use client";
+
+import { Mail, MessageCircle, Send, Clock } from 'lucide-react';
 
 export default function ContactPage() {
   return (
@@ -123,6 +124,8 @@ export default function ContactPage() {
              </a>
           </div>
         </div>
+      </div>
+
       <div className="util-container" style={{ marginTop: '80px' }}>
         <div style={{ background: 'var(--bg-panel)', padding: '48px', borderRadius: '24px', border: '1px solid var(--border-subtle)' }}>
           <article style={{ color: 'var(--text-secondary)', lineHeight: '1.9', fontSize: '15px' }}>
@@ -159,6 +162,5 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
-  </div>
   );
 }

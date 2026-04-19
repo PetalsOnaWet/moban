@@ -73,6 +73,11 @@
       "/assets/screenshots/subway-surfers/2.webp",
       "/assets/screenshots/subway-surfers/3.webp"
     ],
+    "screenshot_alts": [
+      "Subway Surfers gameplay tutorial showing a character running on tracks with a Press Arrow Key Up instruction",
+      "Subway Surfers festive level with candy cane decorations and a You rock Now GO motivation text",
+      "Subway Surfers gameplay scene showing the character being chased by the inspector and his dog on a snowy track"
+    ],
     "iframe_url": "https://g.igroutka.ru/games/164/Xm2W5MIcPqrF1Y90/12/subway_surfers_easter_edinburgh/",
     "mirror_urls": [
       "https://subwaysurferscity.io/subway-surfers-zurich.embed",
@@ -94,16 +99,19 @@
     "description": "A chilling horror experience where you must escape the terrifying Red Face.",
     "thumbnail": "/assets/games/red-face-horror.webp",
     "screenshots": [
-      "/assets/screenshots/red-face-horror/1.webp"
+      "/assets/screenshots/red-face-horror/1.webp",
+      "/assets/screenshots/red-face-horror/2.webp",
+      "/assets/screenshots/red-face-horror/3.webp"
     ],
-    "iframe_url": "https://redfacehorror.io/game.html",
+    "screenshot_alts": [
+      "Red Face Horror game title screen showing a dark wooden door and the game title",
+      "Red Face Horror gameplay showing the creepy woman character and dialogue Mom you're home late again",
+      "Red Face Horror gameplay scene featuring a dark empty corridor in a haunted house"
+    ],
+    "iframe_url": "https://geometrylitepc.io/red-face-horror.embed",
     "mirror_urls": [
-      "https://redfacehorror.github.io/",
-      "https://topvazgames.github.io/red-face-horror/",
-      "https://classroom-6x.github.io/red-face-horror/",
-      "https://redface-horror.pages.dev/",
-      "https://3kh0.github.io/projects/red-face-horror/",
-      "https://sites.google.com/site/unblockedgames76/red-face-horror"
+      "https://red-face-horror.1games.io/",
+      "https://gamea.azgame.io/red-face-horror/"
     ],
     "category": "Horror",
     "tags": "Horror, Escape",
@@ -120,14 +128,21 @@
     "title": "Escape Road 3",
     "description": "The third installment of the high-speed city escape game.",
     "thumbnail": "/assets/games/escape-road-3.webp",
-    "iframe_url": "https://ozgames.io/game/escape-road-3/",
+    "iframe_url": "https://gamea.azgame.io/escape-road-3/",
     "mirror_urls": [
-      "https://escaperoad3.github.io/",
-      "https://topvazgames.github.io/escape-road-3/",
-      "https://classroom-6x.github.io/escape-road-3/",
-      "https://escaperoad.io/game-3.html",
-      "https://sites.google.com/site/unblockedgames76/escape-road-3",
-      "https://3kh0.github.io/projects/escape-road-3/"
+      "https://escape-road-3.1games.io/",
+      "https://games.ofree.io/escape-road-3/game.html",
+      "https://escaperoad2.io/escape-road-3.embed"
+    ],
+    "screenshots": [
+      "/assets/screenshots/escape-road-3/1.webp",
+      "/assets/screenshots/escape-road-3/2.webp",
+      "/assets/screenshots/escape-road-3/3.webp"
+    ],
+    "screenshot_alts": [
+      "Escape Road 3 game starting scene with a voxel city street and instructions to press A, D or arrows to start",
+      "Escape Road 3 gameplay showing a high-speed car chase on a voxel highway with police pursuit",
+      "Escape Road 3 gameplay scene where the player car is surrounded by police vehicles and a helicopter"
     ],
     "category": "Racing",
     "tags": "Car, Action",
@@ -144,16 +159,19 @@
     "title": "Basketball Stars",
     "description": "Show off your skills on the court and become a basketball legend.",
     "thumbnail": "/assets/games/basketball-stars.webp",
-    "iframe_url": "https://basketball-stars.io/",
+    "iframe_url": "https://basketball-stars.io/1.embed",
     "mirror_urls": [
-      "https://3kh0.github.io/projects/basketball-stars/",
-      "https://topvazgames.github.io/basketball-stars/",
-      "https://classroom-6x.github.io/basketball-stars/",
-      "https://ozgames.io/game/basketball-stars/",
-      "https://basketball-stars-unblocked.github.io/",
-      "https://sites.google.com/site/unblockedgames76/basketball-stars",
-      "https://basketballstars.io/game.html",
-      "https://basketball-stars.pages.dev/"
+      "https://j0n12.github.io/macvg/projects/basketball-stars/game.html"
+    ],
+    "screenshots": [
+      "/assets/screenshots/basketball-stars/1.webp",
+      "/assets/screenshots/basketball-stars/2.webp",
+      "/assets/screenshots/basketball-stars/3.webp"
+    ],
+    "screenshot_alts": [
+      "Basketball Stars gameplay showing bobblehead players from Lakers and Sixers on the court with score board",
+      "Basketball Stars gameplay scene where a player shoots a ball into the basket in front of a cheering crowd",
+      "Basketball Stars game paused menu screen showing the score between Lakers and Sixers"
     ],
     "category": "Sports",
     "tags": "Sports, Basketball",
