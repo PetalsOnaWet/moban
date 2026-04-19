@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Star, Flame, Zap, Sparkles } from "lucide-react";
 import { Game } from "@/lib/core/games";
 
-const DEFAULT_ICON = "/images/default-game.webp";
+const DEFAULT_ICON = "/logo.webp";
 
 export function GameCard({ game, showCategory = true }: { game: Game; showCategory?: boolean }) {
   const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
