@@ -133,7 +133,7 @@ export default async function Home() {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>Why Unblocked Games 76 is the Preferred Choice for Students</h3>
+                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>Why Unblocked Games 76 is the Preferred Choice for Students</h2>
                     <p style={{ marginBottom: '16px' }}>
                         Educational institutions often implement strict firewalls to ensure students stay focused on their studies. While these measures are well-intentioned, everyone needs a break to recharge their mental energy. <strong>Unblocked Games 76</strong> serves as a reliable portal for these moments of relaxation. Our site utilizes advanced mirroring techniques and optimized hosting to remain accessible where other gaming sites might be flagged.
                     </p>
@@ -148,7 +148,7 @@ export default async function Home() {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>Top Categories on Unblocked Games 76</h3>
+                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>Top Categories on Unblocked Games 76</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
                         {getCategories().slice(0, 3).map(cat => (
                             <div key={cat.slug} style={{ background: 'rgba(0,0,0,0.02)', padding: '24px', borderRadius: '12px' }}>
@@ -166,7 +166,7 @@ export default async function Home() {
                 </section>
 
                 <section style={{ marginBottom: '40px' }}>
-                    <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>How to Safely Play Unblocked Games</h3>
+                    <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>How to Safely Play Unblocked Games</h2>
                     <p style={{ marginBottom: '16px' }}>
                         Safety is our top priority. We understand the concerns regarding online security, especially for younger users. <strong>Unblocked Games 76</strong> is built with security in mind. We use SSL encryption (HTTPS) to protect your connection, and we do not require users to create accounts or provide personal information. Furthermore, we strictly vet our ad partners to ensure that the browsing experience remains clean and family-friendly.
                     </p>

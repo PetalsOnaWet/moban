@@ -90,14 +90,14 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                     
                                     {game.screenshots?.[0] && <InlineImage src={game.screenshots[0]} alt={game.screenshot_alts?.[0]} index={0} />}
 
-                                    <h3 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>How to Play {game.title} Unblocked</h3>
+                                    <h2 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>How to Play {game.title} Unblocked</h2>
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         Getting started with <strong>{game.title}</strong> is incredibly simple. Our version is fully unblocked, meaning you don't need to worry about restrictive firewalls or network filters. Simply click the play button above, and the game will load instantly. For the best experience, we recommend playing in full-screen mode to truly immerse yourself in the action. The controls are designed to be intuitive, allowing both veterans and newcomers to jump right in and start enjoying the game.
                                     </p>
 
                                     {game.screenshots?.[1] && <InlineImage src={game.screenshots[1]} alt={game.screenshot_alts?.[1]} index={1} />}
 
-                                    <h3 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>Game Mechanics and Features</h3>
+                                    <h2 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>Game Mechanics and Features</h2>
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         The core appeal of {game.title} lies in its unique mechanics. Unlike many other browser games, {game.title} features high-fidelity graphics and responsive controls that provide a "native" feel. The gameplay is built on a foundation of skill and strategy, requiring players to adapt to increasingly difficult challenges. As you progress, you'll unlock new features and discover hidden depth that keeps the experience fresh and engaging.
                                     </p>
@@ -108,7 +108,7 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                         One of the standout features of this version of {game.title} is its optimization for HTML5. This ensures that the game runs smoothly on a wide variety of devices, from low-powered Chromebooks to high-end gaming PCs. We have worked hard to minimize load times and maximize performance, so you can spend less time waiting and more time playing.
                                     </p>
 
-                                    <h3 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>Tips and Strategies for Success</h3>
+                                    <h2 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>Tips and Strategies for Success</h2>
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         To master <strong>{game.title}</strong>, it's important to keep a few key strategies in mind. First, take the time to familiarize yourself with the control scheme. Precision is often the difference between victory and defeat. Second, don't be afraid to experiment. Many of the game's challenges can be approached in multiple ways, and finding your own unique style is part of the fun. Finally, keep an eye on the community leaderboards. Seeing how other top players approach the game can provide valuable insights and inspiration.
                                     </p>

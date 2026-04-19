@@ -55,7 +55,7 @@ export function CategoryPageUI({ slug, games, totalCount, currentPage }: Categor
                         Welcome to the most comprehensive destination for <strong style={{color: 'var(--text-primary)'}}>{displayTitle} games</strong> on the web. In the modern era of digital entertainment, where access to high-quality gaming can often be restricted by school firewalls or workplace filters, <Link href="/" style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>Unblocked Games 76</Link> stands as a beacon for gamers seeking freedom and fun. Our platform is meticulously designed to provide a seamless, high-performance experience that allows you to dive into your favorite {displayTitle.toLowerCase()} titles without any hurdles.
                     </p>
 
-                    <h3 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>The Evolution of {displayTitle} Gaming</h3>
+                    <h2 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>The Evolution of {displayTitle} Gaming</h2>
                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                         The world of {displayTitle.toLowerCase()} gaming has undergone a massive transformation over the last decade. What used to be simple, pixelated experiences have now evolved into complex, visually stunning masterpieces that run directly in your browser. This evolution is driven by the transition from legacy technologies like Flash to the modern, secure, and robust HTML5 standard. At <strong>Unblocked Games 76</strong>, we have embraced this change, ensuring that every {displayTitle.toLowerCase()} game in our collection is optimized for the latest web standards. This means faster load times, smoother frame rates, and a significantly more secure environment for our users.
                     </p>
@@ -63,7 +63,7 @@ export function CategoryPageUI({ slug, games, totalCount, currentPage }: Categor
                         Whether you are a fan of high-speed action, strategic puzzles, or immersive simulations, our {displayTitle} category offers a diverse range of titles that cater to every skill level. We understand that diversity is key to a great gaming experience, which is why our curators are constantly scouring the web for the next big hit to add to our growing library.
                     </p>
 
-                    <h3 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>Why Play {displayTitle} Games on Unblocked Games 76?</h3>
+                    <h2 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>Why Play {displayTitle} Games on Unblocked Games 76?</h2>
                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                         Choosing the right platform for your gaming needs is crucial. Here at <strong>Unblocked Games 76</strong>, we prioritize the user experience above all else. When you play {displayTitle.toLowerCase()} games here, you are benefiting from our state-of-the-art infrastructure. Our servers are located at the edge of the network, meaning that the physical distance between you and the game data is minimized, resulting in nearly zero latency. This is particularly important for fast-paced {displayTitle.toLowerCase()} games where every millisecond counts.
                     </p>
@@ -74,7 +74,7 @@ export function CategoryPageUI({ slug, games, totalCount, currentPage }: Categor
                         <li style={{ marginBottom: '12px' }}><strong>Safe & Secure:</strong> We use SSL encryption and vet all our partners to ensure a family-friendly environment.</li>
                     </ul>
 
-                    <h3 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>Mastering the Mechanics of {displayTitle} Games</h3>
+                    <h2 style={{ color: 'var(--text-primary)', fontSize: '24px', fontWeight: 800, marginBottom: '20px' }}>Mastering the Mechanics of {displayTitle} Games</h2>
                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                         To truly excel in {displayTitle.toLowerCase()} games, one must understand the underlying mechanics that define the genre. Most titles in this category rely on a combination of quick reflexes, spatial awareness, and strategic planning. We recommend starting with some of our featured titles to get a feel for the control schemes, which are typically intuitive—using the WASD keys or the arrow keys for movement, and simple mouse clicks for interaction.
                     </p>
