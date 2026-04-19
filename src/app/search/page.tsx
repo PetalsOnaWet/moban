@@ -4,6 +4,7 @@ import { GameGrid } from "@/components/games/GameGrid";
 import { SearchBox } from "@/components/games/SearchBox";
 import { Metadata } from "next";
 
+import { siteConfig } from "@/config/site";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,13 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   return {
     title: q ? `Search results for "${q}"` : "Search Games",
     description: `Search for your favorite games and play online for free.`,
+    robots: {
+      index: false,
+      follow: true,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/search/`,
+    }
   };
 }
 
