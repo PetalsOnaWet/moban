@@ -92,7 +92,7 @@ export function CategoryPageUI({ slug, games, totalCount, currentPage }: Categor
                         As web technologies continue to advance, the line between browser games and native applications is blurring. With the advent of WebGL and WebAssembly, we are seeing {displayTitle.toLowerCase()} games that rival console titles in terms of graphical fidelity and complexity. <strong>Unblocked Games 76</strong> is at the forefront of this revolution, providing a platform that supports these next-generation experiences. We are committed to remaining the premier destination for high-quality, accessible, and unblocked entertainment for years to come.
                     </p>
                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
-                        In conclusion, if you are looking for the best <Link href={`/${slug}`} style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>{displayTitle} games</Link> available online, you have come to the right place. Dive in, explore our vast collection, and discover why millions of gamers choose Unblocked Games 76 as their home for fun. Happy gaming!
+                        In conclusion, if you are looking for the best <Link href={`/${slug}/`} style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>{displayTitle} games</Link> available online, you have come to the right place. Dive in, explore our vast collection, and discover why millions of gamers choose Unblocked Games 76 as their home for fun. Happy gaming!
                     </p>
                 </section>
             </article>

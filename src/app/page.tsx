@@ -1,8 +1,17 @@
+import { Metadata } from "next";
 import { getGames, getCategories } from "@/lib/core/games";
 import { CompactGameCard } from "@/components/games/GameGrid";
 import { GameSchema } from "@/components/seo/SchemaMarkup";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Unblocked Games 76: Play Best Free Online Games & Unblocked",
+  description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, arcade, and puzzle games unblocked for school and work.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export const dynamic = "force-dynamic";
 

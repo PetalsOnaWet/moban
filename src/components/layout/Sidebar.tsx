@@ -37,10 +37,10 @@ const iconMap: Record<string, any> = {
 
 const staticLinks = [
   { name: "Home", href: "/", icon: Home, color: "var(--text-secondary)" },
-  { name: "History", href: "/history", icon: History, color: "var(--text-secondary)" },
+  { name: "History", href: "/history/", icon: History, color: "var(--text-secondary)" },
   { type: "separator" },
-  { name: "Hot Games", href: "/hot-games", icon: Flame, color: "#EF4444", badge: "HOT" },
-  { name: "New Games", href: "/new-games", icon: Star, color: "#F59E0B", badge: "NEW" },
+  { name: "Hot Games", href: "/hot-games/", icon: Flame, color: "#EF4444", badge: "HOT" },
+  { name: "New Games", href: "/new-games/", icon: Star, color: "#F59E0B", badge: "NEW" },
 ];
 
 const categoryColorMap: Record<string, string> = {
@@ -63,7 +63,7 @@ export function Sidebar() {
   const categories = getCategories();
   const dynamicLinks = categories.map(cat => ({
     name: `${cat.name} Games`,
-    href: `/${cat.slug}`,
+    href: `/${cat.slug}/`,
     icon: iconMap[cat.name] || Gamepad2,
     color: categoryColorMap[cat.name] || "var(--accent-cyan)"
   }));

@@ -27,9 +27,6 @@ export const metadata: Metadata = {
     apple: "/logo.webp",
   },
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",

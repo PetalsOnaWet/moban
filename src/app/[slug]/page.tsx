@@ -22,8 +22,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     const pageNum = parseInt(page || '1', 10);
     const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : "";
     return {
-      title: `${cleanTitle}${pageSuffix} - Play Free Online`,
-      description: `Play the best ${cleanTitle.toLowerCase()} for free online.`,
+      title: `Unblocked Games 76: ${cleanTitle}${pageSuffix} - Best Free Online Games`,
+      description: `Play the best ${cleanTitle.toLowerCase()} for free online at Unblocked Games 76. Experience high-performance, unrestricted gaming.`,
+      alternates: {
+        canonical: `/${decodedSlug}/`,
+      }
     };
   }
 
@@ -31,8 +34,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const game = await getGameBySlug(decodedSlug);
   if (game) {
     return {
-      title: `${game.title} - Play Unblocked Online`,
-      description: game.description,
+      title: `Unblocked Games 76: ${game.title} - Play Free Online & Unblocked`,
+      description: `${game.description} Play ${game.title} unblocked for school and work on Unblocked Games 76. No downloads, 100% free.`,
+      alternates: {
+        canonical: `/${decodedSlug}/`,
+      }
     };
   }
 

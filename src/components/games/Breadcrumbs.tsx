@@ -17,7 +17,7 @@ export function Breadcrumbs({ gameTitle, categoryName, categorySlug }: Breadcrum
       {categoryName && (
         <>
           <ChevronRight size={14} />
-          <Link href={`/${categorySlug || categoryName.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: 'var(--accent-cyan)', textDecoration: 'none', fontWeight: 500 }}>
+          <Link href={`/${categorySlug || categoryName.toLowerCase().replace(/\s+/g, '-')}/`} style={{ color: 'var(--accent-cyan)', textDecoration: 'none', fontWeight: 500 }}>
             {categoryName}
           </Link>
         </>

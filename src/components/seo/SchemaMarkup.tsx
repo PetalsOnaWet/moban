@@ -13,7 +13,7 @@ export function GameSchema({ game }: GameSchemaProps) {
     "description": game.description,
     "applicationCategory": "Game",
     "operatingSystem": "Web, Browser",
-    "url": `${siteConfig.url}/${game.slug}`,
+    "url": `${siteConfig.url}/${game.slug}/`,
     "image": game.screenshots && game.screenshots.length > 0 
       ? [game.thumbnail, ...game.screenshots.map(s => `${siteConfig.url}${s}`)]
       : game.thumbnail,
@@ -56,7 +56,7 @@ export function BreadcrumbSchema({ items }: { items: { name: string; item: strin
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": `${siteConfig.url}${item.item}`
+      "item": `${siteConfig.url}${item.item}${item.item.endsWith('/') ? '' : '/'}`
     }))
   };
 
