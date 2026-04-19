@@ -74,7 +74,7 @@ export function OrganizationSchema() {
     "@type": "Organization",
     "name": siteConfig.name,
     "url": siteConfig.url,
-    "logo": `${siteConfig.url}/logo.png`,
+    "logo": `${siteConfig.url}/logo.webp`,
     "sameAs": [
       siteConfig.links.twitter,
       siteConfig.links.github,

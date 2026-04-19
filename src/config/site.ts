@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Unblocked Games 76",
   description: "Play the best unblocked games 76 online for free. Massive collection of browser games for school and work.",
   url: "https://unblocked-games-76.space",
-  ogImage: "https://unblocked-games-76.space/og.png",
+  ogImage: "https://unblocked-games-76.space/og.webp",
   author: "Unblocked Games 76",
   
   // Theme Configuration

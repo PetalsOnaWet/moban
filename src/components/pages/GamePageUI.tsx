@@ -25,11 +25,11 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
     const leftSidebarGames = remainingGames.slice(0, sidebarCount);
     const rightSidebarGames = remainingGames.slice(sidebarCount, sidebarCount * 2);
 
-    const InlineImage = ({ src, index }: { src: string, index: number }) => (
+    const InlineImage = ({ src, alt, index }: { src: string, alt?: string, index: number }) => (
         <div style={{ margin: '32px 0', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-subtle)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
             <img 
                 src={src} 
-                alt={`${game.title} Screenshot ${index + 1}`} 
+                alt={alt || `${game.title} Screenshot ${index + 1}`} 
                 style={{ width: '100%', height: 'auto', display: 'block' }}
                 onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://placehold.co/800x450/111/fff?text=${encodeURIComponent(game.title)}+Screenshot+${index + 1}`;
@@ -88,21 +88,21 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                         Experience the thrill of <strong>{game.title}</strong> directly in your browser. {game.description} As one of the most popular titles on <Link href="/" style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>Unblocked Games 76</Link>, {game.title} offers an immersive experience that combines challenging gameplay with seamless performance. Whether you are playing at school, work, or home, our platform ensures that you have unrestricted access to this gaming masterpiece.
                                     </p>
                                     
-                                    {game.screenshots?.[0] && <InlineImage src={game.screenshots[0]} index={0} />}
+                                    {game.screenshots?.[0] && <InlineImage src={game.screenshots[0]} alt={game.screenshot_alts?.[0]} index={0} />}
 
                                     <h3 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>How to Play {game.title} Unblocked</h3>
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         Getting started with <strong>{game.title}</strong> is incredibly simple. Our version is fully unblocked, meaning you don't need to worry about restrictive firewalls or network filters. Simply click the play button above, and the game will load instantly. For the best experience, we recommend playing in full-screen mode to truly immerse yourself in the action. The controls are designed to be intuitive, allowing both veterans and newcomers to jump right in and start enjoying the game.
                                     </p>
 
-                                    {game.screenshots?.[1] && <InlineImage src={game.screenshots[1]} index={1} />}
+                                    {game.screenshots?.[1] && <InlineImage src={game.screenshots[1]} alt={game.screenshot_alts?.[1]} index={1} />}
 
                                     <h3 style={{ fontSize: '19px', fontWeight: 800, marginBottom: '16px', color: 'var(--text-primary)' }}>Game Mechanics and Features</h3>
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         The core appeal of {game.title} lies in its unique mechanics. Unlike many other browser games, {game.title} features high-fidelity graphics and responsive controls that provide a "native" feel. The gameplay is built on a foundation of skill and strategy, requiring players to adapt to increasingly difficult challenges. As you progress, you'll unlock new features and discover hidden depth that keeps the experience fresh and engaging.
                                     </p>
 
-                                    {game.screenshots?.[2] && <InlineImage src={game.screenshots[2]} index={2} />}
+                                    {game.screenshots?.[2] && <InlineImage src={game.screenshots[2]} alt={game.screenshot_alts?.[2]} index={2} />}
 
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         One of the standout features of this version of {game.title} is its optimization for HTML5. This ensures that the game runs smoothly on a wide variety of devices, from low-powered Chromebooks to high-end gaming PCs. We have worked hard to minimize load times and maximize performance, so you can spend less time waiting and more time playing.

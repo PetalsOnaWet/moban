@@ -3,22 +3,24 @@
     "slug": "geometry-dash-lite",
     "title": "Geometry Dash Lite",
     "description": "A rhythm-based platformer where you jump and fly your way through danger!",
-    "thumbnail": "/assets/games/geometry-dash-lite.png",
+    "thumbnail": "/assets/games/geometry-dash-lite.webp",
     "screenshots": [
-      "/assets/screenshots/geometry-dash-lite/1.jpg",
-      "/assets/screenshots/geometry-dash-lite/2.jpg",
-      "/assets/screenshots/geometry-dash-lite/3.jpg"
+      "/assets/screenshots/geometry-dash-lite/1.webp",
+      "/assets/screenshots/geometry-dash-lite/2.webp",
+      "/assets/screenshots/geometry-dash-lite/3.webp"
     ],
-    "iframe_url": "https://geometry-dash-lite.github.io/",
+    "screenshot_alts": [
+      "Geometry Dash Lite main menu showing play button, character select, and more games options",
+      "Geometry Dash Lite gameplay featuring a yellow icon jumping over a glowing spike on a blue background",
+      "Geometry Dash Lite level with a pink background where a green square jumps over multiple spikes"
+    ],
+    "iframe_url": "https://ozgames.io/geometry-dash.embed",
     "mirror_urls": [
-      "https://geometrylitepc.io/geo-dash-lite-pc.embed",
-      "https://ozgames.io/geometry-dash.embed",
-      "https://3kh0.github.io/projects/geometry-dash-lite/",
-      "https://topvazgames.github.io/geometry-dash-lite/",
-      "https://classroom-6x.github.io/geometry-dash-lite/",
-      "https://geometry-dash-lite.io/",
-      "https://sites.google.com/site/unblockedgames76/geometry-dash-lite",
-      "https://unblocked-games-76.github.io/geometry-dash-lite/"
+      "https://geometry-dash-lite.1games.io/",
+      "https://zapgames.io/geometry-dash-lite.embed",
+      "https://geometrylitegame.org/geometry-dash-lite-game.embed",
+      "https://dashmetry.1games.io/",
+      "https://geometrydash-lite2.io/geometry-dash-lite.embed"
     ],
     "category": "Rhythm",
     "tags": "Rhythm, Platformer, Arcade",
@@ -34,22 +36,22 @@
     "slug": "slope-game",
     "title": "Slope",
     "description": "An endless 3D racing game where you roll a ball down a treacherous slope.",
-    "thumbnail": "/assets/games/slope-game.png",
+    "thumbnail": "/assets/games/slope-game.webp",
     "screenshots": [
-      "/assets/screenshots/slope-game/1.jpg",
-      "/assets/screenshots/slope-game/2.jpg"
+      "/assets/screenshots/slope-game/1.webp",
+      "/assets/screenshots/slope-game/2.webp",
+      "/assets/screenshots/slope-game/3.webp"
     ],
-    "iframe_url": "https://slope-game.github.io/",
+    "screenshot_alts": [
+      "Slope game main menu interface featuring the dot-matrix logo and menu options",
+      "Slope gameplay screen showing the wireframe track and steering instructions",
+      "Slope gameplay high-speed phase with red warning lines and a SPEED UP prompt"
+    ],
+    "iframe_url": "https://slopegame-online.com/play/slope/",
     "mirror_urls": [
-      "https://toptapgames.com/slope",
-      "https://slope-game.io/",
-      "https://3kh0.github.io/projects/slope/",
-      "https://topvazgames.github.io/slope/",
-      "https://classroom-6x.github.io/slope/",
-      "https://unblocked-games-76.github.io/slope-game/",
-      "https://sites.google.com/site/unblockedgames76/slope",
-      "https://slope-unblocked.github.io/",
-      "https://slope.pages.dev/"
+      "https://yoplay.io/slope.embed",
+      "https://azgames.io/game/slope/",
+      "https://slope-play.com/slope.embed"
     ],
     "category": "Racing",
     "tags": "3D, Racing, Arcade",
@@ -65,22 +67,16 @@
     "slug": "subway-surfers",
     "title": "Subway Surfers",
     "description": "Run as far as you can through the subway system!",
-    "thumbnail": "/assets/games/subway-surfers.png",
+    "thumbnail": "/assets/games/subway-surfers.webp",
     "screenshots": [
-      "/assets/screenshots/subway-surfers/1.jpg",
-      "/assets/screenshots/subway-surfers/2.jpg",
-      "/assets/screenshots/subway-surfers/3.jpg"
+      "/assets/screenshots/subway-surfers/1.webp",
+      "/assets/screenshots/subway-surfers/2.webp",
+      "/assets/screenshots/subway-surfers/3.webp"
     ],
-    "iframe_url": "https://subway-surfers.github.io/",
+    "iframe_url": "https://g.igroutka.ru/games/164/Xm2W5MIcPqrF1Y90/12/subway_surfers_easter_edinburgh/",
     "mirror_urls": [
-      "https://3kh0.github.io/projects/subway-surfers/",
-      "https://topvazgames.github.io/subway-surfers/",
-      "https://classroom-6x.github.io/subway-surfers/",
-      "https://ozgames.io/game/subway-surfers/",
-      "https://subway-surfers-online.github.io/",
-      "https://sites.google.com/site/unblockedgames76/subway-surfers",
-      "https://subwaysurfers.io/game.html",
-      "https://subway-surfers.pages.dev/"
+      "https://subwaysurferscity.io/subway-surfers-zurich.embed",
+      "https://ubg77.github.io/updatefaqs/subway-surfers-winter-holiday/"
     ],
     "category": "Arcade",
     "tags": "Running, Action",
@@ -96,9 +92,9 @@
     "slug": "red-face-horror",
     "title": "Red Face Horror",
     "description": "A chilling horror experience where you must escape the terrifying Red Face.",
-    "thumbnail": "/assets/games/red-face-horror.png",
+    "thumbnail": "/assets/games/red-face-horror.webp",
     "screenshots": [
-      "/assets/screenshots/red-face-horror/1.jpg"
+      "/assets/screenshots/red-face-horror/1.webp"
     ],
     "iframe_url": "https://redfacehorror.io/game.html",
     "mirror_urls": [
@@ -123,7 +119,7 @@
     "slug": "escape-road-3",
     "title": "Escape Road 3",
     "description": "The third installment of the high-speed city escape game.",
-    "thumbnail": "/assets/games/escape-road-3.png",
+    "thumbnail": "/assets/games/escape-road-3.webp",
     "iframe_url": "https://ozgames.io/game/escape-road-3/",
     "mirror_urls": [
       "https://escaperoad3.github.io/",
@@ -147,7 +143,7 @@
     "slug": "basketball-stars",
     "title": "Basketball Stars",
     "description": "Show off your skills on the court and become a basketball legend.",
-    "thumbnail": "/assets/games/basketball-stars.png",
+    "thumbnail": "/assets/games/basketball-stars.webp",
     "iframe_url": "https://basketball-stars.io/",
     "mirror_urls": [
       "https://3kh0.github.io/projects/basketball-stars/",
@@ -173,17 +169,14 @@
     "slug": "bitlife",
     "title": "BitLife",
     "description": "How will you live your BitLife? Make the right choices!",
-    "thumbnail": "/assets/games/bitlife.png",
-    "iframe_url": "https://bitlife.io/",
-    "mirror_urls": [
-      "https://bitlife-online.github.io/",
-      "https://topvazgames.github.io/bitlife/",
-      "https://classroom-6x.github.io/bitlife/",
-      "https://3kh0.github.io/projects/bitlife/",
-      "https://sites.google.com/site/unblockedgames76/bitlife",
-      "https://bitlifeonline.io/game.html",
-      "https://bitlife-unblocked.pages.dev/",
-      "https://bitlife.pages.dev/"
+    "thumbnail": "/assets/games/bitlife.webp",
+    "iframe_url": "https://gswitch3.github.io/g/bitlife/",
+    "mirror_urls": [],
+    "screenshots": [
+      "/assets/screenshots/bitlife/1.webp"
+    ],
+    "screenshot_alts": [
+      "BitLife game interface showing character stats like Happiness, Health, Smarts, and Looks, along with life events for Age 0 and 1"
     ],
     "category": "Simulation",
     "tags": "Life, Simulation, Strategy",
@@ -199,12 +192,22 @@
     "slug": "idols-of-ash",
     "title": "Idols Of Ash",
     "description": "A first-person horror-descent game where you descend through a massive, decaying structure.",
-    "thumbnail": "/assets/games/idols-of-ash.png",
-    "screenshots": [],
-    "iframe_url": "https://idolsofash.io/game.html",
+    "thumbnail": "/assets/games/idols-of-ash.webp",
+    "screenshots": [
+      "/assets/screenshots/idols-of-ash/1.webp",
+      "/assets/screenshots/idols-of-ash/2.webp",
+      "/assets/screenshots/idols-of-ash/3.webp"
+    ],
+    "screenshot_alts": [
+      "Idols of Ash game start screen with a brightness adjustment slider and 'RESET' and 'CONTINUE' buttons",
+      "Idols of Ash gameplay showing a first-person view of a rocky cliff wall and grappling instructions",
+      "Idols of Ash gameplay scene in a dark cave with ancient stone pillars and a dim light source"
+    ],
+    "iframe_url": "https://idolsofash.io/idols-of-ash.embed",
     "mirror_urls": [
-      "https://ozgames.io/game/idols-of-ash/",
-      "https://speedstarsfree.io/idols-of-ash"
+      "https://idolsash.io/idols-of-ash.embed",
+      "https://game.funclicker.org/idols-of-ash/v4/index.html",
+      "https://nealfun.app/game/idols-of-ash/v1/"
     ],
     "category": "Horror",
     "tags": "Horror, Descent",

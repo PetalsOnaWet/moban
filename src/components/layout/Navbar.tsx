@@ -83,7 +83,7 @@ export function Navbar() {
           gap: '10px'
         }}>
           <Image 
-            src="/logo.png" 
+            src="/logo.webp" 
             alt="Unblocked Games 76 Logo" 
             width={40} 
             height={40} 

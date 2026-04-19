@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.webp",
+    apple: "/logo.webp",
   },
   metadataBase: new URL(siteConfig.url),
   alternates: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
     images: [
       {
-        url: "/og.png",
+        url: "/og.webp",
         width: 1200,
         height: 630,
         alt: "Unblocked Games 76 Online",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Unblocked Games 76 - Play Best Free Online Games",
     description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
-    images: ["/og.png"],
+    images: ["/og.webp"],
     creator: "@unblockedgames76",
   },
   robots: {
