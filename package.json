@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "npm run build && npx @opennextjs/cloudflare build && cp -r .open-next/server-functions .open-next/cloudflare .open-next/middleware .open-next/.build .open-next/assets/ && mv .open-next/worker.js .open-next/assets/_worker.js && echo '{\"version\":1,\"include\":[\"/*\"],\"exclude\":[\"/_next/*\",\"/favicon.ico\",\"/logo.webp\",\"/og.webp\",\"/ads.txt\",\"/assets/*\",\"/images/*\",\"/games/*\",\"/*.svg\"]}' > .open-next/assets/_routes.json && ls -Ra .open-next/assets",
+    "build:cf": "npm run build && npx @opennextjs/cloudflare build && cp -r public/* .open-next/assets/ && cp -r .open-next/server-functions .open-next/cloudflare .open-next/middleware .open-next/.build .open-next/assets/ && mv .open-next/worker.js .open-next/assets/_worker.js && echo '{\"version\":1,\"include\":[\"/*\"],\"exclude\":[\"/_next/*\",\"/favicon.ico\",\"/logo.webp\",\"/og.webp\",\"/ads.txt\",\"/assets/*\",\"/images/*\",\"/games/*\",\"/*.svg\"]}' > .open-next/assets/_routes.json && ls -Ra .open-next/assets",
     "start": "next start",
     "lint": "eslint"
   },

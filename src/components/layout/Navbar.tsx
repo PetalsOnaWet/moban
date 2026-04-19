@@ -89,6 +89,7 @@ export function Navbar() {
             height={40} 
             style={{ objectFit: 'contain', height: '32px', width: 'auto' }}
             priority
+            unoptimized
           />
           <div style={{ display: 'flex', alignItems: 'center', fontSize: '22px', fontWeight: 900, letterSpacing: '-0.02em' }}>
             <span style={{ color: '#FFB400' }}>UNBLOCKED</span>
