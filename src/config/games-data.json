@@ -3,200 +3,217 @@
     "slug": "geometry-dash-lite",
     "title": "Geometry Dash Lite",
     "description": "A rhythm-based platformer where you jump and fly your way through danger!",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/f44b2075f92c4cd7f51944ec02ae3156.png",
-    "iframe_url": "https://geometrylitepc.io/",
-    "category": "Action",
+    "thumbnail": "/assets/games/geometry-dash-lite.png",
+    "screenshots": [
+      "/assets/screenshots/geometry-dash-lite/1.jpg",
+      "/assets/screenshots/geometry-dash-lite/2.jpg",
+      "/assets/screenshots/geometry-dash-lite/3.jpg"
+    ],
+    "iframe_url": "https://geometry-dash-lite.github.io/",
+    "mirror_urls": [
+      "https://geometrylitepc.io/geo-dash-lite-pc.embed",
+      "https://ozgames.io/geometry-dash.embed",
+      "https://3kh0.github.io/projects/geometry-dash-lite/",
+      "https://topvazgames.github.io/geometry-dash-lite/",
+      "https://classroom-6x.github.io/geometry-dash-lite/",
+      "https://geometry-dash-lite.io/",
+      "https://sites.google.com/site/unblockedgames76/geometry-dash-lite",
+      "https://unblocked-games-76.github.io/geometry-dash-lite/"
+    ],
+    "category": "Rhythm",
     "tags": "Rhythm, Platformer, Arcade",
-    "is_featured": true
-  },
-  {
-    "slug": "geometry-dash-subzero",
-    "title": "Geometry Dash Subzero",
-    "description": "Navigate your way through icy levels in this subzero rhythm expansion.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/be64450371900f07f975498ee3133642.png",
-    "iframe_url": "https://geometrydashsubzero.io/",
-    "category": "Action",
-    "tags": "Rhythm, Hard, Arcade",
-    "is_featured": true
-  },
-  {
-    "slug": "geometry-dash-meltdown",
-    "title": "Geometry Dash Meltdown",
-    "description": "Flex your clicky finger as you jump, fly and flip your way through dark caverns.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/516a50682df5e09f58ea9c81144a2c58.png",
-    "iframe_url": "https://geometrydashmeltdown.io/",
-    "category": "Action",
-    "tags": "Rhythm, Arcade",
-    "is_featured": true
-  },
-  {
-    "slug": "geometry-dash-world",
-    "title": "Geometry Dash World",
-    "description": "New levels, new music, new monsters, new everything!",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/46cf59573887c2fb82103767cb27a149.png",
-    "iframe_url": "https://geometrydashworld.io/",
-    "category": "Action",
-    "tags": "Rhythm, Platformer",
-    "is_featured": true
+    "is_featured": true,
+    "created_at": "2024-01-01",
+    "expert_tips": "Focus on the music rhythm rather than just visual cues. Practice in 'Practice Mode' to place checkpoints before difficult sections.",
+    "secrets": [
+      "The Vault: Collect 10 User Coins to unlock the first secret vault.",
+      "Hidden Achievements: Try jumping 50,000 times to unlock a secret icon."
+    ]
   },
   {
     "slug": "slope-game",
     "title": "Slope",
     "description": "An endless 3D racing game where you roll a ball down a treacherous slope.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/b899732f9ee8ff9e471908d132cb0718.png",
-    "iframe_url": "https://slope-game.io/",
-    "category": "Action",
+    "thumbnail": "/assets/games/slope-game.png",
+    "screenshots": [
+      "/assets/screenshots/slope-game/1.jpg",
+      "/assets/screenshots/slope-game/2.jpg"
+    ],
+    "iframe_url": "https://slope-game.github.io/",
+    "mirror_urls": [
+      "https://toptapgames.com/slope",
+      "https://slope-game.io/",
+      "https://3kh0.github.io/projects/slope/",
+      "https://topvazgames.github.io/slope/",
+      "https://classroom-6x.github.io/slope/",
+      "https://unblocked-games-76.github.io/slope-game/",
+      "https://sites.google.com/site/unblockedgames76/slope",
+      "https://slope-unblocked.github.io/",
+      "https://slope.pages.dev/"
+    ],
+    "category": "Racing",
     "tags": "3D, Racing, Arcade",
-    "is_featured": true
+    "is_featured": true,
+    "created_at": "2024-01-02",
+    "expert_tips": "Stay in the middle of the platform as much as possible. Small, quick adjustments are better than long, sweeping turns.",
+    "secrets": [
+      "Speed Boost: Hug the very edge of blue tunnels to maintain maximum velocity without hitting red obstacles.",
+      "Hidden Path: Occasionally, falling off a ledge correctly can lead to a wider lower platform."
+    ]
   },
   {
     "slug": "subway-surfers",
     "title": "Subway Surfers",
     "description": "Run as far as you can through the subway system!",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/df167b019b844ca7b794101e19d9b6a7.png",
-    "iframe_url": "https://subwaysurfers.com/",
+    "thumbnail": "/assets/games/subway-surfers.png",
+    "screenshots": [
+      "/assets/screenshots/subway-surfers/1.jpg",
+      "/assets/screenshots/subway-surfers/2.jpg",
+      "/assets/screenshots/subway-surfers/3.jpg"
+    ],
+    "iframe_url": "https://subway-surfers.github.io/",
+    "mirror_urls": [
+      "https://3kh0.github.io/projects/subway-surfers/",
+      "https://topvazgames.github.io/subway-surfers/",
+      "https://classroom-6x.github.io/subway-surfers/",
+      "https://ozgames.io/game/subway-surfers/",
+      "https://subway-surfers-online.github.io/",
+      "https://sites.google.com/site/unblockedgames76/subway-surfers",
+      "https://subwaysurfers.io/game.html",
+      "https://subway-surfers.pages.dev/"
+    ],
     "category": "Arcade",
     "tags": "Running, Action",
-    "is_featured": true
+    "is_featured": true,
+    "created_at": "2024-01-03",
+    "expert_tips": "Always prioritize the 'Magnet' and 'Jetpack' power-ups. Double-tap to use your Hoverboard when things get crowded to get a second chance.",
+    "secrets": [
+      "Coin Buff: Upgrading the Multiplier in the shop is the fastest way to hit high scores.",
+      "Jump Glitch: You can jump mid-air immediately after rolling under a barrier."
+    ]
   },
   {
-    "slug": "minecraft-classic",
-    "title": "Minecraft Classic",
-    "description": "Build, explore and survive in the classic version of the world-famous sandbox game.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/77a33a8863f685c22501a4e1069698c9.png",
-    "iframe_url": "https://classic.minecraft.net/",
-    "category": "Sandbox",
-    "tags": "3D, Creative, Adventure",
-    "is_featured": true
+    "slug": "red-face-horror",
+    "title": "Red Face Horror",
+    "description": "A chilling horror experience where you must escape the terrifying Red Face.",
+    "thumbnail": "/assets/games/red-face-horror.png",
+    "screenshots": [
+      "/assets/screenshots/red-face-horror/1.jpg"
+    ],
+    "iframe_url": "https://redfacehorror.io/game.html",
+    "mirror_urls": [
+      "https://redfacehorror.github.io/",
+      "https://topvazgames.github.io/red-face-horror/",
+      "https://classroom-6x.github.io/red-face-horror/",
+      "https://redface-horror.pages.dev/",
+      "https://3kh0.github.io/projects/red-face-horror/",
+      "https://sites.google.com/site/unblockedgames76/red-face-horror"
+    ],
+    "category": "Horror",
+    "tags": "Horror, Escape",
+    "is_featured": true,
+    "created_at": "2024-03-20",
+    "expert_tips": "Listen for audio cues; the monster's breathing gets louder as it approaches. Use your flashlight sparingly to conserve battery.",
+    "secrets": [
+      "Secret Ending: Finding all 5 hidden notes in the basement reveals the true identity of the Red Face.",
+      "Silent Movement: Crouching completely eliminates footstep noise."
+    ]
   },
   {
-    "slug": "temple-run-2",
-    "title": "Temple Run 2",
-    "description": "Escape from the temple again with more obstacles and challenges.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/cd76ddc6674a62dbf521c7d242416801.png",
-    "iframe_url": "https://templerun.io/",
-    "category": "Arcade",
-    "tags": "Running, Action",
-    "is_featured": true
+    "slug": "escape-road-3",
+    "title": "Escape Road 3",
+    "description": "The third installment of the high-speed city escape game.",
+    "thumbnail": "/assets/games/escape-road-3.png",
+    "iframe_url": "https://ozgames.io/game/escape-road-3/",
+    "mirror_urls": [
+      "https://escaperoad3.github.io/",
+      "https://topvazgames.github.io/escape-road-3/",
+      "https://classroom-6x.github.io/escape-road-3/",
+      "https://escaperoad.io/game-3.html",
+      "https://sites.google.com/site/unblockedgames76/escape-road-3",
+      "https://3kh0.github.io/projects/escape-road-3/"
+    ],
+    "category": "Racing",
+    "tags": "Car, Action",
+    "is_featured": true,
+    "created_at": "2024-03-21",
+    "expert_tips": "Drift through sharp corners to maintain your speed. Watch out for the police helicopters that appear after level 10.",
+    "secrets": [
+      "Nitro Unlock: Drifting for more than 3 seconds continuously grants a short nitro boost.",
+      "Shortcut: Look for the open alleyway near the blue skyscraper for a major time save."
+    ]
+  },
+  {
+    "slug": "basketball-stars",
+    "title": "Basketball Stars",
+    "description": "Show off your skills on the court and become a basketball legend.",
+    "thumbnail": "/assets/games/basketball-stars.png",
+    "iframe_url": "https://basketball-stars.io/",
+    "mirror_urls": [
+      "https://3kh0.github.io/projects/basketball-stars/",
+      "https://topvazgames.github.io/basketball-stars/",
+      "https://classroom-6x.github.io/basketball-stars/",
+      "https://ozgames.io/game/basketball-stars/",
+      "https://basketball-stars-unblocked.github.io/",
+      "https://sites.google.com/site/unblockedgames76/basketball-stars",
+      "https://basketballstars.io/game.html",
+      "https://basketball-stars.pages.dev/"
+    ],
+    "category": "Sports",
+    "tags": "Sports, Basketball",
+    "is_featured": true,
+    "created_at": "2024-03-24",
+    "expert_tips": "Time your jumps to block opponent shots. Pumping before a real shot can trick the AI into jumping early.",
+    "secrets": [
+      "Super Dunk: Reaching a 3-shot streak activates the 'On Fire' mode, making every shot 100% accurate.",
+      "Unlock Legends: Defeating the tournament on Hard mode unlocks secret legendary players."
+    ]
   },
   {
     "slug": "bitlife",
     "title": "BitLife",
     "description": "How will you live your BitLife? Make the right choices!",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/4f8ea5475176c9689531853d92de4c0b.png",
+    "thumbnail": "/assets/games/bitlife.png",
     "iframe_url": "https://bitlife.io/",
+    "mirror_urls": [
+      "https://bitlife-online.github.io/",
+      "https://topvazgames.github.io/bitlife/",
+      "https://classroom-6x.github.io/bitlife/",
+      "https://3kh0.github.io/projects/bitlife/",
+      "https://sites.google.com/site/unblockedgames76/bitlife",
+      "https://bitlifeonline.io/game.html",
+      "https://bitlife-unblocked.pages.dev/",
+      "https://bitlife.pages.dev/"
+    ],
     "category": "Simulation",
     "tags": "Life, Simulation, Strategy",
-    "is_featured": true
+    "is_featured": true,
+    "created_at": "2024-01-09",
+    "expert_tips": "Study hard every year to get a high-paying job. Keep your health and happiness above 90% by going to the gym and meditating.",
+    "secrets": [
+      "Lotto Win: Buying 10 lottery tickets at once significantly increases your odds of the jackpot.",
+      "Becoming a Royal: Born in a country with a monarchy? Keep restarting until you're born into the Royal Family."
+    ]
   },
   {
-    "slug": "moto-x3m",
-    "title": "Moto X3M",
-    "description": "The ultimate motorcycle racing game with challenging levels.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/2320b923985b98160868f005c2d1b71d.png",
-    "iframe_url": "https://motox3m.io/",
-    "category": "Racing",
-    "tags": "Bike, Racing",
-    "is_featured": true
-  },
-  {
-    "slug": "vex-7",
-    "title": "Vex 7",
-    "description": "The latest edition of the popular platformer series.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/668224b7-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://vex7.io/",
-    "category": "Action",
-    "tags": "Platformer, Challenging",
-    "is_featured": true
-  },
-  {
-    "slug": "bloodbath",
-    "title": "Bloodbath",
-    "description": "Test your limits in this extreme Geometry Dash level.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/87541243-7654-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://geometrylitepc.io/game/bloodbath",
-    "category": "Rhythm",
-    "tags": "Hard, Rhythm",
-    "is_featured": true
-  },
-  {
-    "slug": "geometry-dash-wave",
-    "title": "Geometry Dash Wave",
-    "description": "Master the wave mechanic in this focused expansion.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/98765432-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://geometrylitepc.io/game/wave",
-    "category": "Rhythm",
-    "tags": "Rhythm, Platformer",
-    "is_featured": true
-  },
-  {
-    "slug": "geometry-dash-subzero-v2",
-    "title": "GD Subzero 2",
-    "description": "More subzero challenges await.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/12345678-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://geometrylitepc.io/game/subzero",
-    "category": "Action",
-    "tags": "Rhythm",
-    "is_featured": true
-  },
-  {
-    "slug": "escape-road",
-    "title": "Escape Road",
-    "description": "Escape the city in this high-speed car chase.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/54321098-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://escaperoad.io/",
-    "category": "Racing",
-    "tags": "Car, Action",
-    "is_featured": true
-  },
-  {
-    "slug": "wacky-steps",
-    "title": "Wacky Steps",
-    "description": "Can you handle the wacky steps?",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/99887766-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://wackysteps.io/",
-    "category": "Action",
-    "tags": "Arcade",
-    "is_featured": true
-  },
-  {
-    "slug": "rocket-goal",
-    "title": "Rocket Goal",
-    "description": "Soccer but with rocket cars!",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/11223344-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://rocketgoal.io/",
-    "category": "Sports",
-    "tags": "Racing, Sports",
-    "is_featured": true
-  },
-  {
-    "slug": "wave-rider",
-    "title": "Wave Rider",
-    "description": "Ride the rhythm wave to the end.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/22334455-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://waverider.io/",
-    "category": "Action",
-    "tags": "Rhythm",
-    "is_featured": true
-  },
-  {
-    "slug": "six-clicker",
-    "title": "67 Clicker",
-    "description": "The ultimate clicking challenge.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/33445566-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://67clicker.io/",
-    "category": "Arcade",
-    "tags": "Clicker",
-    "is_featured": true
-  },
-  {
-    "slug": "toca-world",
-    "title": "Toca World",
-    "description": "Create your own stories in Toca World.",
-    "thumbnail": "https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/44556677-d1a1-438d-807d-531e289bf44a.png",
-    "iframe_url": "https://tocaworld.io/",
-    "category": "Educational",
-    "tags": "Simulation",
-    "is_featured": true
+    "slug": "idols-of-ash",
+    "title": "Idols Of Ash",
+    "description": "A first-person horror-descent game where you descend through a massive, decaying structure.",
+    "thumbnail": "/assets/games/idols-of-ash.png",
+    "screenshots": [],
+    "iframe_url": "https://idolsofash.io/game.html",
+    "mirror_urls": [
+      "https://ozgames.io/game/idols-of-ash/",
+      "https://speedstarsfree.io/idols-of-ash"
+    ],
+    "category": "Horror",
+    "tags": "Horror, Descent",
+    "is_featured": true,
+    "created_at": "2026-04-19",
+    "expert_tips": "Keep an eye on your surroundings and listen for the sounds of the Murderpede.",
+    "secrets": [
+      "Hidden Area: Find the hidden vents to bypass certain dangerous areas.",
+      "Easter Egg: Look for strange symbols carved into the decaying walls."
+    ]
   }
 ]
