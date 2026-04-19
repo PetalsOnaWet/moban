@@ -54,8 +54,8 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
             fontSize: '14px',
             fontWeight: 700,
             transition: 'all 0.2s ease',
-            background: page === currentPage ? '#6366F1' : 'transparent',
-            color: page === currentPage ? '#FFFFFF' : '#4B5563',
+            background: page === currentPage ? 'var(--accent-cyan)' : 'transparent',
+            color: page === currentPage ? '#FFFFFF' : 'var(--text-secondary)',
           }}
         >
           {page}
@@ -77,7 +77,7 @@ const btnStyle = {
   height: '36px',
   borderRadius: '50%',
   background: 'transparent',
-  color: '#4B5563',
+  color: 'var(--text-secondary)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

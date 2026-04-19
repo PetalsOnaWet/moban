@@ -76,7 +76,7 @@ export function ShareModal({ isOpen, onClose, title }: ShareModalProps) {
     >
       <div 
         style={{
-          background: '#FFF',
+          background: 'var(--bg-panel)',
           borderRadius: '24px',
           padding: '40px',
           width: '100%',
@@ -107,7 +107,7 @@ export function ShareModal({ isOpen, onClose, title }: ShareModalProps) {
           fontWeight: 800, 
           textAlign: 'center', 
           marginBottom: '32px',
-          color: '#111827',
+          color: 'var(--text-primary)',
           lineHeight: 1.2
         }}>
           Spread the Fun, Share {title} with Friends!
@@ -120,15 +120,15 @@ export function ShareModal({ isOpen, onClose, title }: ShareModalProps) {
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#F9FAFB',
-            border: '1px solid #E5E7EB',
+            background: 'var(--bg-input)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '99px',
             padding: '12px 24px',
             justifyContent: 'space-between'
           }}>
             <span style={{ 
               fontSize: '15px', 
-              color: '#374151', 
+              color: 'var(--text-secondary)', 
               overflow: 'hidden', 
               textOverflow: 'ellipsis', 
               whiteSpace: 'nowrap',

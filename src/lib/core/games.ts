@@ -8,6 +8,7 @@ export interface Game {
   description: string;
   thumbnail: string;
   iframe_url: string;
+  mirror_urls?: string[]; // Alternative unblocked sources
   category: string;
   tags: string | null;
   is_featured: boolean;
@@ -178,3 +179,13 @@ export async function searchGames(query: string, limit: number = 50) {
 
   return await attachRatings(results) as unknown as Game[];
 }
+
+
+// Get unique categories with slugs
+export const getCategories = () => {
+  const categories = Array.from(new Set(gamesData.map(g => g.category))).sort();
+  return categories.map(cat => ({
+    name: cat,
+    slug: `${cat.toLowerCase().replace(/\s+/g, '-')}-games`
+  }));
+};

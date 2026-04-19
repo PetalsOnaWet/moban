@@ -13,12 +13,21 @@ export function GameSchema({ game }: GameSchemaProps) {
     "description": game.description,
     "applicationCategory": "Game",
     "operatingSystem": "Web, Browser",
-    "url": `${siteConfig.url}/game/${game.slug}`,
-    "image": game.thumbnail,
+    "url": `${siteConfig.url}/${game.slug}`,
+    "image": game.screenshots && game.screenshots.length > 0 
+      ? [game.thumbnail, ...game.screenshots.map(s => `${siteConfig.url}${s}`)]
+      : game.thumbnail,
     "author": {
       "@type": "Organization",
       "name": siteConfig.name
     },
+    ...(game.expert_tips ? {
+      "review": {
+        "@type": "Review",
+        "reviewBody": game.expert_tips,
+        "author": { "@type": "Person", "name": "Editor" }
+      }
+    } : {}),
     // Only include rating if there are votes to avoid validation warnings
     ...(game.votes && game.votes > 0 ? {
       "aggregateRating": {
@@ -65,7 +74,7 @@ export function OrganizationSchema() {
     "@type": "Organization",
     "name": siteConfig.name,
     "url": siteConfig.url,
-    "logo": `${siteConfig.url}/logo.webp`,
+    "logo": `${siteConfig.url}/logo.png`,
     "sameAs": [
       siteConfig.links.twitter,
       siteConfig.links.github,

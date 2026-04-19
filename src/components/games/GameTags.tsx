@@ -21,7 +21,7 @@ export function GameTags({ game }: GameTagsProps) {
 
   return (
     <div style={{ marginTop: '48px', marginBottom: '48px' }}>
-      <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '24px', color: '#111827' }}>{sectionTitle}</h3>
+      <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '24px', color: 'var(--text-primary)' }}>{sectionTitle}</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
         {allTags.map((tagName, idx) => {
           const isCategory = game ? (tagName.toLowerCase() === game.category.toLowerCase()) : false;
@@ -35,21 +35,21 @@ export function GameTags({ game }: GameTagsProps) {
                 alignItems: 'center',
                 gap: '10px',
                 padding: '10px 20px',
-                background: isCategory ? '#EEF2FF' : '#F3F4F6',
+                background: isCategory ? 'var(--bg-input)' : 'var(--bg-panel)',
                 borderRadius: '99px',
                 textDecoration: 'none',
                 transition: 'all 0.2s',
                 fontSize: '14px',
                 fontWeight: 600,
-                color: isCategory ? '#6366F1' : '#374151',
+                color: isCategory ? 'var(--accent-cyan)' : 'var(--text-secondary)',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                border: isCategory ? '1px solid #C7D2FE' : '1px solid transparent'
+                border: isCategory ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)'
               }}
             >
               {isCategory ? (
-                  <Globe size={16} color="#6366F1" />
+                  <Globe size={16} color="var(--accent-cyan)" />
               ) : (
-                  <Tag size={16} color="#9CA3AF" />
+                  <Tag size={16} color="var(--text-tertiary)" />
               )}
               {tagName}
             </Link>

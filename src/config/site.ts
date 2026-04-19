@@ -1,9 +1,9 @@
 export const siteConfig = {
-  name: "CloudTemplate Pro",
-  description: "High-performance website template built with Next.js 16 and Cloudflare.",
-  url: "https://yourdomain.com",
-  ogImage: "https://yourdomain.com/og.png",
-  author: "Your Name",
+  name: "Unblocked Games 76",
+  description: "Play the best unblocked games 76 online for free. Massive collection of browser games for school and work.",
+  url: "https://unblocked-games-76.space",
+  ogImage: "https://unblocked-games-76.space/og.png",
+  author: "Unblocked Games 76",
   
   // Theme Configuration
   theme: "linear", // Options: 'linear', 'stripe', 'vercel'
@@ -32,24 +32,24 @@ export const siteConfig = {
         content: "XXXXXXXXXX",
       },
     },
-    buyMeACoffee: "yourusername",
+    buyMeACoffee: "unblockedgames76",
   },
 
   // Social Links
   links: {
-    twitter: "https://twitter.com/yourusername",
-    github: "https://github.com/yourusername",
-    discord: "https://discord.gg/yourlink",
+    twitter: "https://twitter.com/unblocked76",
+    github: "https://github.com/unblockedgames76",
+    discord: "https://discord.gg/unblocked",
   },
 
   // Keywords (SEO Expert Optimization)
   keywords: [
-    "Next.js 16",
-    "Cloudflare Pages",
-    "SaaS Template",
-    "Linear Design",
-    "Atomic CSS",
-    "D1 Database",
+    "unblocked games 76",
+    "unblocked games",
+    "free online games",
+    "games for school",
+    "best browser games",
+    "unblocked games 76 space",
   ],
 };
 

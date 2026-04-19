@@ -18,14 +18,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Geometry Dash Lite - Play Online for Free",
-    template: `%s | Geometry Dash Lite`,
+    default: "Unblocked Games 76 - Play Best Free Online Games",
+    template: `%s | Unblocked Games 76`,
   },
-  description: "Play Geometry Dash Lite online for free. Experience the ultimate rhythm-based platformer with intense levels and addictive gameplay.",
+  description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
-  keywords: ["Geometry Dash Lite", "Geometry Dash", "Rhythm Games", "Play Online", "Free Games"],
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
@@ -34,24 +34,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    siteName: "Geometry Dash Lite",
-    title: "Geometry Dash Lite - Play Online for Free",
-    description: "Experience the ultimate rhythm-based platformer. Play Geometry Dash Lite online for free with intense levels and addictive gameplay.",
+    siteName: "Unblocked Games 76",
+    title: "Unblocked Games 76 - Play Best Free Online Games",
+    description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Geometry Dash Lite Online",
+        alt: "Unblocked Games 76 Online",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Geometry Dash Lite - Play Online for Free",
-    description: "Experience the ultimate rhythm-based platformer. Play Geometry Dash Lite online for free with intense levels and addictive gameplay.",
+    title: "Unblocked Games 76 - Play Best Free Online Games",
+    description: "Play the best unblocked games 76 online for free. Experience a massive collection of rhythm, action, and puzzle games unblocked for school and work.",
     images: ["/og.png"],
-    creator: "@geometrydashlite",
+    creator: "@unblockedgames76",
   },
   robots: {
     index: true,
@@ -86,11 +86,13 @@ export default function RootLayout({
             <Sidebar />
 
             {/* Right Main Area */}
-            <main style={{ flex: 1, minWidth: 0 }}>
-              {children}
+            <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ flex: 1 }}>
+                {children}
+              </div>
+              <Footer />
             </main>
           </div>
-          <Footer />
         </UIProvider>
       </body>
     </html>

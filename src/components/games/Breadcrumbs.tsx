@@ -11,13 +11,13 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ gameTitle, categoryName, categorySlug }: BreadcrumbsProps) {
   return (
-    <nav style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', color: '#6B7280' }}>
-      <Link href="/" style={{ color: categoryName ? '#9CA3AF' : '#6B7280', textDecoration: 'none', fontWeight: categoryName ? 400 : 700 }}>Home</Link>
+    <nav style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', color: 'var(--text-tertiary)' }}>
+      <Link href="/" style={{ color: categoryName ? 'var(--text-tertiary)' : 'var(--text-secondary)', textDecoration: 'none', fontWeight: categoryName ? 400 : 700 }}>Home</Link>
       
       {categoryName && (
         <>
           <ChevronRight size={14} />
-          <Link href={`/${categorySlug || categoryName.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#6366F1', textDecoration: 'none', fontWeight: 500 }}>
+          <Link href={`/${categorySlug || categoryName.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: 'var(--accent-cyan)', textDecoration: 'none', fontWeight: 500 }}>
             {categoryName}
           </Link>
         </>
@@ -26,7 +26,7 @@ export function Breadcrumbs({ gameTitle, categoryName, categorySlug }: Breadcrum
       {gameTitle && (
         <>
           <ChevronRight size={14} />
-          <span style={{ color: '#9CA3AF' }}>{gameTitle}</span>
+          <span style={{ color: 'var(--text-tertiary)' }}>{gameTitle}</span>
         </>
       )}
     </nav>

@@ -143,7 +143,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#fff',
+        color: '#FFFFFF',
         fontSize: isReply ? '14px' : '18px',
         fontWeight: 700,
         flexShrink: 0,
@@ -155,13 +155,13 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       {/* Content Area */}
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <span style={{ fontWeight: 700, color: '#374151', textDecoration: 'underline', cursor: 'pointer', fontSize: isReply ? '14px' : '15px' }}>
+          <span style={{ fontWeight: 700, color: 'var(--text-primary)', textDecoration: 'underline', cursor: 'pointer', fontSize: isReply ? '14px' : '15px' }}>
             {comment.user_name}
           </span>
-          <span style={{ color: '#9CA3AF', fontSize: '13px' }}>{timeAgo(comment.created_at)}</span>
+          <span style={{ color: 'var(--text-tertiary)', fontSize: '13px' }}>{timeAgo(comment.created_at)}</span>
         </div>
 
-        <p style={{ color: '#4B5563', fontSize: isReply ? '14px' : '15px', lineHeight: '1.6', marginBottom: '12px' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: isReply ? '14px' : '15px', lineHeight: '1.6', marginBottom: '12px' }}>
           {comment.content}
         </p>
 
@@ -174,20 +174,20 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
                 // Scroll to form or focus
                 document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 700, color: '#111827', cursor: 'pointer', padding: 0 }}
+              style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', cursor: 'pointer', padding: 0 }}
             >
               <Reply size={14} /> Reply
             </button>
           )}
           <button
             onClick={() => handleVote(comment.id, 'like')}
-            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: 'var(--text-tertiary)', cursor: 'pointer', padding: 0 }}
           >
             <ThumbsUp size={14} fill={comment.likes > 0 ? "var(--accent-cyan)" : "none"} stroke={comment.likes > 0 ? "none" : "currentColor"} /> {comment.likes || 0}
           </button>
           <button
             onClick={() => handleVote(comment.id, 'dislike')}
-            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: '#6B7280', cursor: 'pointer', padding: 0 }}
+            style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, color: 'var(--text-tertiary)', cursor: 'pointer', padding: 0 }}
           >
             <ThumbsDown size={14} fill={comment.dislikes > 0 ? "#EF4444" : "none"} stroke={comment.dislikes > 0 ? "none" : "currentColor"} /> {comment.dislikes || 0}
           </button>
@@ -209,16 +209,16 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       maxWidth: '800px',
       margin: '64px auto'
     }}>
-      <h2 style={{ fontSize: '28px', fontWeight: 900, marginBottom: '24px', color: '#111827', letterSpacing: '-0.02em' }}>
+      <h2 style={{ fontSize: '28px', fontWeight: 900, marginBottom: '24px', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
         Discuss: {title}
       </h2>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', borderBottom: '1px solid #F3F4F6', paddingBottom: '16px' }}>
-        <div style={{ fontSize: '18px', fontWeight: 700, color: '#111827' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '16px' }}>
+        <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)' }}>
           Comments ({comments.length})
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600 }}>Sort by</span>
+          <span style={{ fontSize: '14px', color: 'var(--text-tertiary)', fontWeight: 600 }}>Sort by</span>
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
             <select
               onChange={handleSortChange}
@@ -227,9 +227,9 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
                 appearance: 'none',
                 padding: '6px 32px 6px 16px',
                 borderRadius: '8px',
-                border: '1px solid #E5E7EB',
-                background: '#fff',
-                color: '#374151',
+                border: '1px solid var(--border-subtle)',
+                background: 'var(--bg-input)',
+                color: 'var(--text-primary)',
                 fontSize: '14px',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -240,7 +240,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
               <option>Popular</option>
               <option>Oldest</option>
             </select>
-            <ChevronDown size={14} style={{ position: 'absolute', right: '12px', pointerEvents: 'none', color: '#6B7280' }} />
+            <ChevronDown size={14} style={{ position: 'absolute', right: '12px', pointerEvents: 'none', color: 'var(--text-tertiary)' }} />
           </div>
         </div>
       </div>
@@ -270,7 +270,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
               width: '100%',
               padding: '12px',
               background: '#2563EB',
-              color: '#fff',
+              color: '#FFFFFF',
               border: 'none',
               borderRadius: '8px',
               fontWeight: 700,
@@ -288,9 +288,9 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
       </div>
 
       {/* POST COMMENT FORM */}
-      <form id="comment-form" onSubmit={handleFormSubmit} style={{ marginTop: '48px', padding: '32px', background: '#F9FAFB', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
+      <form id="comment-form" onSubmit={handleFormSubmit} style={{ marginTop: '48px', padding: '32px', background: 'var(--bg-input)', borderRadius: '16px', border: '1px solid var(--border-subtle)' }}>
         {replyTo && (
-          <div style={{ marginBottom: '16px', fontSize: '14px', color: '#6B7280', display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ marginBottom: '16px', fontSize: '14px', color: 'var(--text-tertiary)', display: 'flex', justifyContent: 'space-between' }}>
             Replying to comment #{replyTo}
             <button type="button" onClick={() => setReplyTo(null)} style={{ background: 'none', border: 'none', color: '#EF4444', fontWeight: 700, cursor: 'pointer' }}>Cancel</button>
           </div>
@@ -300,14 +300,14 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
             name="userName"
             placeholder="Name"
             required
-            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }}
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-subtle)', background: 'var(--bg-panel)', fontSize: '15px', color: 'var(--text-primary)' }}
           />
           <input
             name="email"
             type="email"
             placeholder="Email"
             required
-            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px' }}
+            style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-subtle)', background: 'var(--bg-panel)', fontSize: '15px', color: 'var(--text-primary)' }}
           />
         </div>
         <textarea
@@ -315,12 +315,12 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
           placeholder="Content"
           required
           rows={4}
-          style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #E5E7EB', background: '#fff', fontSize: '15px', marginBottom: '16px', resize: 'vertical' }}
+          style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-subtle)', background: 'var(--bg-panel)', fontSize: '15px', marginBottom: '16px', resize: 'vertical', color: 'var(--text-primary)' }}
         />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
           <input type="checkbox" id="terms" required />
-          <label htmlFor="terms" style={{ fontSize: '14px', color: '#4B5563' }}>I'd read and agree to the terms and conditions.</label>
+          <label htmlFor="terms" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>I'd read and agree to the terms and conditions.</label>
         </div>
 
         <button
@@ -328,7 +328,7 @@ export function DiscussionBox({ slug, title }: { slug: string, title: string }) 
           disabled={isPending}
           style={{
             background: '#2563EB',
-            color: '#fff',
+            color: '#FFFFFF',
             padding: '10px 24px',
             borderRadius: '6px',
             border: 'none',

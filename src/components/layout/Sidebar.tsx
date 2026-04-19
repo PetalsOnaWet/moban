@@ -10,31 +10,65 @@ import {
   Flame, 
   Star, 
   Gamepad2, 
-  Plane, 
-  ArrowUpCircle, 
   Music, 
-  Layout, 
-  Activity,
-  Shuffle
+  Activity, 
+  Car, 
+  Ghost, 
+  Sword, 
+  Trophy, 
+  Box, 
+  Terminal, 
+  History as ClassicIcon
 } from "lucide-react";
 
-const sidebarLinks = [
+import { getCategories } from "@/lib/core/games";
+
+const iconMap: Record<string, any> = {
+  "Rhythm": Activity,
+  "Racing": Car,
+  "Arcade": Gamepad2,
+  "Horror": Ghost,
+  "Action": Sword,
+  "Sports": Trophy,
+  "Sandbox": Box,
+  "Simulation": Terminal,
+  "Classic": ClassicIcon,
+};
+
+const staticLinks = [
   { name: "Home", href: "/", icon: Home, color: "var(--text-secondary)" },
   { name: "History", href: "/history", icon: History, color: "var(--text-secondary)" },
   { type: "separator" },
   { name: "Hot Games", href: "/hot-games", icon: Flame, color: "#EF4444", badge: "HOT" },
   { name: "New Games", href: "/new-games", icon: Star, color: "#F59E0B", badge: "NEW" },
-  { name: "Flying Games", href: "/flying-games", icon: Plane, color: "#94A3B8" },
-  { name: "Jumping Games", href: "/jumping-games", icon: ArrowUpCircle, color: "var(--text-primary)" },
-  { name: "Music Games", href: "/music-games", icon: Music, color: "var(--text-primary)" },
-  { name: "Platform Game", href: "/platformer-games", icon: Layout, color: "#A855F7" },
-  { name: "Rhythm Games", href: "/rhythm-games", icon: Activity, color: "#6366F1" },
 ];
+
+const categoryColorMap: Record<string, string> = {
+  "Rhythm": "#A855F7",   // Purple
+  "Racing": "#22D3EE",   // Cyan
+  "Arcade": "#FACC15",   // Yellow
+  "Horror": "#EF4444",   // Red
+  "Action": "#F97316",   // Orange
+  "Sports": "#10B981",   // Green
+  "Sandbox": "#6366F1",  // Indigo
+  "Simulation": "#EC4899", // Pink
+  "Classic": "#8B5CF6",   // Violet
+};
 
 export function Sidebar() {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const { sidebarOpen, closeSidebar } = useUI();
+  
+  const categories = getCategories();
+  const dynamicLinks = categories.map(cat => ({
+    name: `${cat.name} Games`,
+    href: `/${cat.slug}`,
+    icon: iconMap[cat.name] || Gamepad2,
+    color: categoryColorMap[cat.name] || "var(--accent-cyan)"
+  }));
+
+  const sidebarLinks = [...staticLinks, ...dynamicLinks];
 
   return (
     <>
@@ -64,17 +98,16 @@ export function Sidebar() {
       >
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '0 12px' }}>
-        {sidebarLinks.map((item, idx) => {
-          if (item.type === "separator") {
+        {sidebarLinks.map((item: any, idx) => {
+          if ('type' in item && item.type === "separator") {
             return (
               <div 
                 key={`sep-${idx}`} 
                 style={{ 
                   height: '1px', 
-                  background: 'var(--border-standard)', 
-                  margin: '12px 16px',
-                  opacity: isHovered ? 1 : 0,
-                  transition: 'opacity 0.2s'
+                  background: 'var(--border-subtle)', 
+                  margin: '12px 12px',
+                  opacity: 0.5
                 }} 
               />
             );

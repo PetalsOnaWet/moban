@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Sun, Moon, Menu, X } from "lucide-react";
 import { useUI } from "@/context/UIContext";
 
@@ -15,14 +16,24 @@ export function Navbar() {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
+    
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
     localStorage.setItem('theme', newTheme);
   };
 
@@ -62,30 +73,32 @@ export function Navbar() {
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-          <div style={{ position: 'relative', width: '38px', height: '38px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-standard)' }} className="desktop-only">
-            <img 
-              src="/logo.webp" 
-              alt="Geometry Dash Lite Logo" 
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                objectFit: 'cover'
-              }} 
-            />
-          </div>
-          <div style={{ display: 'flex', fontSize: '20px', fontWeight: 900, letterSpacing: '-0.02em', flexWrap: 'nowrap' }}>
-            <span style={{ color: '#FFB400' }}>GEOMETRY</span>
-            <span style={{ color: 'var(--text-primary)', marginLeft: '4px' }} className="desktop-only">DASH</span>
-            <span style={{ color: '#00E5FF', marginLeft: '4px' }}>LITE</span>
+        <Link href="/" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          textDecoration: 'none',
+          gap: '10px'
+        }}>
+          <Image 
+            src="/logo.png" 
+            alt="Unblocked Games 76 Logo" 
+            width={40} 
+            height={40} 
+            style={{ objectFit: 'contain', height: '32px', width: 'auto' }}
+            priority
+          />
+          <div style={{ display: 'flex', alignItems: 'center', fontSize: '22px', fontWeight: 900, letterSpacing: '-0.02em' }}>
+            <span style={{ color: '#FFB400' }}>UNBLOCKED</span>
+            <span style={{ color: 'var(--text-primary)', marginLeft: '6px' }}>GAMES</span>
+            <span style={{ color: '#00E5FF', marginLeft: '6px' }}>76</span>
           </div>
         </Link>
       </div>
 
       {/* Center: Rounded Search Bar (Desktop Only) */}
       <div style={{ flex: 1, maxWidth: '600px', margin: '0 24px', position: 'relative' }} className="desktop-only">
-        <div style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }}>
-          <Search size={18} />
+        <div style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-cyan)' }}>
+          <Search size={18} strokeWidth={2.5} />
         </div>
         <input 
           type="text" 
@@ -94,20 +107,21 @@ export function Navbar() {
             width: '100%', 
             height: '42px', 
             background: 'var(--bg-input)', 
-            border: 'none', 
-            borderRadius: '99px', 
+            border: '1px solid var(--border-subtle)',
+            borderRadius: '99px',
             padding: '0 16px 0 48px',
             fontSize: '14px',
-            outline: 'none',
             color: 'var(--text-primary)',
-            transition: 'background 0.3s ease'
+            outline: 'none',
+            transition: 'all 0.2s'
           }}
+          className="search-input-focus"
         />
       </div>
 
       {/* Right: Actions */}
       <div className="util-flex" style={{ gap: '12px', alignItems: 'center' }}>
-        <button className="mobile-only" style={{ background: 'none', border: 'none', color: 'var(--text-primary)', padding: '8px' }}>
+        <button className="mobile-only" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', padding: '8px' }}>
             <Search size={22} />
         </button>
         
@@ -117,7 +131,7 @@ export function Navbar() {
           style={{ 
             width: '60px', 
             height: '30px', 
-            background: 'rgba(0,0,0,0.05)', 
+            background: 'var(--bg-input)', 
             borderRadius: '99px', 
             display: 'flex', 
             alignItems: 'center', 

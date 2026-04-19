@@ -62,7 +62,7 @@ export function GameRating({ slug, votes, rating }: GameRatingProps) {
         >
           <Star 
             size={24}
-            fill={isFull ? "#FFB800" : isHalf ? "url(#grad1)" : "#E5E7EB"}
+            fill={isFull ? "#FFB800" : isHalf ? "url(#grad1)" : "var(--border-subtle)"}
             stroke={isFull || isHalf ? "#FFB800" : "none"}
             strokeWidth={isHalf ? 1 : 0}
             style={{ transition: 'fill 0.1s' }}
@@ -93,7 +93,7 @@ export function GameRating({ slug, votes, rating }: GameRatingProps) {
         </svg>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', marginLeft: '8px' }}>
-        <span style={{ fontSize: '18px', fontWeight: 600, color: '#111827' }}>
+        <span style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)' }}>
           {votes.toLocaleString()} {votes <= 1 ? 'vote' : 'votes'} {rating > 0 ? rating.toFixed(1) : "0"}/5
           {hasVoted && <span style={{ color: '#10B981', marginLeft: '6px', fontSize: '14px' }}>(Voted)</span>}
         </span>

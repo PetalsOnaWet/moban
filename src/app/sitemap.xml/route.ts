@@ -3,7 +3,7 @@ import gamesData from "@/config/games-data.json";
 
 export async function GET() {
   const staticPages = ["", "/features", "/wiki", "/faq"];
-  const dynamicPages = gamesData.map(game => `/game/${game.slug}`);
+  const dynamicPages = gamesData.map(game => `/${game.slug}`);
   const allPages = [...staticPages, ...dynamicPages];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

@@ -37,7 +37,7 @@ export async function submitComment(formData: FormData) {
       .bind(slug, parentId, userName, email, content)
       .run();
 
-    revalidatePath(`/game/${slug}`);
+    revalidatePath(`/${slug}`);
     revalidatePath("/");
     return { success: true };
   } catch (error) {
@@ -120,7 +120,7 @@ export async function submitRating(slug: string, rating: number) {
       .run();
 
     revalidatePath("/");
-    revalidatePath(`/game/${slug}`);
+    revalidatePath(`/${slug}`);
     return { success: true };
   } catch (error) {
     console.error("D1 Error (submitRating):", error);

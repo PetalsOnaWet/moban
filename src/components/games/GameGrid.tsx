@@ -7,7 +7,7 @@ import { Game } from "@/lib/core/games";
 
 const DEFAULT_ICON = "/images/default-game.png";
 
-export function GameCard({ game }: { game: Game }) {
+export function GameCard({ game, showCategory = true }: { game: Game; showCategory?: boolean }) {
   const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -42,7 +42,7 @@ export function GameCard({ game }: { game: Game }) {
       }}
     >
       <Link
-        href={`/game/${game.slug}`}
+        href={`/${game.slug}`}
         style={{
           display: 'block',
           textDecoration: 'none',
@@ -117,7 +117,11 @@ export function GameCard({ game }: { game: Game }) {
           textOverflow: 'ellipsis',
           flex: 1
         }}>
-          {game.category} {game.tags ? ` / ${game.tags.split(',')[0]}` : ''}
+          {showCategory && (
+            <>
+              {game.category} {game.tags ? ` / ${game.tags.split(',')[0]}` : ''}
+            </>
+          )}
         </div>
         <div style={{ color: 'white', fontSize: '11px', fontWeight: 800, marginLeft: '8px' }}>
           ★ {game.rating?.toFixed(1) || '4.5'}
@@ -154,7 +158,7 @@ export function GameCard({ game }: { game: Game }) {
   );
 }
 
-export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBentoBig?: boolean }) {
+export function CompactGameCard({ game, isBentoBig = false, showCategory = true }: { game: Game; isBentoBig?: boolean; showCategory?: boolean }) {
   const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -189,7 +193,7 @@ export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBe
       }}
     >
       <Link
-        href={`/game/${game.slug}`}
+        href={`/${game.slug}`}
         style={{
           display: 'block',
           textDecoration: 'none',
@@ -246,7 +250,11 @@ export function CompactGameCard({ game, isBentoBig = false }: { game: Game; isBe
             textOverflow: 'ellipsis',
             flex: 1
           }}>
-            {game.category} {game.tags ? ` / ${game.tags.split(',')[0]}` : ''}
+            {showCategory && (
+              <>
+                {game.category} {game.tags ? ` / ${game.tags.split(',')[0]}` : ''}
+              </>
+            )}
           </div>
           <div style={{
             color: 'white',
