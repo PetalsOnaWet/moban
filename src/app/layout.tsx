@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { UIProvider } from "@/context/UIContext";
 import { RotatePrompt } from "@/components/layout/RotatePrompt";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/SchemaMarkup";
+import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -71,6 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <GoogleAnalytics />
         <OrganizationSchema />
         <WebSiteSchema />
         <UIProvider>

@@ -19,7 +19,7 @@ export const siteConfig = {
 
   // Analytics & Tracking
   analytics: {
-    google: "G-XXXXXXXXXX", // Google Analytics 4 ID
+    google: "G-XW7DCKKZLS", // Google Analytics 4 ID
     clarity: "XXXXXXXXXX", // Microsoft Clarity ID
   },
 
