@@ -1,4 +1,4 @@
-"use client";
+import { BookOpen, Gamepad2, Info, Share2, Star, Trophy, Lightbulb } from 'lucide-react';
 
 import Link from "next/link";
 import { GamePlayerArea } from "@/components/games/GamePlayerArea";
@@ -83,7 +83,28 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                             <article style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
                                 <h1 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '32px', letterSpacing: '-0.02em' }}>{game.title}</h1>
                                 <section style={{ marginBottom: '40px' }}>
-                                    <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '20px', color: 'var(--text-primary)' }}>About {game.title}</h2>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
+                                        <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>About {game.title}</h2>
+                                        <Link 
+                                            href="#strategy-guide"
+                                            style={{
+                                                padding: '8px 16px',
+                                                background: 'rgba(34, 211, 238, 0.1)',
+                                                border: '1px solid rgba(34, 211, 238, 0.3)',
+                                                borderRadius: '8px',
+                                                fontSize: '14px',
+                                                fontWeight: 700,
+                                                color: 'var(--accent-cyan)',
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: '8px',
+                                                transition: 'all 0.2s ease'
+                                            }}
+                                            className="hover-lift"
+                                        >
+                                            <BookOpen className="w-4 h-4" /> Jump to Strategy Guide &darr;
+                                        </Link>
+                                    </div>
                                     <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.8' }}>
                                         Experience the thrill of <strong>{game.title}</strong> directly in your browser. {game.description} As one of the most popular titles on <Link href="/" style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>Unblocked Games 76</Link>, {game.title} offers an immersive experience that combines challenging gameplay with seamless performance. Whether you are playing at school, work, or home, our platform ensures that you have unrestricted access to this gaming masterpiece.
                                     </p>
@@ -151,6 +172,43 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                     <p style={{ marginBottom: '20px', lineHeight: '1.8' }}>
                                         In conclusion, {game.title} is a must-play title for anyone looking for high-quality entertainment. Its combination of accessibility, depth, and fun makes it a standout choice in our library. So what are you waiting for? Dive into the world of <strong>{game.title}</strong> today and experience unblocked gaming at its finest.
                                     </p>
+
+                                    {/* DEEP STRATEGY GUIDE MODULE */}
+                                    {game.full_guide && (
+                                        <section id="strategy-guide" style={{ marginTop: '64px', paddingTop: '64px', borderTop: '1px solid var(--border-subtle)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+                                                <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(34, 211, 238, 0.1)', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}>
+                                                    <BookOpen size={24} color="var(--accent-cyan)" />
+                                                </div>
+                                                <div>
+                                                    <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary)', margin: 0 }}>Master Strategy Guide & Walkthrough</h2>
+                                                    <p style={{ fontSize: '14px', color: 'var(--accent-cyan)', fontWeight: 600, marginTop: '4px' }}>EXTENDED 1000+ WORD OFFICIAL CONTENT</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="prose-container" style={{ 
+                                                backgroundColor: 'rgba(255, 255, 255, 0.02)', 
+                                                padding: '40px', 
+                                                borderRadius: '24px', 
+                                                border: '1px solid var(--border-subtle)',
+                                                fontSize: '17px',
+                                                lineHeight: '1.9',
+                                                color: 'var(--text-secondary)'
+                                            }}>
+                                                <div dangerouslySetInnerHTML={{ 
+                                                    __html: game.full_guide
+                                                        .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+                                                        .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+                                                        .replace(/^### (.*$)/gim, '<h4>$1</h4>')
+                                                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                                        .replace(/^\* (.*$)/gim, '<li>$1</li>')
+                                                        .replace(/^- (.*$)/gim, '<li>$1</li>')
+                                                        .replace(/\n\n/g, '</p><p>')
+                                                        .replace(/\n/g, '<br/>')
+                                                }} />
+                                            </div>
+                                        </section>
+                                    )}
                                 </section>
 
                                 <GameCheats expert_tips={game.expert_tips} secrets={game.secrets} title={game.title} />
