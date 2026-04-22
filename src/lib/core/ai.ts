@@ -48,7 +48,7 @@ export async function callChatCompletion(payload: any) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData: any = await response.json();
         throw new Error(errorData.error?.message || `HTTP ${response.status}`);
       }
 
@@ -92,7 +92,7 @@ export async function generateImage(prompt: string, size: string = "1024x1024") 
       throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     return data.data[0].url || `data:image/png;base64,${data.data[0].b64_json}`;
   } catch (err: any) {
     console.error(`[AI] Image generation failed: ${err.message}`);
@@ -104,7 +104,7 @@ export async function generateImage(prompt: string, size: string = "1024x1024") 
  * Helper to generate structured JSON data
  */
 export async function generateJSON(systemPrompt: string, userPrompt: string) {
-  const response = await callChatCompletion({
+  const response: any = await callChatCompletion({
     messages: [
       { role: "system", content: "You are a JSON-only API." },
       { role: "system", content: systemPrompt },
@@ -118,7 +118,7 @@ export async function generateJSON(systemPrompt: string, userPrompt: string) {
     const content = response.choices[0].message.content;
     const jsonStr = content.replace(/```json\n?|\n?```/g, "").trim();
     return JSON.parse(jsonStr);
-  } catch (err) {
+  } catch (err: any) {
     console.error("[AI] JSON Parse failed:", err);
     throw err;
   }

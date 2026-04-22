@@ -178,7 +178,7 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                     {game.full_guide && (
                                         <section id="strategy-guide" style={{ marginTop: '64px', paddingTop: '64px', borderTop: '1px solid var(--border-subtle)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
-                                                <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(34, 211, 238, 0.1)', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}>
+                                                <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(34, 211, 238, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                     <BookOpen size={24} color="var(--accent-cyan)" />
                                                 </div>
                                                 <div>

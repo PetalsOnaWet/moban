@@ -32,7 +32,7 @@ Focus on providing "Insider Knowledge" that casual players wouldn't know.
     `;
 
   try {
-    const response = await callChatCompletion({
+    const response: any = await callChatCompletion({
       messages: [
         { role: "system", content: "You are a professional gaming journalist and SEO specialist. You write deep-dive walkthroughs that exceed 1000 words." },
         { role: "user", content: prompt }
@@ -47,7 +47,7 @@ Focus on providing "Insider Knowledge" that casual players wouldn't know.
     }
 
     return content;
-  } catch (err) {
+  } catch (err: any) {
     console.error(`[Guide] Failed for ${game.title}:`, err.message);
     return null;
   }
