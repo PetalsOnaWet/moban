@@ -1,0 +1,33 @@
+{
+  "slug": "1v1-lol",
+  "title": "1v1.lol",
+  "description": "Play 1v1.lol unblocked on Unblocked Games 76. 1v1.lol is a popular Action game that you can play for free in your browser.",
+  "thumbnail": "/assets/games/1v1-lol.webp",
+  "screenshots": [
+    "/assets/screenshots/1v1-lol/1.webp",
+    "/assets/screenshots/1v1-lol/2.webp",
+    "/assets/screenshots/1v1-lol/3.webp"
+  ],
+  "screenshot_alts": [
+    "1v1.lol gameplay screenshot 1",
+    "1v1.lol gameplay screenshot 2",
+    "1v1.lol gameplay screenshot 3"
+  ],
+  "iframe_url": "https://unblocked-games-76-77.s3.amazonaws.com/index.html",
+  "mirror_urls": [
+    "https://db4b652dcb40cbed1284afcce1f45eef.safeframe.googlesyndication.com/safeframe/1-0-45/html/container.html",
+    "https://ep2.adtrafficquality.google/sodar/sodar2/254/runner.html",
+    "https://www.google.com/recaptcha/api2/aframe",
+    "https://gum.criteo.com/syncframe?origin=publishertagids&topUrl=unblocked-games-76-77.s3.amazonaws.com&gdpr=0&gdpr_consent=&gpp=&gpp_sid=-1#{%22bundle%22:{%22value%22:%22sYpKv180WVBHSDVvNU15WGxpQ2VKVVVqWU8lMkZTeThBR1dpdHpEZVpkd3FQZFFwWmVZTVB1alExNjlOdTd6TXhhWndUeTNvdjhac3BCdlhuVG0zcTVrUFJOcFolMkY2Nkpzc0d3aG9UNURuajBYb1lrU0lmUVpxVFBuZTN1OVd2JTJGJTJCNFlaQ3FudGQyeE9tWVJ3UmQxT1FrRlNDQmxaQWpYc3AwZ2laS2dPa1N3aXAxRyUyRlBNSm5PcnFBQ3BxaGxvNHJKZkJiSDBmdm8lMkZFNjBicjQlMkJwMjJBJTJCNDBCd3RiZyUzRCUzRA%22,%22origin%22:3},%22optout%22:{%22value%22:false,%22origin%22:0},%22tld%22:%22unblocked-games-76-77.s3.amazonaws.com%22,%22topUrl%22:%22unblocked-games-76-77.s3.amazonaws.com%22,%22version%22:106146,%22origin%22:%22publishertagids%22,%22requestId%22:%220.36952677943099355%22}",
+    "https://cdn.intergient.com/pageos/V.20260416.1/iframe/iframe.html"
+  ],
+  "category": "Action",
+  "tags": "Action, Building, Shooter",
+  "is_featured": false,
+  "created_at": "2026-04-20",
+  "expert_tips": "Stay focused and practice regularly to improve your skills in 1v1.lol.",
+  "secrets": [
+    "Secret level: Try reaching a high score to unlock hidden features.",
+    "Easter egg: Look for hidden items in the main menu."
+  ]
+}
