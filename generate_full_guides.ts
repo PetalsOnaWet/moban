@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { callChatCompletion } from './src/lib/core/ai.ts';
+import { callChatCompletion } from './src/lib/core/ai';
 
 /**
  * Script to generate high-quality, 1000+ word guides for all games.

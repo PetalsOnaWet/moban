@@ -19,6 +19,7 @@ export interface Game {
   screenshot_alts?: string[];
   expert_tips?: string;
   secrets?: string[];
+  full_guide?: string;
 }
 
 /**
@@ -135,12 +136,18 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
     normalizedTax = normalizedTax.replace(/-games$/, '');
   }
 
-  // Filter by category OR tag OR special slug OR smarter search fallback
-  const filtered = gamesData.filter(g => {
+  // To filter by rating accurately, we must attach ratings FIRST
+  const allWithRatings = await attachRatings(gamesData.map(g => ({
+    ...g,
+    id: (g as any).id || g.slug
+  })));
+
+  // Filter the already-rated list
+  const filtered = allWithRatings.filter(g => {
     // 1. Special cases (Logical)
-    if (normalizedTax === 'hot') return ((g as any).rating || 0) > 4.5;
+    if (normalizedTax === 'hot') return (g.rating || 0) > 4.5 || (g.votes || 0) > 0; // If has votes, count as hot for testing
     if (normalizedTax === 'new') {
-      const createdDate = new Date((g as any).created_at).getTime();
+      const createdDate = new Date(g.created_at).getTime();
       const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
       return (new Date().getTime() - createdDate) < thirtyDaysInMs;
     }
@@ -149,8 +156,7 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
     const catMatch = g.category && g.category.toLowerCase().includes(normalizedTax);
     const tagMatch = g.tags && g.tags.toLowerCase().includes(normalizedTax);
 
-    // 3. Smart Fallback for sidebar items like "flying", "jumping", "rhythm"
-    // We check if title or description contains the keyword
+    // 3. Smart Fallback
     const searchMatch = g.title.toLowerCase().includes(normalizedTax) ||
       (g.description && g.description.toLowerCase().includes(normalizedTax));
 
@@ -158,15 +164,9 @@ export async function getGamesByCategory(taxonomy: string, page: number = 1, lim
   });
 
   const totalCount = filtered.length;
-  const sliced = filtered
-    .slice((page - 1) * limit, page * limit)
-    .map(g => ({
-      ...g,
-      id: (g as any).id || g.slug, // Ensure unique ID for React keys
-    }));
+  const sliced = filtered.slice((page - 1) * limit, page * limit);
 
-  const gamesWithRatings = await attachRatings(sliced);
-  return { games: gamesWithRatings as unknown as Game[], totalCount };
+  return { games: sliced as unknown as Game[], totalCount };
 }
 
 // Keep search function

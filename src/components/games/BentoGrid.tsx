@@ -12,30 +12,44 @@ export function BentoGrid({ games }: { games: Game[] }) {
 
   return (
     <div 
-      className="grid-mobile-2"
       style={{
-        gridAutoRows: 'min(120px, 25vw)',
-        gap: '8px',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+        gridAutoRows: '140px',
+        gridAutoFlow: 'dense',
+        gap: '12px',
+        width: '100%',
         marginBottom: '40px'
       }}
     >
       {games.map((game, index) => {
-        // First big card: Item 1 (Position 1-2, 1-3)
-        const isBig1 = index === 0;
-        // Second big card: Item 4 (Position 5-6, 1-3)
-        const isBig2 = index === 3;
+        // Dynamic Bento Distribution Logic
+        let spanClass = { gridColumn: 'span 1', gridRow: 'span 1' };
+        
+        const position = index % 12;
+        
+        if (position === 0 || position === 11) {
+           spanClass = { gridColumn: 'span 2', gridRow: 'span 2' };
+        } else if (position === 3 || position === 8) {
+           spanClass = { gridColumn: 'span 2', gridRow: 'span 1' };
+        } else if (position === 5) {
+           spanClass = { gridColumn: 'span 1', gridRow: 'span 2' };
+        }
 
         return (
           <div
             key={game.id}
             style={{
-              gridColumn: isBig1 || isBig2 ? 'span 2' : 'span 1',
-              gridRow: isBig1 || isBig2 ? 'span 3' : 'span 1'
+              ...spanClass,
+              transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
             }}
           >
             <CompactGameCard
               game={game}
-              isBentoBig={isBig1 || isBig2}
+              isBentoBig={spanClass.gridColumn === 'span 2' && spanClass.gridRow === 'span 2'}
+              isBentoWide={spanClass.gridColumn === 'span 2' && spanClass.gridRow === 'span 1'}
+              isBentoTall={spanClass.gridColumn === 'span 1' && spanClass.gridRow === 'span 2'}
+              showCategory={true}
             />
           </div>
         );

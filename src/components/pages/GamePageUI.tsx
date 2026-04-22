@@ -1,3 +1,4 @@
+"use client";
 import { BookOpen, Gamepad2, Info, Share2, Star, Trophy, Lightbulb } from 'lucide-react';
 
 import Link from "next/link";
@@ -51,21 +52,21 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                     <DiscoveryAds />
                     <div className="grid-discovery-inner desktop-only">
                         {topAdGames.map(g => (
-                            <CompactGameCard key={g.id} game={g} />
+                            <CompactGameCard key={g.id} game={g} showCategory={false} />
                         ))}
                     </div>
                 </div>
 
                 <div className="grid-mobile-2 desktop-only" style={{ marginBottom: '32px' }}>
                     {horizontalGridGames.map(g => (
-                        <CompactGameCard key={g.id} game={g} />
+                        <CompactGameCard key={g.id} game={g} showCategory={false} />
                     ))}
                 </div>
 
                 <div className="layout-surround">
                     <aside style={{ position: 'sticky', top: '90px', display: 'flex', flexDirection: 'column', gap: '6px' }} className="desktop-only">
                         {leftSidebarGames.map(g => (
-                            <CompactGameCard key={g.id} game={g} />
+                            <CompactGameCard key={g.id} game={g} showCategory={false} />
                         ))}
                     </aside>
 
@@ -182,7 +183,6 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
                                                 </div>
                                                 <div>
                                                     <h2 style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary)', margin: 0 }}>Master Strategy Guide & Walkthrough</h2>
-                                                    <p style={{ fontSize: '14px', color: 'var(--accent-cyan)', fontWeight: 600, marginTop: '4px' }}>EXTENDED 1000+ WORD OFFICIAL CONTENT</p>
                                                 </div>
                                             </div>
 
@@ -221,7 +221,7 @@ export function GamePageUI({ game, relatedGames }: GamePageUIProps) {
 
                     <aside style={{ position: 'sticky', top: '90px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
                         {rightSidebarGames.map(g => (
-                            <CompactGameCard key={g.id} game={g} />
+                            <CompactGameCard key={g.id} game={g} showCategory={false} />
                         ))}
                     </aside>
                 </div>

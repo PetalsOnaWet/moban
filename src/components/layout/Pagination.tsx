@@ -56,7 +56,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
             fontWeight: 700,
             transition: 'all 0.2s ease',
             background: page === currentPage ? 'var(--accent-cyan)' : 'transparent',
-            color: page === currentPage ? '#FFFFFF' : 'var(--text-secondary)',
+            color: page === currentPage ? '#000000' : 'var(--text-secondary)',
           }}
         >
           {page}

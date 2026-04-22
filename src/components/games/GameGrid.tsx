@@ -158,7 +158,19 @@ export function GameCard({ game, showCategory = true }: { game: Game; showCatego
   );
 }
 
-export function CompactGameCard({ game, isBentoBig = false, showCategory = true }: { game: Game; isBentoBig?: boolean; showCategory?: boolean }) {
+export function CompactGameCard({ 
+  game, 
+  isBentoBig = false, 
+  isBentoWide = false,
+  isBentoTall = false,
+  showCategory = true 
+}: { 
+  game: Game; 
+  isBentoBig?: boolean; 
+  isBentoWide?: boolean;
+  isBentoTall?: boolean;
+  showCategory?: boolean 
+}) {
   const [imgSrc, setImgSrc] = useState(DEFAULT_ICON);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -172,7 +184,8 @@ export function CompactGameCard({ game, isBentoBig = false, showCategory = true 
   }, [game.thumbnail]);
 
   const ratingValue = game.rating || 0;
-  const isHot = ratingValue > 4.5;
+  const voteCount = game.votes || 0;
+  const isHot = ratingValue > 4.5 || voteCount > 0;
 
   const createdDate = new Date(game.created_at).getTime();
   const now = new Date().getTime();
@@ -231,17 +244,18 @@ export function CompactGameCard({ game, isBentoBig = false, showCategory = true 
       }}>
         <div style={{
           color: 'white',
-          fontSize: isBentoBig ? '24px' : '14px',
+          fontSize: (isBentoBig || isBentoWide) ? '24px' : '14px',
           fontWeight: 900,
           marginBottom: '4px',
-          textShadow: '0 1px 2px rgba(0,0,0,0.8)'
+          textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+          lineHeight: 1.1
         }}>
           {game.title}
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{
             color: 'rgba(255,255,255,0.8)',
-            fontSize: isBentoBig ? '13px' : '10px',
+            fontSize: (isBentoBig || isBentoWide) ? '13px' : '10px',
             fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
@@ -258,7 +272,7 @@ export function CompactGameCard({ game, isBentoBig = false, showCategory = true 
           </div>
           <div style={{
             color: 'white',
-            fontSize: isBentoBig ? '14px' : '11px',
+            fontSize: (isBentoBig || isBentoWide) ? '14px' : '11px',
             fontWeight: 800,
             display: 'flex',
             alignItems: 'center',
@@ -272,28 +286,47 @@ export function CompactGameCard({ game, isBentoBig = false, showCategory = true 
 
       {/* Badges */}
       <div style={{ pointerEvents: 'none' }}>
-        {isNew && (
+        {isHot ? (
           <div style={{
-            position: 'absolute', top: isBentoBig ? '12px' : '8px', left: isBentoBig ? '12px' : '8px',
-            background: 'linear-gradient(135deg, #6366F1, #A855F7)',
-            color: 'white', fontSize: isBentoBig ? '10px' : '8px', fontWeight: 900,
-            padding: '2px 6px', borderRadius: '4px',
+            position: 'absolute', top: 0, left: 0,
+            background: 'linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)',
+            color: 'white', 
+            fontSize: isBentoBig ? '12px' : '10px', 
+            fontWeight: 900,
+            padding: isBentoBig ? '4px 12px' : '2px 8px', 
+            borderBottomRightRadius: '12px',
+            borderTopLeftRadius: '8px',
             zIndex: 15,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
+            textTransform: 'uppercase'
           }}>
-            {isBentoBig ? 'NEW RELEASE' : 'NEW'}
+            <span>HOT</span>
+            <Flame size={isBentoBig ? 14 : 11} fill="white" strokeWidth={2.5} />
           </div>
-        )}
-        {isHot && !isNew && (
+        ) : isNew ? (
           <div style={{
-            position: 'absolute', top: isBentoBig ? '12px' : '8px', left: isBentoBig ? '12px' : '8px',
-            background: 'linear-gradient(135deg, #EE4444, #F59E0B)',
-            color: 'white', fontSize: isBentoBig ? '10px' : '8px', fontWeight: 900,
-            padding: '2px 6px', borderRadius: '4px',
+            position: 'absolute', top: 0, left: 0,
+            background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+            color: 'white', 
+            fontSize: isBentoBig ? '12px' : '10px', 
+            fontWeight: 900,
+            padding: isBentoBig ? '4px 12px' : '2px 8px', 
+            borderBottomRightRadius: '12px',
+            borderTopLeftRadius: '8px',
             zIndex: 15,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
+            textTransform: 'uppercase'
           }}>
-            {isBentoBig ? 'TRENDING HOT' : 'HOT'}
+            <span>NEW</span>
+            <Sparkles size={isBentoBig ? 14 : 11} fill="white" strokeWidth={2.5} />
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
